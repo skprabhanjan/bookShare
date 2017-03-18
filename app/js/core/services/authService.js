@@ -1,38 +1,38 @@
-app.factory('authUser', ['$http','$state', function($http,$state) {
+app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 	var host = "https://22588a0e.ngrok.io";
 	return {
 		authenticateUser:function(email,password){
 			// function to authenticate user by checking in the db , making an api call to /users/login
 			var dataToSend = {email:email ,pass: password};
-			$http.post(host + '/users/signin',dataToSend).then(
+			var def = $q.defer();
+			$http.post(host + '/users/signin',dataToSend).success(
 				function(resp){
-					if(resp.data.status == "Success"){
+
+						def.resolve(resp);
 						//user found
 						console.log("User found!");
-					}
-					else if (resp.data.status == "failed") {
-						//user not found
-						console.log("User Not found!");
-					}
-				},
-				function(){
-					console.log("error");
-				}
-			);
+				})
+				.error(
+					function() {
+						def.reject("error");
+						console.log("error");
+					});
+			return def.promise;
 		},
 		signupUser:function(data){
-			$http.post(host + '/users/signup',data).then(
+			$http.post(host + '/users/signup',data).success(
 				function(resp){
-					if(resp.data.status == "Success"){
+						def.resolve();
 						//user found
 						$state.go('app');
 						console.log("Successlly Inserted");
-					}
-				},
-				function(){
+
+				})
+				.error(
+					function(){
+						def.reject("error");
 					console.log("error");
-				}
-			);
+				});
 		},
 		sendResetLink: function(email){
 			var dataToSend = {email:email}

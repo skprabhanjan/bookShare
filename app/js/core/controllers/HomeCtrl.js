@@ -9,7 +9,13 @@ $scope.signinUser = function() {
     $('#signinbutton').text("Login");
   }
   else if($('#signinbutton').text()=="Login"){
-      authUser.authenticateUser($('#email').val(),$('#password').val());
+      authUser.authenticateUser($('#email').val(),$('#password').val())
+        .then(function(data) {
+          console.log("working");
+        },
+        function () {
+          console.log('albums retrieval failed.');
+        });
   }
 }
 $scope.sendResetLink = function(){

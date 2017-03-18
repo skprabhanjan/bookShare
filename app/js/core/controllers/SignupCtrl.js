@@ -90,7 +90,7 @@ app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state
   				};
   			} else if($scope.isProfessional){
   				var Details = {
-  					isProfessional : true ,
+  					isStudent : false ,
   					job : $("#inputjob").val()
   				}
   			}
