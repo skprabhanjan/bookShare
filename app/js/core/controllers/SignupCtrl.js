@@ -1,4 +1,4 @@
-app.controller('SignCtrl', ['$scope', function($scope) {
+app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state,authUser) {
   $scope.radioValue = "";
   	$scope.isStudent = false ;
   	$scope.isProfessional = false ;
@@ -106,5 +106,8 @@ app.controller('SignCtrl', ['$scope', function($scope) {
   		}
 
   	}
+  	$scope.backToHome = function () {
+		$state.go('app');
+    }
 
 }]);

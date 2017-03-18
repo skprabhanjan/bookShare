@@ -1,7 +1,7 @@
-app.controller('HomeCtrl', ['$scope', function($scope, $authUser) {
+app.controller('HomeCtrl', ['$scope','$state','authUser', function($scope, $state,authUser) {
   $scope.emailregistered = false;
 $scope.signupUser = function(){
-  window.location = '/signup';
+    $state.go('signup');
 }
 $scope.signinUser = function() {
   if($('#signinbutton').text()=="Next"){
@@ -9,7 +9,7 @@ $scope.signinUser = function() {
     $('#signinbutton').text("Login");
   }
   else if($('#signinbutton').text()=="Login"){
-    authUser.authenticateUser($('#email').val(),$('#password').val());
+      authUser.authenticateUser($('#email').val(),$('#password').val());
   }
 }
 $scope.sendResetLink = function(){

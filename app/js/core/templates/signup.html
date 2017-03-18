@@ -1,3 +1,9 @@
+<style type="text/css">
+  a:hover {
+    cursor:pointer;
+  }
+</style>
+
 <div ng-controller="SignCtrl">
   <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -5,7 +11,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
            <p>
-            <a style="color:black;" href="/">
+            <a style="color:black;" ng-click="backToHome()">
               <span style="color:black;" class="glyphicon glyphicon-arrow-left"></span>
               Back To Home
            </a>

@@ -1,9 +1,10 @@
-app.factory('authUser', ['$http', function($http) {
+app.factory('authUser', ['$http','$state', function($http,$state) {
+	var host = "https://22588a0e.ngrok.io";
 	return {
 		authenticateUser:function(email,password){
 			// function to authenticate user by checking in the db , making an api call to /users/login
 			var dataToSend = {email:email ,pass: password};
-			$http.post('https://754d9269.ngrok.io/users/signin',dataToSend).then(
+			$http.post(host + '/users/signin',dataToSend).then(
 				function(resp){
 					if(resp.data.status == "Success"){
 						//user found
@@ -20,11 +21,11 @@ app.factory('authUser', ['$http', function($http) {
 			);
 		},
 		signupUser:function(data){
-			$http.post('https://754d9269.ngrok.io/users/signup',data).then(
+			$http.post(host + '/users/signup',data).then(
 				function(resp){
 					if(resp.data.status == "Success"){
 						//user found
-						window.location = '/';
+						$state.go('app');
 						console.log("Successlly Inserted");
 					}
 				},
@@ -35,7 +36,7 @@ app.factory('authUser', ['$http', function($http) {
 		},
 		sendResetLink: function(email){
 			var dataToSend = {email:email}
-			$http.post('https://fc06ba57.ngrok.io/sendresetlink',dataToSend).then(
+			$http.post(host + '/sendresetlink',dataToSend).then(
 				function(resp){
 					if(resp.data.status == "Success"){
 						//user found
@@ -50,7 +51,7 @@ app.factory('authUser', ['$http', function($http) {
 		},
 		resetPassword: function(email){
 			var dataToSend = {email:email}
-			$http.post('https://754d9269.ngrok.io/resetpsswd',dataToSend).then(
+			$http.post(host + '/resetpsswd',dataToSend).then(
 				function(resp){
 					if(resp.data.status == "Success"){
 						//user found
