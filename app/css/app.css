@@ -1,0 +1,74 @@
+body {
+    background: url("books5.jpg") no-repeat center center fixed;
+    background-size: 100% 100%;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+/*styling for the main card*/
+.card {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 25%;
+    height: 37%;
+    transform: translate(-50%, -50%);
+    border: 3px solid lightgray;
+    display: inline-block;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px; /* 5px rounded corners */
+    overflow: hidden;
+    background-color: rgba(211, 211, 211, .5);
+}
+
+.createAccount{
+    margin-top: 40%;
+    margin-left: 45%;
+}
+/*input email and password box*/
+.emailInput , .psswdInput {
+  display: block;
+  width: 23%;
+  height: 38px;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: black;
+  /*background-color: #ffffff;*/
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    background-color: rgba(255,255,255, 1);
+}
+/*sign up heading in the card*/
+.signupHeading{
+  color: black;
+  margin-left: 8%;
+}
+.signupHeadingCreate{
+    color: black;
+    font-size: 200%;
+    margin-left:48%;
+}
+/*signup and signin buttons*/
+.operations{
+    margin-left: 4%;
+}
+#signinbutton{
+    width: 15%;
+}
+
+#interests{
+    background-color: rgba(211, 211, 211, .5);
+    color: black;
+    /*lightgoldenrodyellow*/
+}
