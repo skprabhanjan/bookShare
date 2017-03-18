@@ -10,6 +10,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
       controller: 'HomeCtrl'
 
     })
+    .state('dash', {
+      url: '/dash',
+      templateUrl: 'js/core/templates/Dashboard.html',
+      controller: 'DashCtrl'
+
+    })
     .state('signup', {
       url: '/signup',
       templateUrl: 'js/core/templates/signup.html',
