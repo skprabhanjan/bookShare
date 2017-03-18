@@ -20,6 +20,26 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
       url: '/signup',
       templateUrl: 'js/core/templates/signup.html',
       controller: 'SignCtrl'
+    })
+    .state('resetPass', {
+        url: '/resetpsswd/{email}',
+        templateUrl: 'js/core/templates/resetpassword.html',
+        controller: function($stateParams,$scope,authUser){
+            $scope.resetPass = function () {
+                if($('#resetpassword').val() != $('#confirmrepassword').val()){
+                    alert("Oops! Seems Like Your Passwords Doesnt Match");
+                }
+                else{
+                    authUser.resetPassword($stateParams.email)
+                    .then(function(data) {
+                      alert("working");
+                    },
+                    function() {
+                      console.log("error");
+                    });
+                }
+            }
+        }
     });
 
 }]);

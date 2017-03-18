@@ -19,12 +19,23 @@ $scope.signinUser = function() {
   }
 }
 $scope.sendResetLink = function(){
+  if($('#email').val() == ""){
+  alert("Please Enter An Email Address To Send Link To!")
+}
+else{
   if(confirm("Are you sure you want to send a resetLink to " + $('#email').val())){
-    authUser.sendResetLink($('#email').val());
+      authUser.sendResetLink($('#email').val())
+      .then(function(data) {
+        console.log(data);
+      },
+      function() {
+        console.log("error");
+      });
   }
   else{
-    console.log("No");
+      console.log("No");
   }
+}
   //authUser.resetLink($('#email').val());
 }
 }]);

@@ -1,15 +1,17 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
-	var host = "https://83793f61.ngrok.io";
+	var host = "https://22588a0e.ngrok.io";
+		var def = $q.defer();
 	return {
 		authenticateUser:function(email,password){
 			// function to authenticate user by checking in the db , making an api call to /users/login
 			var dataToSend = {email:email ,pass: password};
-			var def = $q.defer();
+
 			$http.post(host + '/users/signin',dataToSend).success(
 				function(resp){
 
 						def.resolve(resp);
 						//user found
+						alert("welcome user");
 						console.log("User found!");
 				})
 				.error(
@@ -38,33 +40,42 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 		},
 		sendResetLink: function(email){
 			var dataToSend = {email:email}
-			$http.post(host + '/sendresetlink',dataToSend).then(
-				function(resp){
-					if(resp.data.status == "Success"){
+
+			$http.post(host + '/sendresetlink',dataToSend)
+			.success(function(resp){
 						//user found
-						window.location = '/';
-						console.log("Successlly Sent a Mail!!");
-					}
-				},
-				function(){
-					console.log("error");
-				}
-			);
+								def.resolve(resp);
+                        alert("Reset Link Has Been Sent To Your Mail ")
+                        console.log("Successlly Sent a Mail!!");
+                        $('#email').val("");
+						$state.go('app');
+
+
+				})
+				.error(	function(){
+					def.reject("error");
+						console.log("error");
+				});
+
+
 		},
 		resetPassword: function(email){
-			var dataToSend = {email:email}
-			$http.post(host + '/resetpsswd',dataToSend).then(
-				function(resp){
-					if(resp.data.status == "Success"){
+			var dataToSend = {email:window.atob(email),pass:$('#resetpassword').val()};
+			$http.post(host + '/resetpsswd',dataToSend)
+				.success(function(resp){
+					def.resolve(resp);
 						//user found
-						window.location = '/';
-						console.log("Successlly Sent a Mail!!");
-					}
-				},
-				function(){
+                        alert("Password Changed Succesfully!!");
+                        window.location.reload();
+						$state.go('app');
+
+				})
+				.error(function(){
+					def.reject("error");
 					console.log("error");
-				}
-			);
+				});
+
+
 		}
 	}
 }]);
