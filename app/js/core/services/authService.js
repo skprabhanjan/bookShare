@@ -1,5 +1,5 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
-	var host = "https://22588a0e.ngrok.io";
+	var host = "https://83793f61.ngrok.io";
 	return {
 		authenticateUser:function(email,password){
 			// function to authenticate user by checking in the db , making an api call to /users/login
@@ -20,9 +20,10 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 			return def.promise;
 		},
 		signupUser:function(data){
+			var def = $q.defer();
 			$http.post(host + '/users/signup',data).success(
 				function(resp){
-						def.resolve();
+						def.resolve(resp);
 						//user found
 						$state.go('app');
 						console.log("Successlly Inserted");
@@ -33,6 +34,7 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 						def.reject("error");
 					console.log("error");
 				});
+			return def.promise;
 		},
 		sendResetLink: function(email){
 			var dataToSend = {email:email}

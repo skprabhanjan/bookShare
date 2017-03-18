@@ -96,13 +96,20 @@ app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state
   			}
   			var data = {
   				name : $("#inputName").val(),
+          phonenum : $("#inputNumber").val(),
   				email : $("#inputEmail").val(),
   				pass : $("#inputPassword").val(),
   				place : $("#inputPlace").val(),
   				category : Details,
-  				intrests : $scope.myIntrests
+  				interests : $scope.myIntrests
   			};
-  			authUser.signupUser(data);
+  			authUser.signupUser(data)
+        .then(function(data) {
+          console.log("working");
+        },
+        function () {
+          console.log('albums retrieval failed.');
+        });
   		}
 
   	}
