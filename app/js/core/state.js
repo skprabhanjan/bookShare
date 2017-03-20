@@ -13,8 +13,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     .state('dash', {
       url: '/dash',
       templateUrl: 'js/core/templates/Dashboard.html',
-      controller: 'DashCtrl'
-
+      controller:'DashCtrl'
     })
     .state('signup', {
       url: '/signup',
