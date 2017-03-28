@@ -96,13 +96,14 @@ app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state
   			}
   			var data = {
   				name : $("#inputName").val(),
-          phonenum : $("#inputNumber").val(),
+          phoneNum : $("#inputNumber").val(),
   				email : $("#inputEmail").val(),
   				pass : $("#inputPassword").val(),
   				place : $("#inputPlace").val(),
   				category : Details,
   				interests : $scope.myIntrests
   			};
+        console.log(data);
   			authUser.signupUser(data)
         .then(function(data) {
           console.log("working");

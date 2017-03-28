@@ -10,7 +10,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Book Share</a></li>
+        <li><a href="#">Hello {{username}}</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
        <div class="form-group">
@@ -22,6 +22,7 @@
         <li><a ng-click="PostRequests()">Post requests</a></li>
         <li><a ng-click="MyAdds()">My adds</a></li>
         <li><a style="cursor:pointer"   ng-click="openNav()">Profile</a></li>
+        <li><a style="cursor:pointer"   ng-click="logOut()">Sign Out</a></li>
       </ul>
     </div>
   </div>
@@ -40,8 +41,8 @@
   <div  ng-if="isDash">
     <div class="container">
       <ul class="nav nav-tabs row">
-        <li class="col-sm-6"><a data-toggle="tab" ng-click="onRecomAdds()">Recommended Adds</a></li>
-        <li class="col-sm-6"  ><a data-toggle="tab" ng-click="onRecomReq()">Recommeneded Requests</a></li>
+        <li class="col-sm-6" ><a data-toggle="tab" ng-click="onRecomAdds()" >Recommended Adds</a></li>
+        <li class="col-sm-6" ><a data-toggle="tab" ng-click="onRecomReq()" > Recommended Requests</a></li>
       </ul>
     <div ng-if="isAdds">
       hello
