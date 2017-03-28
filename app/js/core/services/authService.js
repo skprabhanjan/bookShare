@@ -1,18 +1,31 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
-	var host = "https://22588a0e.ngrok.io";
-		var def = $q.defer();
+	var host = "https://71d73973.ngrok.io";
+	var token = '';
+	//get the token required to make all the api calls
+	$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+		function(resp){
+			token  = resp.token;
+		});
+
 	return {
 		authenticateUser:function(email,password){
 			// function to authenticate user by checking in the db , making an api call to /users/login
 			var dataToSend = {email:email ,pass: password};
-
-			$http.post(host + '/users/signin',dataToSend).success(
+			var def = $q.defer();
+			var req = {
+				 method: 'POST',
+				 url: host + '/users/signin',
+				 headers: {
+				   'Authorization': 'Bearer ' + token
+				 },
+				 data: dataToSend
+			 }
+			$http(req).success(
 				function(resp){
-
+					  console.log(resp);
 						def.resolve(resp);
 						//user found
-						alert("welcome user");
-						console.log("User found!");
+						console.log("Req Done!");
 				})
 				.error(
 					function() {
@@ -23,7 +36,15 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 		},
 		signupUser:function(data){
 			var def = $q.defer();
-			$http.post(host + '/users/signup',data).success(
+			var req = {
+				 method: 'POST',
+				 url: host + '/users/signup',
+				 headers: {
+				   'Authorization': 'Bearer ' + token
+				 },
+				 data: data
+			 }
+			$http(req).success(
 				function(resp){
 						def.resolve(resp);
 						//user found
@@ -40,8 +61,16 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 		},
 		sendResetLink: function(email){
 			var dataToSend = {email:email}
-
-			$http.post(host + '/sendresetlink',dataToSend)
+			var def = $q.defer();
+			var req = {
+				 method: 'POST',
+				 url: host + '/sendresetlink',
+				 headers: {
+				   'Authorization': 'Bearer ' + token
+				 },
+				 data: dataToSend
+			 };
+			$http(req)
 			.success(function(resp){
 						//user found
 								def.resolve(resp);
@@ -61,7 +90,16 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 		},
 		resetPassword: function(email){
 			var dataToSend = {email:window.atob(email),pass:$('#resetpassword').val()};
-			$http.post(host + '/resetpsswd',dataToSend)
+			var def = $q.defer();
+			var req = {
+				 method: 'POST',
+				 url: host + '/resetpsswd',
+				 headers: {
+				   'Authorization': 'Bearer ' + token
+				 },
+				 data: dataToSend
+			 }
+			$http(req)
 				.success(function(resp){
 					def.resolve(resp);
 						//user found

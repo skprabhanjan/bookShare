@@ -11,7 +11,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 
     })
     .state('dash', {
-      url: '/dash',
+      url: '/dash/{phoneNum}',
+      params : {
+            phoneNum: "",
+            data:""
+        },
       templateUrl: 'js/core/templates/Dashboard.html',
       controller:'DashCtrl'
     })

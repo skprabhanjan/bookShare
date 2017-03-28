@@ -1,9 +1,10 @@
-app.controller('DashCtrl', ['$scope', function($scope, $authUser) {
+app.controller('DashCtrl', ['$scope','$state','$stateParams', function($scope,$state,$stateParams) {
   $scope.isAdds = true ;
   $scope.isReq = false;
   $scope.isDash = true;
   $scope.isPostRequests = false ;
   $scope.isMyAdds = false ;
+  $scope.username = $state.params.data.name;
 
 $scope.openNav = function(){
   document.getElementById("mySidenav").style.width = "250px";
@@ -32,4 +33,7 @@ $scope.MyAdds = function (){
   $scope.isMyAdds = true;
   $scope.isPostRequests = false;
 };
+$scope.logOut = function(){
+  $state.go('app');
+}
 }]);
