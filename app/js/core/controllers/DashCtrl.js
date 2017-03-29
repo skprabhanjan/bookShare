@@ -1,4 +1,5 @@
 app.controller('DashCtrl', ['$scope','$state','$stateParams', function($scope,$state,$stateParams) {
+  console.log(!Cookies.get(window.btoa('name')));
   if(!Cookies.get(window.btoa('name'))){
     //user has not logged in
     $state.go('app');
@@ -11,13 +12,9 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams', function($scope,$s
   $scope.isDash = true;
   $scope.isPostRequests = false ;
   $scope.isMyAdds = false ;
-
   $scope.isProfile = false ;
   $scope.isLibrary = false ;
-  $scope.username = $state.params.data.name;
-  $scope.profileDetails = {
-
-  };
+  $scope.profileDetails = {};
 
   //console.log($state.params.data);
 

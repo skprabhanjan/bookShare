@@ -171,6 +171,7 @@ body {
 .addbook {
   position: relative;
   right: 52%;
+}
 
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
