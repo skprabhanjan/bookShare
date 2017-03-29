@@ -1,5 +1,5 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
-	var host = "https://71d73973.ngrok.io";
+	var host = "https://44926ab2.ngrok.io";
 	var token = '';
 	//get the token required to make all the api calls
 	$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
