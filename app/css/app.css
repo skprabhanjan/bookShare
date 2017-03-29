@@ -111,7 +111,7 @@ body {
 
 .sidenavbar {
     height: 100%;
-    width: 200px;;
+    width: 15%;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -155,11 +155,23 @@ body {
 
 .mainbody {
   position: fixed;
-  right: 0;
+  left :15%;
 }
 .notFound{
   color: red;
 }
+
+
+.library {
+  text-align: center;
+  position: fixed;
+  left: 40%;
+}
+
+.addbook {
+  position: relative;
+  right: 52%;
+
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
@@ -173,4 +185,5 @@ body {
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+
 }

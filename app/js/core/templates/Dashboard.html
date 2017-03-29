@@ -19,7 +19,7 @@
        <button type="submit" class="btn btn-default">Submit</button>
      </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a ng-click="PostRequests()">Post requests</a></li>
+        <li><a ng-click="library()">My library</a></li>
         <li><a ng-click="MyAdds()">My adds</a></li>
         <li><a style="cursor:pointer"   ng-click="openNav()">Profile</a></li>
         <li><a style="cursor:pointer"   ng-click="logOut()">Sign Out</a></li>
@@ -33,8 +33,8 @@
 </div>
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()">&times;</a>
-  <a ui-sref="/dashboard">My profile</a>
-  <a href="#">My library</a>
+  <a ng-click="profile()">My profile</a>
+  <a ng-click="PostRequests()">Post requests</a>
   <a href="#">Request messages</a>
 </div>
 <div class="mainbody">
@@ -58,5 +58,103 @@
   <div ng-if="isPostRequests">
       post requests
   </div>
+  <div ng-if="isProfile">
+    <div class="container">
+
+
+    <form class="form-horizontal">
+      <div class="signupHeadingCreate">My profile</div>
+        <div class="form-group"  ><br/>
+          <label class="col-lg-2 control-label" >Name</label>
+          <div class="col-lg-10">
+            <input class="form-control" id="inputName" placeholder="What can i call you ? " type="text" required >
+          </div>
+        </div>
+        <div class="form-group"  ><br/>
+          <label class="col-lg-2 control-label" >Phone Number</label>
+          <div class="col-lg-10">
+            <input class="form-control" id="inputNumber" placeholder="where can i contact you ? " type="text" required >
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-2 control-label" >Email</label>
+          <div class="col-lg-10">
+            <input class="form-control" id="inputEmail" placeholder="Where can i send you a mail ? " type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+          <div class="col-lg-10">
+            <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="col-lg-2 control-label">Confirm Password</label>
+          <div class="col-lg-10">
+            <input class="form-control" id="inputRePassword" placeholder="RePassword" type="password">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label" >Place</label>
+          <div class="col-lg-10">
+            <input class="form-control" id="inputPlace" placeholder="Where do you live ?" type="text">
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">What are your interests ?</label>
+          <label class="col-lg-12 control-label"></label>
+          <div class="col-lg-4" >
+            <div class="radio" ng-repeat = "type in intrests">
+              <label><b>
+                <input
+                value="{{type.category}}"
+                name = "{{type.category}}"
+                type="checkbox"
+                ng-model="ischecke"
+                ng-change="onIntrestSelect(type.category)">
+                {{type.category}}
+              </b>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button type="submit" class="btn btn-primary" ng-click="onSubmitButton()">Submit</button>
+          </div>
+        </div>
+    </form>
+    </div>
+
+  </div>
+  <div ng-if="isLibrary" class="jumbotron library">
+    <form class="navbar-form navbar-left" role="search">
+     <div class="form-group">
+       <input class="form-control" placeholder="Search" type="text">
+     </div>
+     <select class="form-control" id="select">
+       <option>category 1</option>
+       <option>category 2</option>
+       <option>category 3</option>
+       <option>category 4</option>
+       <option>category 5</option>
+     </select>
+     <a type="submit" class="btn btn-info">Search</a>
+
+      <br>
+      <br>
+
+
+   </form>
+      <h1>Your library </h1>
+      <p>This contains blah blah</p>
+
+        <a class="btn btn-success addbook">Add Book </a>
+  </div>
 </div>
+
 </div>
