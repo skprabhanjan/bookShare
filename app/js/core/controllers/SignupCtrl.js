@@ -106,6 +106,7 @@ app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state
         console.log(data);
   			authUser.signupUser(data)
         .then(function(data) {
+          alert("Succesfully Created An Account, You are Ready to GO!!!!!")
           console.log("working");
         },
         function () {
