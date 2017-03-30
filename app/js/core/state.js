@@ -6,7 +6,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
   $stateProvider
     .state('app', {
       url: '/home',
-      templateUrl: 'js/core/templates/home.html',
+      templateUrl: 'app/js/core/templates/home.html',
       controller: 'HomeCtrl'
 
     })
@@ -16,17 +16,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             phoneNum: "",
             data:""
         },
-      templateUrl: 'js/core/templates/Dashboard.html',
+      templateUrl: 'app/js/core/templates/Dashboard.html',
       controller:'DashCtrl'
     })
     .state('signup', {
       url: '/signup',
-      templateUrl: 'js/core/templates/signup.html',
+      templateUrl: 'app/js/core/templates/signup.html',
       controller: 'SignCtrl'
     })
     .state('resetPass', {
         url: '/resetpsswd/{email}',
-        templateUrl: 'js/core/templates/resetpassword.html',
+        templateUrl: 'app/js/core/templates/resetpassword.html',
         controller: function($stateParams,$scope,authUser){
             $scope.resetPass = function () {
                 if($('#resetpassword').val() != $('#confirmrepassword').val()){
