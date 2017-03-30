@@ -1,5 +1,4 @@
 app.controller('DashCtrl', ['$scope','$state','$stateParams', function($scope,$state,$stateParams) {
-  console.log(!Cookies.get(window.btoa('name')));
   if(!Cookies.get(window.btoa('name'))){
     //user has not logged in
     $state.go('app');
