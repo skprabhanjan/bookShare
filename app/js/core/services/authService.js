@@ -52,8 +52,6 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 						def.resolve(resp);
 						//user found
 						$state.go('app');
-						console.log("Successlly Inserted");
-
 				})
 				.error(
 					function(){
@@ -119,6 +117,37 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 				});
 
 
+		},
+		verifyaccount: function(phone){
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					console.log(resp.token);
+					token  = resp.token;
+					console.log(phone);
+					var def = $q.defer();
+					var req = {
+						 method: 'POST',
+						 url: host + '/verifyaccount',
+						 headers: {
+						   'Authorization': 'Bearer ' + token
+						 },
+						 data: {phoneNum:phone}
+					 }
+					 console.log(req);
+					 $http(req)
+		 				.success(function(resp){
+		 					def.resolve(resp);
+		 						//user found
+		 						alert("Account Verified Succesfully!!");
+		 						//window.location.reload();
+		 						$state.go('app');
+
+		 				})
+		 				.error(function(){
+		 					def.reject("error");
+		 					console.log("error");
+		 				});
+				});
 		}
 	}
 }]);

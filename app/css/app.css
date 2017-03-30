@@ -209,4 +209,8 @@ body {
   z-index: 1;
   left: 0;
   overflow-x: hidden;
+
+.required{
+  color: red;
+  font-size: 125%;
 }
