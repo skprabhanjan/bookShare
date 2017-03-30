@@ -34,7 +34,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 else{
                     authUser.resetPassword($stateParams.email)
                     .then(function(data) {
-                      alert("working");
+                      //console.log("working");
                     },
                     function() {
                       console.log("error");
@@ -42,6 +42,19 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }
             }
         }
+    })
+    .state('verifyaccount', {
+        url: '/verifyaccount/{phone}',
+        controller: function($stateParams,$scope,authUser){
+                    authUser.verifyaccount(window.atob($stateParams.phone))
+                    .then(function(data) {
+                      console.log("Account Verified");
+                    },
+                    function() {
+                      console.log("error");
+                    });
+        }
     });
+
 
 }]);
