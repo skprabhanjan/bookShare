@@ -74,44 +74,49 @@ app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state
   		else {
   			$scope.myIntrests.push(intrestValue);
   		}
-  		console.log($scope.myIntrests);
   	}
 
   	$scope.onSubmitButton = function () {
+      // if (!$scope.radioValue){
+  		// 	alert("Select If You are a Student or Professional!");
+  		// }
   		if ($("#inputPassword").val() != $("#inputRePassword").val()){
   			alert("passwords do not match");
   		} else {
-  			if ($scope.isStudent){
-  				var Details = {
-  					isStudent : true,
-  					college : $("#inputCollege").val(),
-  					branch : $("#inputBranch").val(),
-  					sem :$("#inputSem").val()
-  				};
-  			} else if($scope.isProfessional){
-  				var Details = {
-  					isStudent : false ,
-  					job : $("#inputjob").val()
-  				}
-  			}
-  			var data = {
-  				name : $("#inputName").val(),
-          phoneNum : $("#inputNumber").val(),
-  				email : $("#inputEmail").val(),
-  				pass : $("#inputPassword").val(),
-  				place : $("#inputPlace").val(),
-  				category : Details,
-  				interests : $scope.myIntrests
-  			};
-        console.log(data);
-  			authUser.signupUser(data)
-        .then(function(data) {
-          alert("Succesfully Created An Account, You are Ready to GO!!!!!")
-          console.log("working");
-        },
-        function () {
-          console.log('albums retrieval failed.');
-        });
+        if (!$scope.radioValue){
+        	alert("Select If You are a Student or Professional!");
+        }
+        else{
+          if ($scope.isStudent){
+            var Details = {
+              isStudent : true,
+              college : $("#inputCollege").val(),
+              branch : $("#inputBranch").val(),
+              sem :$("#inputSem").val()
+            };
+          } else if($scope.isProfessional){
+            var Details = {
+              isStudent : false ,
+              job : $("#inputjob").val()
+            }
+          }
+          var data = {
+            name : $("#inputName").val(),
+            phoneNum : $("#inputNumber").val(),
+            email : $("#inputEmail").val(),
+            pass : $("#inputPassword").val(),
+            place : $("#inputPlace").val(),
+            category : Details,
+            interests : $scope.myIntrests
+          };
+          authUser.signupUser(data)
+          .then(function(data) {
+            alert("Succesfully Created An Account, You are Ready to GO!!!!!")
+          },
+          function () {
+            console.log('albums retrieval failed.');
+          });
+        }
   		}
 
   	}

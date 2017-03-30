@@ -188,3 +188,8 @@ body {
     to { transform: scale(1) rotate(360deg);}
 
 }
+
+.required{
+  color: red;
+  font-size: 125%;
+}
