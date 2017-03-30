@@ -1,18 +1,14 @@
-<div class="card">
-  <div class="container">
-    <h4 class="signupHeading"><b>Sign In </b></h4>
-  	<input id="email" class="emailInput" type="text" placeholder="Email"> <br/>
-		<div id="onsignin" ng-model="emailregistered" ng-show="emailregistered===true">
-			<input id="password" class="psswdInput" type="password" placeholder="Password">
-      <div class="notFound" ng-show="userNotFound == true"> Oops!! Username or Password is incorrect </div> <br/>
-			<a href="" target="_blank" ng-click="sendResetLink()" style="color:black;"><b>forgot password.?</b> </a> <br/> <br/>
-		</div>
-		<div class="operations">
-			<button id="signinbutton" class="btn btn-info" ng-click="signinUser()" value="Next">{{buttonVal}} <span ng-show="loggingIn==true" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>
 
-		</div>
+<div class="jumbotron login">
+  <h1 class="signupHeading">Sign In</h1>
+  <div class="form-group">
+    <input id="email" class="emailInput" type="text" placeholder="Email" class="form-control">
   </div>
-</div>
-<div class="createAccount">
-	<button id="signupbutton" class="btn btn-success" ng-click="signupUser()">Create Account</button><br/><br/>
+  <div class="form-group" id="onsignin" ng-model="emailregistered" ng-show="emailregistered===true">
+    <input id="password" class="psswdInput" type="password" placeholder="Password" class="form-control">
+    <div class="notFound" ng-show="userNotFound == true"> Oops!! Username or Password is incorrect </div> <br/>
+    <a href="" target="_blank" ng-click="sendResetLink()" style="color:black;"><b>forgot password.?</b> </a> <br/>
+  </div>
+  <p><button id="signinbutton" class="btn btn-info btn-sm" ng-click="signinUser()" value="Next"><b>{{buttonVal}}</b> <span ng-show="loggingIn==true" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>
+</p>
 </div>
