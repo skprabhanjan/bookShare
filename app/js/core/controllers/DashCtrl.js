@@ -18,6 +18,13 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams', function($scope,$s
   //console.log($state.params.data);
 
 
+$scope.goBack = function(){
+  $scope.isDash = true;
+  $scope.isPostRequests = false ;
+  $scope.isMyAdds = false ;
+  $scope.isProfile = false ;
+  $scope.isLibrary = false ;
+};
 
 $scope.openNav = function(){
   document.getElementById("mySidenav").style.width = "250px";
