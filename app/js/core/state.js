@@ -3,6 +3,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 
   $urlRouterProvider.when('', '/home');
   $stateProvider
+    .state('landing', {
+      url: '/welcome',
+      templateUrl: 'app/js/core/templates/landingpage.html',
+      controller: 'LandCtrl'
+
+    })
+  $stateProvider
     .state('app', {
       url: '/home',
       templateUrl: 'app/js/core/templates/home.html',
