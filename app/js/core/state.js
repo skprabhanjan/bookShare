@@ -1,8 +1,7 @@
 // Application Level State
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-
-
+  $urlRouterProvider.when('', '/home');
   $stateProvider
     .state('app', {
       url: '/home',
