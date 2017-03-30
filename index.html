@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+ <html lang="en" ng-app="app" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Books Share</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type="text/css" rel="stylesheet" href="app/css/app.css"/>
+  <link type="text/css" rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.css">
+  <script src="app/bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body ng-controller="HomeCtrl">
+<div class="container-fluid">
+  <div  ui-view></div>
+</div>
+
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="app/bower_components/angular/angular.js"></script>
+  <script src="app/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+  <!-- APP -->
+  <script src="app/js/app.js"></script>
+  <script src="app/js/core/services/authService.js"></script>
+
+
+  <!-- CORE -->
+  <script src="app/js/core/state.js"></script>
+  <script src="app/js/core/controllers/HomeCtrl.js"></script>
+  <script src="app/js/core/controllers/SignupCtrl.js"></script>
+  <script src="app/js/core/controllers/DashCtrl.js"></script>
+  <script src="app/js/cookie.js"></script>
+  <!-- https://github.com/js-cookie/js-cookie -->
+
+
+
+
+</body>
+</html>
