@@ -30,9 +30,8 @@ $scope.signinUser = function() {
           $scope.loggingIn = true;
           if(data.status == "Success"){
                //auth successfull
-               var veri = true;
                console.log(data);
-               if(veri == true){
+               if(data.data.isVerified == true){
                  Cookies.set(window.btoa('phoneNum'),window.btoa(data.data.phoneNum),{ expires: 12 });
                  $state.go('dash',{phoneNum:data.data.phoneNum,data:data.data});
                  $scope.emailNotVerified = false;

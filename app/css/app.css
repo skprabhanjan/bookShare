@@ -168,7 +168,9 @@ body {
 .library {
   text-align: center;
   position: fixed;
-  left: 40%;
+  left: 37%;
+  top: 15%;
+  width: 40%;
 }
 
 .addbook {

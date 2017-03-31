@@ -220,7 +220,7 @@
 
 
 
-  <div ng-if="isLibrary" class="jumbotron library">
+  <div ng-if="isLibrary" class="jumbotron library" data-ng-init="onlib()">
     <div ng-if="isSearch">
       <form class="navbar-form navbar-left" role="search">
        <div class="form-group">
@@ -244,29 +244,26 @@
         <p>This contains blah blah</p>
     </div>
     <div ng-if="isAddBook" class="addbook">
-      <div class="form-group">
-  <label class="control-label" for="focusedInput">Email</label>
-  <input class="form-control" id="bookemail" type="text" value="Email">
-</div>
+
 <div class="form-group">
   <label class="control-label" for="focusedInput">Book Title</label>
-  <input class="form-control" id="booktitle" type="text" value="Book title">
+  <input class="form-control" id="booktitle" type="text">
 </div>
 <div class="form-group">
   <label class="control-label" for="focusedInput">Author</label>
-  <input class="form-control" id="bookauthor" type="text" value="Author">
+  <input class="form-control" id="bookauthor" type="text">
 </div>
 <div class="form-group">
   <label class="control-label" for="focusedInput">Genre</label>
-  <input class="form-control" id="bookgenre" type="text" value="Genre">
+  <input class="form-control" id="bookgenre" type="text" >
 </div><div class="form-group">
   <label class="control-label" for="focusedInput">Isbn No.</label>
-  <input class="form-control" id="bookisbn" type="text" value="Isbn no">
+  <input class="form-control" id="bookisbn" type="text">
 </div>
 
     </div>
 
-        <a ng-click="onAddBook()" id="addbook" class="btn btn-success" value="add">{{add}} </a>
+        <a ng-click="onAddBook()" id="addbook" class="btn btn-success" value="add">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
   </div>
 </div>
 
