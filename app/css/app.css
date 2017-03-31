@@ -1,143 +1,331 @@
-body {
-    background: url("books5.jpg") no-repeat center center fixed;
-    background-size: 100% 100%;
-    height: 100%;
-    position: absolute;
+  body {
+      background: url("31.jpg") no-repeat center center fixed;
+      background-size: 100% 100%;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      opacity: 0.9;
+    }
+    #imgLoading{
+      src: url("default.gif");
+    }
+
+  /*styling for the main card*/
+  .card {
+      margin: 0;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      width: 25%;
+      height: 25%;
+      transform: translate(-50%, -50%);
+      border: 3px solid lightgray;
+      display: inline-block;
+      padding: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      border-radius: 5px; /* 5px rounded corners */
+      overflow-x: hidden;
+      background-color: rgba(211, 211, 211, .5);
+  }
+
+  .createAccount{
+      margin-top: 40%;
+      margin-left: 45%;
+  }
+  /*input email and password box*/
+  .emailInput , .psswdInput {
+
+    display: block;
     width: 100%;
+    text-align: center;
+    height: 38px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: black;
+    /*background-color: #ffffff;*/
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      background-color: rgba(255,255,255, 1);
   }
-  #imgLoading{
-    src: url("default.gif");
+  /*sign up heading in the card*/
+  .signupHeading{
+    color: black;
+  }
+  .signupHeadingCreate{
+      color: black;
+      font-size: 200%;
+      margin-left:48%;
+  }
+  /*signup and signin buttons*/
+  .operations{
+      margin-left: 4%;
+  }
+  /*#signinbutton{
+      width: 15%  ;
+  }*/
+
+  #interests{
+      background-color: rgba(211, 211, 211, .5);
+      color: black;
+      /*lightgoldenrodyellow*/
+  }
+  .sidebar-element{
+    background-color: Gainsboro ;
+    width : 15%;
+    height: 88vh;
+    min-height: 100%;
+    overflow:hidden;
+    position: relative;
+    top: -50px;
+    text-align : center;
   }
 
-/*styling for the main card*/
-.card {
-    margin: 0;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    width: 25%;
-    height: 25%;
-    transform: translate(-50%, -50%);
-    border: 3px solid lightgray;
-    display: inline-block;
-    padding: 10px;
+
+  .sidenav {
+      height: 50%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+  }
+
+  .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.3s
+  }
+
+  .sidenavbar {
+      height: 90%;
+      width: 13%;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 10%;
+      background-color: #022f5a;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 10%;
+  }
+
+
+  .sidenavbar a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 15px;
+      color: #818181;
+      display: block;
+      transition: 0.3s
+  }
+
+
+  .sidenavbar a:hover, .offcanvas a:focus{
+      color: #f1f1f1;
+  }
+
+  .sidenavbar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+  }
+
+  #main {
+      transition: margin-left .5s;
+      padding: 16px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .mainbody {
+    left :15%;
+  }
+  .notFound{
+    color: red;
+  }
+
+
+  .library {
+    text-align: center;
+    position: fixed;
+    left: 40%;
+  }
+
+  .addbook {
+    position: relative;
+    right: 52%;
+  }
+
+  .glyphicon-refresh-animate {
+      -animation: spin .7s infinite linear;
+      -webkit-animation: spin2 .7s infinite linear;
+  }
+
+  @-webkit-keyframes spin2 {
+      from { -webkit-transform: rotate(0deg);}
+      to { -webkit-transform: rotate(360deg);}
+  }
+
+  @keyframes spin {
+      from { transform: scale(1) rotate(0deg);}
+      to { transform: scale(1) rotate(360deg);}
+
+  }
+
+  .login{
+    text-align: center;
+    width: 30%;
+    position: fixed;
+    left: 35%;
+    top: 15%;
+    opacity: 0.85;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-    overflow-x: hidden;
     background-color: rgba(211, 211, 211, .5);
-}
 
-.createAccount{
-    margin-top: 40%;
-    margin-left: 45%;
-}
-/*input email and password box*/
-.emailInput , .psswdInput {
+  }
 
-  display: block;
-  width: 100%;
-  text-align: center;
-  height: 38px;
-  padding: 8px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: black;
-  /*background-color: #ffffff;*/
-  background-image: none;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    background-color: rgba(255,255,255, 1);
-}
-/*sign up heading in the card*/
-.signupHeading{
-  color: black;
-}
-.signupHeadingCreate{
-    color: black;
-    font-size: 200%;
-    margin-left:48%;
-}
-/*signup and signin buttons*/
-.operations{
-    margin-left: 4%;
-}
-/*#signinbutton{
-    width: 15%  ;
-}*/
+  .landingpage {
+    overflow: hidden;
+  }
 
-#interests{
-    background-color: rgba(211, 211, 211, .5);
-    color: black;
-    /*lightgoldenrodyellow*/
-}
-.sidebar-element{
-  background-color: Gainsboro ;
-  width : 15%;
-  height: 88vh;
-  min-height: 100%;
-  overflow:hidden;
-  position: relative;
-  top: -50px;
-  text-align : center;
-}
+  .required {
+    color: red;
+    font-size: 125%;
+  }
 
+  @media screen and (max-width: 500px) {
+    .login{
+      width: 100%;
+      left: 0;
+    }
+    .landing-text .header-main{
+      font-size: 150%;
+      left:0%;
+      top: 14%;
+    }
+    .subscript{
+      font-size: 10%;
+      right:4%;
+    }
+    div.search-bar{
+      left:20%;
+    }
+    input.form-control{
+      width:100%;
+      left: 10%;
+    }
+    button#searchSubmit{
+      width:100%;
+      left: 10%;
+    }
+    div.secondPage p.quote{
+      font-size: 100%;
+    }
+    .sell-img {
+      left:2%;
+    }
+    .buy-img {
+      left:35%;
+    }
+    .rent-img {
+      left:65%;
+    }
+    .free-img{
+      left:90%;
+    }
+  }
+  .landing-text{
+    text-align: center;
+    color: white;
+    position: relative;
+    top : 5%;
+  }
+  .header-main {
+    font-size: 250%;
+    position: fixed;
+    top: 20%;
+    left: 20%;
+  }
 
-.sidenav {
+  .subscript {
+    position: fixed;
+    top: 35%;
+    left: 75%;
+  }
+
+  .search-bar {
+    position: fixed;
+    top :50%;
+    left: 40%;
+  }
+
+  .scroll {
+    background-image: url('22.jpg');
+    width: 100%;
     height: 50%;
-    width: 0;
     position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
+    top: 40%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
 
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    display: block;
-    transition: 0.3s
-}
-
-.sidenavbar {
-    height: 100%;
-    width: 15%;
+  .sell-img {
     position: fixed;
-    z-index: 1;
-    left: 0;
-    background-color: #022f5a;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
+    top: 80%;
+    left: 10%;
+  }
 
-.sidenavbar a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 15px;
-    color: #818181;
-    display: block;
-    transition: 0.3s
-}
+  .buy-img {
+    position: fixed;
+    top: 80%;
+    left: 35%;
+  }
+  .rent-img {
+    position: fixed;
+    top: 80%;
+    left: 60%;
+  }
+  .free-img {
+    position: fixed;
+    top: 80%;
+    left: 80%;
+  }
 
-
-.sidenavbar a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
-}
-
-.sidenavbar .closebtn {
+  .secondPage {
+    text-align: center;
+    background-image: url('33.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: auto;
+    background-position: center;
+    background-color: black;
+    color: black;
     position: absolute;
+
+   
+     height: 100%;
     top: 0;
     right: 25px;
     font-size: 36px;
@@ -216,10 +404,30 @@ body {
   color: red;
   font-size: 125%;
 }
+  .text-landing {
+    width: 50%;
+    height: 80%;
+    top: 5%;
+    position: absolute;
+    left: 27%;
+    opacity: 0.8;
+  }
 
+  .navheader {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .dash-table {
+    position: relative;
+    left: 12%;
+    width: 80%;
+  }
 @media screen and (max-width: 500px) {
   .login{
     width: 100%;
+    top: 100%;
     left: 0;
   }
 }
@@ -314,3 +522,4 @@ body {
   width: 100%;
   left: 0;
 }
+

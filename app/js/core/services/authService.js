@@ -111,6 +111,35 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 				});
 				return def.promise;
 		},
+		getallbooks:function(){
+				var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+
+					var req = {
+						 method: 'GET',
+						 url: host + '/books/getAll',
+						 headers: {
+						   'Authorization': 'Bearer ' + token
+						 }
+					 }
+					$http(req).success(
+						function(resp){
+								def.resolve(resp);
+								//user found
+								console.log(resp);
+						})
+						.error(
+							function(){
+								def.reject("error");
+							console.log("error");
+						});
+
+				});
+			//create an user acccount
+		return def.promise;
+		},
 		verifyaccount: function(phone){
 			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
 				function(resp){

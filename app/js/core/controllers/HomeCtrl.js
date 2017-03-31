@@ -7,6 +7,9 @@ app.controller('HomeCtrl', ['$scope','$state','authUser', function($scope, $stat
 $scope.signupUser = function(){
     $state.go('signup');
 }
+$scope.onload = function(){
+  document.body.style.backgroundImage = "url('app/css/31.jpg')";
+};
 $scope.signinUser = function() {
   if($('#signinbutton').val()=="Next"){
     if($('#email').val()==""){
