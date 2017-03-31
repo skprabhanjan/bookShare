@@ -246,6 +246,32 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 						});
 				});
 				return def.promise;
+		},
+		getlibbooks: function(email){
+			console.log("Fetching books");
+			var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+					var req = {
+						 method: 'GET',
+						 url: host + '/user/library?email=',
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 }
+					 }
+					$http(req)
+						.success(function(resp){
+							def.resolve(resp);
+							console.log("Sucess");
+								//user found
+						})
+						.error(function(){
+							def.reject("error");
+							console.log("error");
+						});
+				});
+				return def.promise;
 		}
 	}
 }]);
