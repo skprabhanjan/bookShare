@@ -45,6 +45,7 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
     }
 
   ];
+  $scope.email = '';
   $scope.fetching = false;
   $scope.editRequested = false;
   $scope.buttonVal = "Update";
@@ -65,6 +66,7 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
       $scope.username = data.data.name;
       $scope.fetching = false;
       $scope.userData = data.data;
+      $scope.email = data.data.email;
       if($scope.userData.isStudent==true){
         $scope.registeredAs = "Student";
         $scope.branch = $scope.userData.category.branch;
@@ -85,11 +87,11 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
   }
   $scope.isAdds = true ;
   $scope.isReq = false;
-  $scope.isDash = false;
+  $scope.isDash = true;
   $scope.isPostRequests = false ;
   $scope.isMyAdds = false ;
   $scope.isProfile = false ;
-  $scope.isLibrary = true ;
+  $scope.isLibrary = false ;
   $scope.profileDetails = {};
   $scope.profChecked = false;
   $scope.studentChecked = false;
@@ -185,8 +187,18 @@ $scope.onChoiceSelect = function(value){
 }
 
 $scope.onlib = function(){
+  console.log($scope.userData.email);
+  authUser.getlibbooks($scope.userData.email).then(function(data){
+        console.log("success");
+        console.log(data);
+      },
+      function() {
+        console.log("error");
+      });
+  }
 
-}
+
+
 $scope.updateDetails = function(){
   $scope.buttonVal = "Updating ";
   $scope.updating = true;
@@ -203,6 +215,7 @@ $scope.updateDetails = function(){
       job : $("#newjob").val()
     }
   }
+  $scope.email = $scope.userData.email;
   var obj = {
     name: $("#newname").val(),
     phoneNum: $("#newphone").val(),
@@ -274,9 +287,9 @@ $scope.onAddBook = function(){
   } else if($scope.add == "ADD"){
       console.log("enter 1");
     $scope.updatingAdd = true;
-    // console.log($scope.userData.email);
+    console.log($scope.userData.email);
     var bookData = {
-      'email' : 'mgsudhanva@gmail.com',
+      'email' : $scope.userData.email,
       'title' : $('#booktitle').val(),
       'author' : $('#bookauthor').val(),
       'genre' : $('#bookgenre').val(),

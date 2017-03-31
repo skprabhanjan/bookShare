@@ -255,7 +255,7 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 					token  = resp.token;
 					var req = {
 						 method: 'GET',
-						 url: host + '/user/library?email=',
+						 url: host + '/users/library?email='+email,
 						 headers: {
 							 'Authorization': 'Bearer ' + token
 						 }
