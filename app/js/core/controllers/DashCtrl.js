@@ -307,7 +307,7 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
   $scope.add = "Add Book";
   if(!Cookies.get(window.btoa('phoneNum'))){
     //user has not logged in
-  if(!Cookies.get(window.btoa('name'))){
+
 
     $state.go('app');
   }
