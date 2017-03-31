@@ -3,28 +3,42 @@ app.controller('HomeCtrl', ['$scope','$state','authUser', function($scope, $stat
   $scope.userNotFound = false;
   $scope.buttonVal = "Next";
   $scope.loggingIn = false;
+  $scope.emailNotVerified = false;
 $scope.signupUser = function(){
     $state.go('signup');
 }
 $scope.signinUser = function() {
   if($('#signinbutton').val()=="Next"){
-    $scope.emailregistered = true;
-    $('.card').css({"height":"40%"});
-    $('#signinbutton').val("Login");
-    $scope.buttonVal = "Log In";
+    if($('#email').val()==""){
+      alert("Please Enter an Email");
+    }
+    else {
+      $scope.emailregistered = true;
+      $('.card').css({"height":"40%"});
+      $('#signinbutton').val("Login");
+      $scope.buttonVal = "Log In";
+    }
   }
   else if($('#signinbutton').val()=="Login"){
       $scope.loggingIn = true;
       $scope.buttonVal = "Logging in..."
       authUser.authenticateUser($('#email').val(),$('#password').val())
         .then(function(data) {
-          console.log(data);
           $scope.loggingIn = true;
           if(data.status == "Success"){
                //auth successfull
-               Cookies.set(window.btoa('name'),window.btoa(data.data.name),{ expires: 12 });
-               //console.log($.cookie('username'));
-               $state.go('dash',{phoneNum:data.data.phoneNum,data:data.data});
+               console.log(data);
+               if(data.data.isVerified == true){
+                 Cookies.set(window.btoa('phoneNum'),window.btoa(data.data.phoneNum),{ expires: 12 });
+                 $state.go('dash',{phoneNum:data.data.phoneNum,data:data.data});
+                 $scope.emailNotVerified = false;
+               }
+               else{
+                 //user not verified
+                 $scope.emailNotVerified = true;
+                 $scope.loggingIn = false;;
+                 $scope.buttonVal = "Log In"
+               }
            }
            else if(data.status == "failed" || data.msg == null){
                //user not found
