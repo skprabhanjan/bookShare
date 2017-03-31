@@ -24,10 +24,8 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 			 }
 			$http(req).success(
 				function(resp){
-					  console.log(resp);
 						def.resolve(resp);
 						//user found
-						console.log("Req Done!");
 				})
 				.error(
 					function() {
@@ -77,18 +75,14 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 								//user found
 								def.resolve(resp);
 								alert("Reset Link Has Been Sent To Your Mail ")
-								console.log("Successlly Sent a Mail!!");
 								$('#email').val("");
 								$state.go('app');
-
-
 				})
 				.error(	function(){
 					def.reject("error");
 						console.log("error");
 				});
-
-
+				return def.promise;
 		},
 		resetPassword: function(email){
 			//reset the password when the reset link was clicked in the user's email
@@ -115,8 +109,7 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 					def.reject("error");
 					console.log("error");
 				});
-
-
+				return def.promise;
 		},
 		getallbooks:function(){
 				var def = $q.defer();
@@ -150,9 +143,7 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 		verifyaccount: function(phone){
 			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
 				function(resp){
-					console.log(resp.token);
 					token  = resp.token;
-					console.log(phone);
 					var def = $q.defer();
 					var req = {
 						 method: 'POST',
@@ -162,7 +153,6 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 						 },
 						 data: {phoneNum:phone}
 					 }
-					 console.log(req);
 					 $http(req)
 		 				.success(function(resp){
 		 					def.resolve(resp);
@@ -177,6 +167,85 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 		 					console.log("error");
 		 				});
 				});
+				return def.promise;
+		},
+		getUserDetails: function(phone) {
+			var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+					var req = {
+						 method: 'GET',
+						 url: host + '/getuserdetails?phoneNum=' + phone,
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 },
+					 }
+					$http(req)
+						.success(function(resp){
+							def.resolve(resp);
+								//user found
+						})
+						.error(function(){
+							def.reject("error");
+							console.log("error");
+						});
+				});
+				return def.promise;
+		},
+		updateDetails: function(obj){
+			console.log("Here");
+			var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+					var req = {
+						 method: 'POST',
+						 url: host + '/users/update',
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 },
+						 data: obj
+					 }
+					$http(req)
+						.success(function(resp){
+							def.resolve(resp);
+							console.log("Sucess");
+								//user found
+						})
+						.error(function(){
+							def.reject("error");
+							console.log("error");
+						});
+				});
+				return def.promise;
+		},
+		Addbook: function(book){
+			console.log("sending data");
+			var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+					var req = {
+						 method: 'POST',
+						 url: host + '/books/addtolib',
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 },
+						 data: book
+					 }
+					$http(req)
+						.success(function(resp){
+							def.resolve(resp);
+							console.log("Sucess");
+								//user found
+						})
+						.error(function(){
+							def.reject("error");
+							console.log("error");
+						});
+				});
+				return def.promise;
 		}
 	}
 }]);

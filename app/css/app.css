@@ -323,12 +323,87 @@
     background-color: black;
     color: black;
     position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 100%;
-    left: 0;
-  }
 
+   
+     height: 100%;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.mainbody {
+  position: fixed;
+  left :15%;
+}
+.notFound{
+  color: red;
+}
+
+
+.library {
+  text-align: center;
+  position: fixed;
+  left: 35%;
+  width: 50%;
+}
+
+.addbook {
+  position: relative;
+  right: 52%;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+
+}
+
+.login{
+  text-align: center;
+  width: 30%;
+  position: fixed;
+  left: 35%;
+  top: 15%;
+  opacity: 0.85;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: rgba(211, 211, 211, .5);
+
+}
+
+.landingpage {
+  height: 50%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  overflow-x: hidden;
+}
+
+.required {
+  color: red;
+  font-size: 125%;
+}
   .text-landing {
     width: 50%;
     height: 80%;
@@ -349,3 +424,102 @@
     left: 12%;
     width: 80%;
   }
+@media screen and (max-width: 500px) {
+  .login{
+    width: 100%;
+    top: 100%;
+    left: 0;
+  }
+}
+
+@keyframes blink {
+    /**
+     * At the start of the animation the dot
+     * has an opacity of .2
+     */
+    0% {
+      opacity: .2;
+    }
+    /**
+     * At 20% the dot is fully visible and
+     * then fades out slowly
+     */
+    20% {
+      opacity: 1;
+    }
+    /**
+     * Until it reaches an opacity of .2 and
+     * the animation can start again
+     */
+    100% {
+      opacity: .2;
+    }
+}
+
+.saving span {
+    /**
+     * Use the blink animation, which is defined above
+     */
+    animation-name: blink;
+    /**
+     * The animation should take 1.4 seconds
+     */
+    animation-duration: 1.4s;
+    /**
+     * It will repeat itself forever
+     */
+    animation-iteration-count: infinite;
+    /**
+     * This makes sure that the starting style (opacity: .2)
+     * of the animation is applied before the animation starts.
+     * Otherwise we would see a short flash or would have
+     * to set the default styling of the dots to the same
+     * as the animation. Same applies for the ending styles.
+     */
+    animation-fill-mode: both;
+}
+
+.saving span:nth-child(2) {
+    /**
+     * Starts the animation of the third dot
+     * with a delay of .2s, otherwise all dots
+     * would animate at the same time
+     */
+    animation-delay: .2s;
+}
+
+.saving span:nth-child(3) {
+    /**
+     * Starts the animation of the third dot
+     * with a delay of .4s, otherwise all dots
+     * would animate at the same time
+     */
+    animation-delay: .4s;
+}
+.col-lg-10{
+  color: black;
+}
+.profile{
+  text-align: center;
+  width: 50%;
+  position: fixed;
+  left: 35%;
+  opacity: 0.85;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: rgba(201, 201, 201, .5);
+
+}
+.col-lg-2 control-label{
+  color: black;
+}
+.interests{
+  border: 3px solid grey;
+  color: black;
+  border-radius: 5px; /* 5px rounded corners */
+}
+
+.addbook {
+  width: 100%;
+  left: 0;
+}
+

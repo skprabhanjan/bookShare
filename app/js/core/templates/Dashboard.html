@@ -9,23 +9,24 @@
     <div class="container-fluid">
 
 
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li><a ng-click="goBack()">Hello {{username}}</a></li>
-        </ul>
-        <form class="navbar-form navbar-left" role="search">
-         <div class="form-group">
-           <input class="form-control" placeholder="Search" type="text">
-         </div>
-         <button type="submit" class="btn btn-default">Submit</button>
-       </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a ng-click="library()">My library</a></li>
-          <li><a ng-click="MyAdds()">My adds</a></li>
-          <li><a style="cursor:pointer"   ng-click="openNav()">Profile</a></li>
-          <li><a style="cursor:pointer"   ng-click="logOut()">Sign Out</a></li>
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a ng-click="goBack()">Hello {{username}} <span class="saving" ng-show="fetching==true"><span>.</span><span>.</span><span>.</span></span>
+</a></li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+       <div class="form-group">
+         <input class="form-control" placeholder="Search" type="text">
+       </div>
+       <button type="submit" class="btn btn-default">Submit</button>
+     </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ng-click="library()">My library</a></li>
+        <li><a ng-click="MyAdds()">My adds</a></li>
+        <li><a style="cursor:pointer"   ng-click="openNav()">Profile</a></li>
+        <li><a style="cursor:pointer"   ng-click="logOut()">Sign Out</a></li>
+      </ul>
+
     </div>
   </nav>
   </div>
@@ -82,102 +83,187 @@
   <div ng-if="isPostRequests">
       post requests
   </div>
+
+
   <div ng-if="isProfile">
-    <div class="container">
-
-
-    <form class="form-horizontal">
-      <div class="signupHeadingCreate">My profile</div>
+    <div class="jumbotron profile">
+    <div class="container-fluid">
+      <div style="color:black;font-size:200%;">My profile &nbsp;&nbsp;
+        <a ng-click="editDetails()"><span class="glyphicon glyphicon-pencil" aria-hidden="true" style="color:green;font-size:100%;"></span></a>
+      </div>
         <div class="form-group"  ><br/>
-          <label class="col-lg-2 control-label" >Name</label>
-          <div class="col-lg-10">
-            <input class="form-control" id="inputName" placeholder="What can i call you ? " type="text" required >
+          <label class="col-lg-2 control-label" > <b>Name: </b></label>
+          <input  id="newname" class="emailInput" type="text" placeholder="New Name .?" style="width:50%;" value="{{username}}" ng-show="editRequested==true">
+          <div class="col-lg-10" ng-show="editRequested==false">
+          {{username}}
           </div>
         </div>
         <div class="form-group"  ><br/>
-          <label class="col-lg-2 control-label" >Phone Number</label>
-          <div class="col-lg-10">
-            <input class="form-control" id="inputNumber" placeholder="where can i contact you ? " type="text" required >
+          <label class="col-lg-2 control-label" ><b>Phone: </b></label>
+          <input id="newphone" class="emailInput" type="text" placeholder="New Phone Number.?" style="width:50%;" value="{{userData.phoneNum}}" ng-show="editRequested==true">
+          <div class="col-lg-10" ng-show="editRequested==false">
+            {{userData.phoneNum}}
           </div>
         </div>
-        <div class="form-group">
-          <label class="col-lg-2 control-label" >Email</label>
-          <div class="col-lg-10">
-            <input class="form-control" id="inputEmail" placeholder="Where can i send you a mail ? " type="text">
+        <div class="form-group"><br/>
+          <label class="col-lg-2 control-label" ><b>Email: </b></label>
+          <input class="emailInput" type="text" placeholder="New Phone Number.?" style="width:50%;" ng-show="editRequested==true" value="{{userData.email}}" disabled="true">
+          <div class="col-lg-10" ng-show="editRequested==false">
+            {{userData.email}}
           </div>
         </div>
-        <div class="form-group">
-          <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-          <div class="col-lg-10">
-            <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+        <div class="form-group"><br/>
+          <label class="col-lg-2 control-label"><b>Place : </b></label>
+          <input id="newplace" class="emailInput" type="text" placeholder="Place.?" style="width:50%;" value="{{userData.place}}" ng-show="editRequested==true">
+          <div class="col-lg-10" ng-show="editRequested==false">
+            {{userData.place}}
           </div>
         </div>
-        <div class="form-group">
-          <label for="inputPassword" class="col-lg-2 control-label">Confirm Password</label>
-          <div class="col-lg-10">
-            <input class="form-control" id="inputRePassword" placeholder="RePassword" type="password">
+        <div class="form-group"><br/>
+          <label class="col-lg-2 control-label"><b>Interests:</b></label> <br/>
+          <div ng-repeat="interest in interests" ng-model="interests" ng-show="editRequested==true">
+            <div class="interests">
+              {{interest}} <a ng-click="removeInterest(interest)"><span style="color:red;float:right;" class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            </div>
+          </div> <br/>
+          <input id="newinterest" class="btn btn-default" type="text" placeholder="Add New intrests.?" style="width:50%;" ng-show="editRequested==true">
+          <a ng-click="addInterest()" class="btn btn-default" ng-show="editRequested==true">Add <span style="color:green;" class="glyphicon glyphicon-plus" aria-hidden="true" ></span></a>
           </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-lg-2 control-label" >Place</label>
-          <div class="col-lg-10">
-            <input class="form-control" id="inputPlace" placeholder="Where do you live ?" type="text">
-          </div>
-        </div>
-
-
-
-        <div class="form-group">
-          <label class="col-lg-2 control-label">What are your interests ?</label>
-          <label class="col-lg-12 control-label"></label>
-          <div class="col-lg-4" >
-            <div class="radio" ng-repeat = "type in intrests">
-              <label><b>
-                <input
-                value="{{type.category}}"
-                name = "{{type.category}}"
-                type="checkbox"
-                ng-model="ischecke"
-                ng-change="onIntrestSelect(type.category)">
-                {{type.category}}
-              </b>
-              </label>
+          <div ng-repeat="interest in interests" ng-model="interests" ng-show="editRequested==false" >
+            <div>
+              {{interest}}
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <div class="col-lg-10 col-lg-offset-2">
-            <button type="submit" class="btn btn-primary" ng-click="onSubmitButton()">Submit</button>
+        <div class="form-group" ng-show="editRequested==false"><br/>
+          <label class="col-lg-2 control-label"><b>Type: </b> </label>
+          <div class="col-lg-10">
+            {{registeredAs}}
           </div>
         </div>
-    </form>
+        <div class="form-group" ng-show="editRequested==true">
+          <label class="col-lg-2 control-label">Type: ?</label>
+          <div class="col-lg-10">
+            <input name="optionsRadios" value="Student" checked="" type="radio" ng-model = "radioValue" ng-change="onChoiceSelect('Student')">
+            Student &nbsp;&nbsp;
+            <input name="optionsRadios" value="Professional" type="radio" ng-model = "radioValue" ng-change = "onChoiceSelect('Professional')">
+            Professional
+          </div>
+        </div>
+
+        <div ng-show="studentChecked == true">
+          <div class="form-group">
+            <label class="col-lg-2 control-label" ></label>
+            <div class="col-lg-10">
+              <input id="newcollege" class="form-control" id="inputCollege" placeholder="Which college are you from? " type="text">
+            </div>
+          </div>             <div class="col-lg-10"></div>
+
+          <div class="form-group">
+            <label class="col-lg-2 control-label" ></label>
+            <div class="col-lg-10">
+              <input id="newbranch" class="form-control" id="inputBranch" placeholder="Which branch do you belong to ? " type="text">
+            </div>
+          </div>             <div class="col-lg-10"></div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label" ></label>
+            <div class="col-lg-10">
+              <input id="newsem" class="form-control" id="inputSem" placeholder="Your semester .?" type="text">
+            </div>
+          </div>              <div class="col-lg-10"></div>
+        </div>
+
+        <div ng-show="profChecked == true">
+              <input id="newjob" class="emailInput" id="inputjob" placeholder="What do you do ? " type="text">
+        </div>
+
+        <div ng-show="isStudent==false && editRequested==false">
+          <div class="form-group"><br/>
+            <label class="col-lg-2 control-label"><b>Job: </b> </label>
+            <div class="col-lg-10">
+              {{job}}
+            </div>
+          </div>
+       </div>
+
+       <div ng-show="isStudent==true && editRequested==false">
+           <div class="form-group"><br/>
+             <label class="col-lg-2 control-label"><b>College: </b> </label>
+             <div class="col-lg-10">
+               {{college}}
+             </div>
+           </div>
+             <div class="form-group"><br/>
+               <label class="col-lg-2 control-label"><b>Branch: </b> </label>
+               <div class="col-lg-10">
+                 {{branch}}
+             </div>
+           </div>
+           <div class="form-group"><br/>
+             <label class="col-lg-2 control-label"><b>Sem: </b> </label>
+             <div class="col-lg-10">
+               {{sem}}
+           </div>
+         </div>
+      </div>
+      <div id="updateButton" style="padding-top:5%;" ng-show="editRequested==true">
+          <button type="submit" class="btn btn-success" ng-click="updateDetails()">{{buttonVal}} <span class="saving" ng-show="updating==true"><span>.</span><span>.</span><span>.</span></span></button>
+          <button type="button" class="btn btn-primary" ng-click="cancelEdit()">Cancel</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <div ng-if="isLibrary" class="jumbotron library">
+    <div ng-if="isSearch">
+      <form class="navbar-form navbar-left" role="search">
+       <div class="form-group">
+         <input class="form-control" placeholder="Search" type="text">
+       </div>
+       <select class="form-control" id="select">
+         <option>category 1</option>
+         <option>category 2</option>
+         <option>category 3</option>
+         <option>category 4</option>
+         <option>category 5</option>
+       </select>
+       <a type="submit"  class="btn btn-info">Search</a>
+
+        <br>
+        <br>
+
+
+     </form>
+        <h1>Your library </h1>
+        <p>This contains blah blah</p>
+    </div>
+    <div ng-if="isAddBook" class="addbook">
+      <div class="form-group">
+  <label class="control-label" for="focusedInput">Email</label>
+  <input class="form-control" id="bookemail" type="text" value="Email">
+</div>
+<div class="form-group">
+  <label class="control-label" for="focusedInput">Book Title</label>
+  <input class="form-control" id="booktitle" type="text" value="Book title">
+</div>
+<div class="form-group">
+  <label class="control-label" for="focusedInput">Author</label>
+  <input class="form-control" id="bookauthor" type="text" value="Author">
+</div>
+<div class="form-group">
+  <label class="control-label" for="focusedInput">Genre</label>
+  <input class="form-control" id="bookgenre" type="text" value="Genre">
+</div><div class="form-group">
+  <label class="control-label" for="focusedInput">Isbn No.</label>
+  <input class="form-control" id="bookisbn" type="text" value="Isbn no">
+</div>
+
     </div>
 
-  </div>
-  <div ng-if="isLibrary" class="jumbotron library">
-    <form class="navbar-form navbar-left" role="search">
-     <div class="form-group">
-       <input class="form-control" placeholder="Search" type="text">
-     </div>
-     <select class="form-control" id="select">
-       <option>category 1</option>
-       <option>category 2</option>
-       <option>category 3</option>
-       <option>category 4</option>
-       <option>category 5</option>
-     </select>
-     <a type="submit" class="btn btn-info">Search</a>
-
-      <br>
-      <br>
-
-
-   </form>
-      <h1>Your library </h1>
-      <p>This contains blah blah</p>
-
-        <a class="btn btn-success addbook">Add Book </a>
+        <a ng-click="onAddBook()" id="addbook" class="btn btn-success" value="add">{{add}} </a>
   </div>
 </div>
 
