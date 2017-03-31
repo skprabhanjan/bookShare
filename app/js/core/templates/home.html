@@ -7,6 +7,7 @@
   <div class="form-group" id="onsignin" ng-model="emailregistered" ng-show="emailregistered===true">
     <input id="password" class="psswdInput" type="password" placeholder="Password" class="form-control">
     <div class="notFound" ng-show="userNotFound == true"> Oops!! Username or Password is incorrect </div> <br/>
+    <div class="notFound" ng-show="emailNotVerified == true"> Please Verify your email first </div> <br/>
     <a href="" target="_blank" ng-click="sendResetLink()" style="color:black;"><b>forgot password.?</b> </a> <br/>
   </div>
   <p><button id="signinbutton" class="btn btn-info btn-sm" ng-click="signinUser()" value="Next"><b>{{buttonVal}}</b> <span ng-show="loggingIn==true" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>
