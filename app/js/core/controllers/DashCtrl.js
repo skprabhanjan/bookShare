@@ -332,6 +332,13 @@ $scope.selectBooks = function(book){
   }
 }
 
+$scope.onCancel = function(){
+  $scope.isSearch=true;
+  $scope.isAddBook =false;
+  $scope.add = "Add Book";
+  $scope.updatingAdd = false;
+}
+
 $scope.onSellBook = function(){
   if($scope.booksToDelete){
     var data = {
