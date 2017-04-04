@@ -55,6 +55,7 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
   $scope.updatingAdd = false;
   $scope.interests = [];
   $scope.myLibBooks = [];
+  $scope.booksToDelete = [];
   $scope.add = "Add Book";
   if(!Cookies.get(window.btoa('phoneNum'))){
     //user has not logged in
@@ -79,6 +80,7 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
   $scope.studentChecked = false;
   $scope.isSearch = true;
   $scope.isAddBook =false;
+  $scope.isSelect = false;
 
 
   //console.log($state.params.data);
@@ -293,8 +295,58 @@ $scope.addInterest = function(){
   $scope.interests.push($('#newinterest').val());
 }
 
-$scope.getlibbook = function(bookData){
+$scope.onDelete = function(book){
+  var pos = $scope.booksToDelete.filter(function(o){return o.id == book.id;} );
+  if (pos[0] == undefined){
+    $scope.booksToDelete.push(book);
+  }
+  else {
+    $scope.booksToDelete  = $scope.booksToDelete.filter(function(o){ return o.id != book.id; });
+  }
+  console.log($scope.booksToDelete);
+}
 
+$scope.onDeleteSubmit = function (){
+  if($scope.booksToDelete){
+    var data = {
+      email : $scope.userData.email,
+      books : $scope.booksToDelete
+    }
+    authUser.deletebook(data).then(function(data){
+      console.log("book deleted");
+    },
+    function() {
+      console.log("error");
+    });
+  }
+  $scope.booksToDelete = [];
+}
+
+$scope.selectBooks = function(book){
+
+  if($scope.isSelect == false){
+    $scope.isSelect = true ;
+  }
+  else {
+    $scope.isSelect = false;
+  }
+}
+
+$scope.onSellBook = function(){
+  if($scope.booksToDelete){
+    var data = {
+      email : $scope.userData.email,
+      isbn : $scope.booksToDelete[0].id,
+      title : $scope.booksToDelete[0].title,
+    }
+    authUser.sellbook(data).then(function(data){
+      console.log("book sent for selling");
+    },
+    function() {
+      console.log("error");
+    });
+  }
+  $scope.booksToDelete = [];
 }
 
 $scope.onAddBook = function(){
@@ -313,7 +365,9 @@ $scope.onAddBook = function(){
       'isbn' : $('#bookisbn').val(),
     }
     authUser.Addbook(bookData).then(function(data){
+
       $scope.myLibBooks = data.data;
+
       //$scope.onlib();
       $scope.isSearch=true;
       $scope.isAddBook =false;

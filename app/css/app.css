@@ -483,10 +483,13 @@ div#updateprofile{
   left: 30%;
   position: absolute;
 }
-.panel-success{
+.panel-warning {
     width: 65%;
     word-wrap: break-word;
 }
+
+
+
 .overlay{
     position:fixed;
     width:100%;
@@ -498,4 +501,12 @@ div#updateprofile{
   margin-left: 45%;
   margin-top: 28%;
   color: whitesmoke;
+
 }
+  .panel-danger {
+    width: 65%;
+    word-wrap: break-word;
+}
+
+.glyphicon {
+  float: right;
