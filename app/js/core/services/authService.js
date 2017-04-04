@@ -1,6 +1,6 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
-	var host = " http://localhost:3000"; // backend server
+	var host = "https://2b67c30a.ngrok.io"; // backend server
 	var token = ''; // token to send for Authorization of api calls
 
 	//get the token required to make all the api calls

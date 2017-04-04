@@ -167,10 +167,21 @@ body {
 
 .library {
   text-align: center;
+  position: relative;
+  padding-top: 10%;
+  left: 15%;
+  width: 83%;
+}
+
+.lib-header {
   position: fixed;
-  left: 37%;
   top: 15%;
-  width: 40%;
+  padding-left: 20%;
+}
+
+.lib-content {
+  position: relative;
+  padding-top: 40%;
 }
 
 .addbook {
@@ -273,13 +284,12 @@ body {
   font-size: 250%;
   position: fixed;
   top: 20%;
-  left: 20%;
+  left: 25%;
 }
 
 .subscript {
-  position: fixed;
-  top: 35%;
-  left: 75%;
+  font-size: 40%;
+
 }
 
 .search-bar {
