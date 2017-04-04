@@ -246,24 +246,20 @@
     </div>
     <div class="lib-content">
     <table class="table table-striped table-hover">
-      <thead>
+      <thead style="text-align:center;">
         <tr>
-          <th>4331</th>
-          <th>Csvy</th>
-          <th>Rmbyagepxr</th>
-          <th>L</th>
-          <th>Yyfugxmhndqiklrcvewbtsaop</th>
-          <th>Iqjbftguoirvkdpnxmsceawhy</th>
+          <th>Title</th>
+          <th>genre</th>
+          <th>Author</th>
+          <th>ID</th>
         </tr>
       </thead>
-      <tbody ng-repeat="book in datavals">
+      <tbody ng-repeat="book in myLibBooks">
         <tr>
-          <td>{{book.4331}}</td>
-          <td>{{book.Csvy}}</td>
-          <td>{{book.Rmbyagepxr}}</td>
-          <td>{{book.L}}</td>
-          <td>{{book.Yyfugxmhndqiklrcvewbtsaop}}</td>
-          <td>{{book.Iqjbftguoirvkdpnxmsceawhy}}</td>
+          <td>{{book.title}}</td>
+          <td>{{book.genre}}</td>
+          <td>{{book.author}}</td>
+          <td>{{book.id}}</td>
         </tr>
         </tbody>
     </table>

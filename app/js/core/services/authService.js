@@ -1,6 +1,6 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
-	var host = "https://2b67c30a.ngrok.io"; // backend server
+	var host = "https://af2a2beb.ngrok.io"; // backend server
 	var token = ''; // token to send for Authorization of api calls
 
 	//get the token required to make all the api calls
@@ -140,6 +140,35 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 			//create an user acccount
 		return def.promise;
 		},
+		getrecommendedbooks:function(email){
+				var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+
+					var req = {
+						 method: 'GET',
+						 url: host + '/users/getrecommendedbooks?email='+ email,
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 }
+					 }
+					$http(req).success(
+						function(resp){
+								def.resolve(resp);
+								//user found
+								console.log(resp);
+						})
+						.error(
+							function(){
+								def.reject("error");
+							console.log("error");
+						});
+
+				});
+			//create an user acccount
+		return def.promise;
+		},
 		verifyaccount: function(phone){
 			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
 				function(resp){
@@ -237,7 +266,7 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 					$http(req)
 						.success(function(resp){
 							def.resolve(resp);
-							console.log("Sucess");
+							console.log("Sucess book added");
 								//user found
 						})
 						.error(function(){

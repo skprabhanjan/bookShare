@@ -181,7 +181,7 @@ body {
 
 .lib-content {
   position: relative;
-  padding-top: 40%;
+  padding-top: 30%;
 }
 
 .addbook {
@@ -227,6 +227,7 @@ body {
 }
 
 @media screen and (max-width: 500px) {
+
   .login{
     width: 100%;
     left: 0;
