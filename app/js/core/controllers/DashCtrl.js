@@ -52,6 +52,7 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
   $scope.updating = false;
   $scope.updatingAdd = false;
   $scope.interests = [];
+  $scope.myLibBooks = [];
   $scope.add = "Add Book";
   if(!Cookies.get(window.btoa('phoneNum'))){
     //user has not logged in
@@ -62,28 +63,7 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
   else{
     $scope.userphone = window.atob(Cookies.get(window.btoa('phoneNum')));
     $scope.fetching = true;
-    authUser.getUserDetails($scope.userphone).then(function(data){
-      $scope.username = data.data.name;
-      $scope.fetching = false;
-      $scope.userData = data.data;
-      $scope.email = data.data.email;
-      if($scope.userData.isStudent==true){
-        $scope.registeredAs = "Student";
-        $scope.branch = $scope.userData.category.branch;
-        $scope.college = $scope.userData.category.college;
-        $scope.sem = $scope.userData.category.sem;
-        $scope.isStudent = true;
-      }
-      else{
-        $scope.registeredAs = "Proffesional";
-        $scope.job = $scope.userData.category.job;
-        $scope.isStudent = false;
-      }
-      $scope.interests = $scope.userData.interests.slice();
-    },
-    function() {
-      console.log("error");
-    });
+
   }
   $scope.isAdds = true ;
   $scope.isReq = false;
@@ -101,14 +81,45 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
 
   //console.log($state.params.data);
   $scope.onload = function(){
+    authUser.getUserDetails($scope.userphone).then(function(data){
+      $scope.username = data.data.name;
+      $scope.fetching = false;
+      $scope.userData = data.data;
+      $scope.email = data.data.email;
+      console.log("sending e-mail");
+      authUser.getrecommendedbooks($scope.email)
+        .then(function(data) {
+          console.log("success");
+        },
+        function () {
+          console.log('error');
+        });
+      if($scope.userData.isStudent==true){
+        $scope.registeredAs = "Student";
+        $scope.branch = $scope.userData.category.branch;
+        $scope.college = $scope.userData.category.college;
+        $scope.sem = $scope.userData.category.sem;
+        $scope.isStudent = true;
+      }
+      else{
+        $scope.registeredAs = "Proffesional";
+        $scope.job = $scope.userData.category.job;
+        $scope.isStudent = false;
+      }
+      $scope.interests = $scope.userData.interests.slice();
+    },
+    function() {
+      console.log("error");
+    });
     document.body.style.backgroundImage = "url('app/css/books5.jpg')";
     authUser.getallbooks()
       .then(function(data) {
-        console.log(data.data[55]);
+        console.log(" success get all books");
       },
       function () {
         console.log('error');
       });
+
   };
 
 $scope.goBack = function(){
@@ -190,7 +201,8 @@ $scope.onlib = function(){
   console.log($scope.userData.email);
   authUser.getlibbooks($scope.userData.email).then(function(data){
         console.log("success");
-        console.log(data);
+        $scope.myLibBooks = data.data;
+        console.log(data.data);
       },
       function() {
         console.log("error");
@@ -276,10 +288,11 @@ $scope.addInterest = function(){
   $scope.interests.push($('#newinterest').val());
 }
 
+$scope.getlibbook = function(bookData){
+
+}
+
 $scope.onAddBook = function(){
-
-
-
   if ($scope.add == "Add Book"){
     console.log("enter 2");
     $scope.isSearch=false;
@@ -297,7 +310,9 @@ $scope.onAddBook = function(){
       'isbn' : $('#bookisbn').val(),
     }
     authUser.Addbook(bookData).then(function(data){
-      console.log("Success");
+      console.log(data);
+      $scope.myLibBooks = data.data;
+      //$scope.onlib();
       $scope.isSearch=true;
       $scope.isAddBook =false;
       $scope.add = "Add Book";
