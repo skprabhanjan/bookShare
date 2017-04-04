@@ -182,7 +182,7 @@ body {
 
 .lib-content {
   position: relative;
-  padding-top: 30%;
+  padding-top: 15%;
 }
 
 .addbook {
@@ -510,3 +510,5 @@ div#updateprofile{
 
 .glyphicon {
   float: right;
+  padding-left: 1%;
+}

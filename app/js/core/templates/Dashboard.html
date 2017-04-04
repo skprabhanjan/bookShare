@@ -245,7 +245,9 @@
               <div class="col-md-4">
                   <div id="{{book.id}}" class="panel panel-warning">
                       <div class="panel-heading">
-                        <span ng-show = "!isSelect" ng-click = "onDelete(book)" class="glyphicon glyphicon-remove"></span>
+                        <span ng-click="onSellBook(book)" ng-show="!isSelect && !loading" class="glyphicon glyphicon-shopping-cart"></span>
+
+                        <span ng-show = "!isSelect" ng-click = "onDeleteSingle(book)" class="glyphicon glyphicon glyphicon-trash"></span>
                         <input ng-show="isSelect" ng-click = "onDelete(book)" type="checkbox" style="float:right;">
                           <h3 class="panel-title">Book {{book.title}}</h3>
                       </div>
@@ -255,7 +257,6 @@
                           Author : {{book.author}} <br>
                           Id     : {{book.id}} <br>
                   </div>
-                    <a ng-click="onSellBook()" class="btn btn-success" ng-show="!loading">Sell</a>
               </div>
           </div>
       </div>

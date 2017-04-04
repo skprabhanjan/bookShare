@@ -306,6 +306,22 @@ $scope.onDelete = function(book){
   console.log($scope.booksToDelete);
 }
 
+$scope.onDeleteSingle = function(book){
+  var bookdata = [];
+  bookdata.push(book);
+  var data = {
+    email : $scope.userData.email,
+    books : bookdata
+  }
+  authUser.deletebook(data).then(function(data){
+    console.log("book deleted");
+    $scope.onlib();
+  },
+  function() {
+    console.log("error");
+  });
+}
+
 $scope.onDeleteSubmit = function (){
   if($scope.booksToDelete){
     var data = {
@@ -314,6 +330,7 @@ $scope.onDeleteSubmit = function (){
     }
     authUser.deletebook(data).then(function(data){
       console.log("book deleted");
+      $scope.onlib();
     },
     function() {
       console.log("error");
@@ -339,15 +356,16 @@ $scope.onCancel = function(){
   $scope.updatingAdd = false;
 }
 
-$scope.onSellBook = function(){
-  if($scope.booksToDelete){
+$scope.onSellBook = function(book){
+  if(book){
     var data = {
       email : $scope.userData.email,
-      isbn : $scope.booksToDelete[0].id,
-      title : $scope.booksToDelete[0].title,
+      isbn : book.id,
+      title : book.title,
     }
     authUser.sellbook(data).then(function(data){
       console.log("book sent for selling");
+      $scope.onlib();
     },
     function() {
       console.log("error");
@@ -355,6 +373,8 @@ $scope.onSellBook = function(){
   }
   $scope.booksToDelete = [];
 }
+
+
 
 $scope.onAddBook = function(){
   if ($scope.add == "Add Book"){
