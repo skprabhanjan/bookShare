@@ -128,7 +128,6 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 						function(resp){
 								def.resolve(resp);
 								//user found
-								console.log(resp);
 						})
 						.error(
 							function(){

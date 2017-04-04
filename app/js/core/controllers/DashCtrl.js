@@ -46,7 +46,9 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
 
   ];
   $scope.email = '';
+  $scope.loading = false;
   $scope.fetching = false;
+  $scope.pageload = false;
   $scope.editRequested = false;
   $scope.buttonVal = "Update";
   $scope.updating = false;
@@ -81,12 +83,17 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
 
   //console.log($state.params.data);
   $scope.onload = function(){
+    $scope.pageload = true;
+   $('#navbar').addClass('overlay');
     authUser.getUserDetails($scope.userphone).then(function(data){
       $scope.username = data.data.name;
       $scope.fetching = false;
       $scope.userData = data.data;
       $scope.email = data.data.email;
       console.log("sending e-mail");
+      $scope.pageload = false;
+      $('#navbar').removeClass('overlay');
+      $('#navbar').addClass('navheader');
       authUser.getrecommendedbooks($scope.email)
         .then(function(data) {
           console.log("success");
@@ -114,7 +121,6 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
     document.body.style.backgroundImage = "url('app/css/books5.jpg')";
     authUser.getallbooks()
       .then(function(data) {
-        console.log(" success get all books");
       },
       function () {
         console.log('error');
@@ -198,11 +204,10 @@ $scope.onChoiceSelect = function(value){
 }
 
 $scope.onlib = function(){
-  console.log($scope.userData.email);
+  $scope.loading = true;
   authUser.getlibbooks($scope.userData.email).then(function(data){
-        console.log("success");
+        $scope.loading = false;
         $scope.myLibBooks = data.data;
-        console.log(data.data);
       },
       function() {
         console.log("error");
@@ -294,14 +299,12 @@ $scope.getlibbook = function(bookData){
 
 $scope.onAddBook = function(){
   if ($scope.add == "Add Book"){
-    console.log("enter 2");
     $scope.isSearch=false;
     $scope.isAddBook =true;
     $scope.add = "ADD";
   } else if($scope.add == "ADD"){
-      console.log("enter 1");
+    $scope.add = "Adding ";
     $scope.updatingAdd = true;
-    console.log($scope.userData.email);
     var bookData = {
       'email' : $scope.userData.email,
       'title' : $('#booktitle').val(),
@@ -310,7 +313,6 @@ $scope.onAddBook = function(){
       'isbn' : $('#bookisbn').val(),
     }
     authUser.Addbook(bookData).then(function(data){
-      console.log(data);
       $scope.myLibBooks = data.data;
       //$scope.onlib();
       $scope.isSearch=true;
@@ -324,6 +326,14 @@ $scope.onAddBook = function(){
 
   }
 
+}
+
+$scope.searchBooks = function(item){
+var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').val();
+  return (item.title).toLowerCase().indexOf(val) !=-1 ||
+         (item.genre).toLowerCase().indexOf(val) !=-1 ||
+         (item.author).toLowerCase().indexOf(val) !=-1 ||
+         (item.id).toLowerCase().indexOf(val) !=-1;
 }
 
 }]);
