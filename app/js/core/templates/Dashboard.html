@@ -255,6 +255,7 @@
                           Author : {{book.author}} <br>
                           Id     : {{book.id}} <br>
                   </div>
+                    <a ng-click="onSellBook()" class="btn btn-success" ng-show="!loading">Sell</a>
               </div>
           </div>
       </div>
@@ -282,12 +283,12 @@
 </div>
 
     </div>
-    <a ng-click="selectBooks()" class="btn btn-success">Select</span><span>.</span></span></a>
-    <a ng-click="onDeleteSubmit()" class="btn btn-info" > Delete</a>
-    <a ng-click="onSellBook()" class="btn btn-info" >Sell</a>
+    <a ng-click="selectBooks()" class="btn btn-primary" ng-show="!loading && !isAddBook">Select</a>
+    <a ng-click="onDeleteSubmit()" class="btn btn-primary" ng-show="!loading && !isAddBook"> Delete</a>
 
-        <a ng-click="onAddBook()" id="addbook" class="btn btn-info" value="add" ng-show="!loading">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
 
+    <a ng-click="onAddBook()" id="addbook" class="btn btn-primary" value="add" ng-show="!loading">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
+    <a ng-click="onCancel()" class="btn btn-primary" ng-show="!loading && isAddBook"> CANCEL</a>
 
 
 </div>
