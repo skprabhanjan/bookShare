@@ -364,7 +364,7 @@ $scope.onSellBook = function(book){
       title : book.title,
     }
     authUser.sellbook(data).then(function(data){
-      console.log("book sent for selling");
+      console.log(data);
       $scope.onlib();
     },
     function() {
@@ -393,7 +393,7 @@ $scope.onAddBook = function(){
     }
     authUser.Addbook(bookData).then(function(data){
 
-      $scope.myLibBooks = data.data;
+      $scope.onlib();
 
       //$scope.onlib();
       $scope.isSearch=true;
