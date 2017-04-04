@@ -255,6 +255,13 @@ body {
   .free-img{
     left:90%;
   }
+  nav.navbar{
+    width:100%;
+  }
+  /* reset password page made responsive*/
+  div#resetpass{
+    top:10%;
+  }
 }
 .landing-text{
   text-align: center;
@@ -456,4 +463,10 @@ body {
   padding-top: 5%;
   width: 100%;
   left: 15%;
+}
+/* profile page ui*/
+div#updateprofile{
+  margin-top: 6%;
+  left: 30%;
+  position: absolute;
 }

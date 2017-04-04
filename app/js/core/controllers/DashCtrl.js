@@ -272,6 +272,7 @@ $scope.removeInterest = function(interest){
   $scope.interests.splice($scope.interests.indexOf(interest),1);
 }
 $scope.addInterest = function(){
+  if($('#newinterest').val()!='')
   $scope.interests.push($('#newinterest').val());
 }
 
