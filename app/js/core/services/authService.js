@@ -1,6 +1,8 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
-	var host = "https://af2a2beb.ngrok.io"; // backend server
+	var host = "https://2b67c30a.ngrok.io"; // backend server praj
+	//var host = "https://af2a2beb.ngrok.io"; // backend server td
+
 	var token = ''; // token to send for Authorization of api calls
 
 	//get the token required to make all the api calls
@@ -267,6 +269,60 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 						.success(function(resp){
 							def.resolve(resp);
 							console.log("Sucess book added");
+								//user found
+						})
+						.error(function(){
+							def.reject("error");
+							console.log("error");
+						});
+				});
+				return def.promise;
+		},
+		deletebook: function(book){
+			console.log("sending data");
+			var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+					var req = {
+						 method: 'POST',
+						 url: host + '/users/library/delete',
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 },
+						 data: book
+					 }
+					$http(req)
+						.success(function(resp){
+							def.resolve(resp);
+							console.log("Sucess book deleted");
+								//user found
+						})
+						.error(function(){
+							def.reject("error");
+							console.log("error");
+						});
+				});
+				return def.promise;
+		},
+		sellbook: function(book){
+			console.log("sending data");
+			var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+					var req = {
+						 method: 'POST',
+						 url: host + '/users/books/sell',
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 },
+						 data: book
+					 }
+					$http(req)
+						.success(function(resp){
+							def.resolve(resp);
+							console.log("Sucess book deleted");
 								//user found
 						})
 						.error(function(){

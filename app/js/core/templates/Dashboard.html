@@ -2,6 +2,9 @@
   a:hover {
     cursor:pointer;
   }
+  span:hover {
+    cursor:pointer;
+  }
 </style>
 <div  ng-controller = "DashCtrl" data-ng-init="onload()">
   <div class="navheader">
@@ -234,34 +237,33 @@
 
         <br>
         <br>
+      </form>
 
-
-     </form>
-        <h1>Your library </h1>
-        <p>This contains blah blah</p>
     </div>
     <div class="lib-content">
-    <table class="table table-striped table-hover">
-      <thead style="text-align:center;">
-        <tr>
-          <th>Title</th>
-          <th>genre</th>
-          <th>Author</th>
-          <th>ID</th>
-        </tr>
-      </thead>
-      <tbody ng-repeat="book in myLibBooks">
-        <tr>
-          <td>{{book.title}}</td>
-          <td>{{book.genre}}</td>
-          <td>{{book.author}}</td>
-          <td>{{book.id}}</td>
-        </tr>
-        </tbody>
-    </table>
+      <div class="row">
+          <div ng-repeat="book in myLibBooks">
+              <div class="col-md-4">
+                  <div id="{{book.id}}" class="panel panel-warning">
+                      <div class="panel-heading">
+                        <span ng-show = "!isSelect" ng-click = "onDelete(book)" class="glyphicon glyphicon-remove"></span>
+                        <input ng-show="isSelect" ng-click = "onDelete(book)" type="checkbox" style="float:right;">
+                          <h3 class="panel-title">Book {{book.title}}</h3>
+                      </div>
+
+                      <div class="panel-body">
+                          Genre  :  {{book.genre}} <br>
+                          Author : {{book.author}} <br>
+                          Id     : {{book.id}} <br>
+                  </div>
+              </div>
+          </div>
+      </div>
+
   </div>
 </div>
-    <div ng-if="isAddBook" class="addbook">
+</div>
+    <div ng-show="isAddBook" class="addbook">
 
 <div class="form-group">
   <label class="control-label" for="focusedInput">Book Title</label>
@@ -280,9 +282,12 @@
 </div>
 
     </div>
+    <a ng-click="selectBooks()" class="btn btn-success">Select</span><span>.</span></span></a>
+    <a ng-click="onDeleteSubmit()" class="btn btn-info" > Delete</a>
+    <a ng-click="onSellBook()" class="btn btn-info" >Sell</a>
 
-        <a ng-click="onAddBook()" id="addbook" class="btn btn-success" value="add">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
-  </div>
+        <a ng-click="onAddBook()" id="addbook" class="btn btn-info" value="add">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
+
 </div>
 
 </div>
