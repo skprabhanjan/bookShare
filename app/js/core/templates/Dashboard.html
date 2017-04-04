@@ -7,14 +7,13 @@
   }
 </style>
 <div  ng-controller = "DashCtrl" data-ng-init="onload()">
-  <div class="navheader">
-    <nav class="navbar navbar-inverse">
+  <div id="navbar">
+    <h2 ng-show="pageload" class="pageloading"> Loading <span class="saving"><span>.</span><span>.</span><span>.</span></span></h2>
+    <nav class="navbar navbar-inverse" ng-show="!pageload">
     <div class="container-fluid">
-
-
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a ng-click="goBack()">Hello {{username}} <span class="saving" ng-show="fetching==true"><span>.</span><span>.</span><span>.</span></span>
+        <li><a ng-click="goBack()">Hello {{username}} <!--  <span class="saving" ng-show="fetching==true"><span>.</span><span>.</span><span>.</span></span> -->
 </a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
@@ -26,8 +25,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a ng-click="library()">My library</a></li>
         <li><a ng-click="MyAdds()">My adds</a></li>
-        <li><a style="cursor:pointer"   ng-click="openNav()">Profile</a></li>
-        <li><a style="cursor:pointer"   ng-click="logOut()">Sign Out</a></li>
+        <li><a style="cursor:pointer" ng-click="openNav()">Profile</a></li>
+        <li><a style="cursor:pointer" ng-click="logOut()">Sign Out</a></li>
       </ul>
 
     </div>
@@ -220,29 +219,29 @@
 
 
   <div ng-if="isLibrary" class="jumbotron library" data-ng-init="onlib()">
-    <div ng-if="isSearch" >
+    <h1 ng-show="loading"> Fetching Your library Books<span class="saving"><span>.</span><span>.</span><span>.</span></span> </h1>
+    <div ng-if="isSearch && !loading">
     <div class="lib-header">
       <form class="navbar-form navbar-left" role="search">
        <div class="form-group">
-         <input class="form-control" placeholder="Search" type="text">
+         <input class="form-control" placeholder="Title/Genre/Author/ID" type="text" ng-model="search" id="searchValue">
        </div>
-       <select class="form-control" id="select">
-         <option>category 1</option>
-         <option>category 2</option>
-         <option>category 3</option>
-         <option>category 4</option>
-         <option>category 5</option>
+       <select class="form-control" name="selector" id="select" ng-model="select">
+         <option>romance</option>
+         <option>child</option>
+         <option>ohhh</option>
+         <option>ada</option>
+         <option></option>
        </select>
-       <a type="submit"  class="btn btn-info">Search</a>
-
         <br>
         <br>
       </form>
 
+
     </div>
     <div class="lib-content">
       <div class="row">
-          <div ng-repeat="book in myLibBooks">
+          <div ng-repeat="book in myLibBooks | filter:searchBooks" ng-model="select">
               <div class="col-md-4">
                   <div id="{{book.id}}" class="panel panel-warning">
                       <div class="panel-heading">
@@ -263,7 +262,8 @@
   </div>
 </div>
 </div>
-    <div ng-show="isAddBook" class="addbook">
+    <div ng-show="isAddBook && !loading" class="addbook">
+
 
 <div class="form-group">
   <label class="control-label" for="focusedInput">Book Title</label>
@@ -286,7 +286,9 @@
     <a ng-click="onDeleteSubmit()" class="btn btn-info" > Delete</a>
     <a ng-click="onSellBook()" class="btn btn-info" >Sell</a>
 
-        <a ng-click="onAddBook()" id="addbook" class="btn btn-info" value="add">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
+        <a ng-click="onAddBook()" id="addbook" class="btn btn-info" value="add" ng-show="!loading">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
+
+
 
 </div>
 
