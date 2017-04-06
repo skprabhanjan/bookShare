@@ -525,7 +525,23 @@ div#updateprofile{
   padding-left: 1%;
 }
 
+.share {
+  float: right;
+  padding-right: 1%;
+}
+
 .myadds {
-  position: fixed;
   left: 15%;
+    text-align: center;
+    position: relative;
+    width: 83%;
+    color: black;
+}
+
+.adds-table {
+  position: relative;
+  left: 8%;
+  width: 80%;
+  padding-top: 15%;
+  z-index: -1;
 }

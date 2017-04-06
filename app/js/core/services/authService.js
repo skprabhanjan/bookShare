@@ -156,6 +156,37 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 					 }
 					$http(req).success(
 						function(resp){
+							console.log("Getting books which have flagged for selling");
+								def.resolve(resp);
+								//user found
+						})
+						.error(
+							function(){
+								def.reject("error");
+							console.log("error");
+						});
+
+				});
+			//create an user acccount
+		return def.promise;
+		},
+		getrentbooks:function(email){
+			var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+
+					var req = {
+						 method: 'GET',
+						 url: host + '/users/rentbox?email='+email,
+						 headers: {
+						   'Authorization': 'Bearer ' + token
+						 }
+					 }
+					$http(req).success(
+						function(resp){
+							console.log("Getting books which have flagged for renting");
+
 								def.resolve(resp);
 								//user found
 						})
@@ -341,6 +372,33 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 					var req = {
 						 method: 'POST',
 						 url: host + '/users/books/sell',
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 },
+						 data: book
+					 }
+					$http(req)
+						.success(function(resp){
+							def.resolve(resp);
+							console.log("Sucess book deleted");
+								//user found
+						})
+						.error(function(){
+							def.reject("error");
+							console.log("error");
+						});
+				});
+				return def.promise;
+		},
+		rentbook: function(book){
+			console.log("sending data");
+			var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+					var req = {
+						 method: 'POST',
+						 url: host + '/users/books/rent',
 						 headers: {
 							 'Authorization': 'Bearer ' + token
 						 },
