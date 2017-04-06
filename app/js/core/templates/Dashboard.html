@@ -18,9 +18,8 @@
       </ul>
       <form class="navbar-form navbar-left" role="search">
        <div class="form-group">
-         <input class="form-control" placeholder="Search" type="text">
+         <input class="form-control" placeholder="Search for anything" type="text" ng-change="showSearchResults()" ng-model="globalSearch">
        </div>
-       <button type="submit" class="btn btn-default">Submit</button>
      </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a ng-click="library()">My library</a></li>
@@ -342,4 +341,21 @@
 
 </div>
 
+<div ng-show="showallBooks" class="allBooks">
+  <div class="row">
+      <div ng-repeat="book in allBooks | filter:filterAllBooks">
+          <div class="col-md-4">
+              <div id="{{book.id}}">
+                  <div class="panel-heading"><h3 class="panel-title">Book {{book.title}}</h3></div>
+                  <div class="panel-body">
+                      Genre  :  {{book.genre}} <br>
+                      Author : {{book.author}} <br>
+                      Id     : {{book.id}} <br>
+                      Status : {{book.status}}<br>
+                      Added By: {{book.addedBy}}
+                 </div>
+            </div>
+         </div>
+      </div>
+  </div>
 </div>

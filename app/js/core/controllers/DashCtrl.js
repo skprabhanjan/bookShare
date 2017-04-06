@@ -15,6 +15,8 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.mySoldBooks = [];
   $scope.myRentBooks = [];
   $scope.booksToDelete = [];
+  $scope.allBooks = [];
+  $scope.globalSearch = '';
   $scope.add = "Add Book";
   if(!Cookies.get(window.btoa('phoneNum'))){
     //user has not logged in
@@ -42,6 +44,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.isSearch = true;
   $scope.isAddBook =false;
   $scope.isSelect = false;
+  $scope.showallBooks = false;
 
 
   //console.log($state.params.data);
@@ -51,42 +54,38 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
     authUser.getUserDetails($scope.userphone).then(function(data){
       $scope.isDash = true;
       $scope.username = data.data.name;
-      $scope.fetching = false;
       $scope.userData = data.data;
       $scope.email = data.data.email;
-      console.log("sending e-mail");
       authUser.getlibbooks($scope.userData.email).then(function(data){
             $scope.myLibBooks = data.data;
-            console.log($scope.myLibBooks);
           },
           function() {
             console.log("error");
           });
           authUser.getsoldbooks($scope.userData.email).then(function(data){
                 $scope.mySoldBooks = data.data;
-                console.log($scope.mySoldBooks);
               },
               function() {
                 console.log("error");
               });
     authUser.getrentbooks($scope.userData.email).then(function(data){
         $scope.myRentBooks = data.data;
-            console.log(data);
       },
       function() {
         console.log("error");
       });
-      $scope.pageload = false;
       $('#navbar').removeClass('overlay');
       $('#navbar').addClass('navheader');
-      authUser.getrecommendedbooks($scope.email)
+      authUser.getallbooks()
         .then(function(data) {
-          console.log("success");
+          $scope.allBooks = data.data;
+          $scope.fetching = false;
+
         },
         function () {
           console.log('error');
         });
-
+        $scope.pageload = false;
       if($scope.userData.isStudent==true){
         $scope.registeredAs = "Student";
         $scope.branch = $scope.userData.category.branch;
@@ -105,13 +104,6 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
       console.log("error");
     });
     document.body.style.backgroundImage = "url('app/css/books5.jpg')";
-    authUser.getallbooks()
-      .then(function(data) {
-      },
-      function () {
-        console.log('error');
-      });
-
   };
 
 $scope.goBack = function(){
@@ -120,6 +112,7 @@ $scope.goBack = function(){
   $scope.isMyAdds = false ;
   $scope.isProfile = false ;
   $scope.isLibrary = false ;
+  $scope.showallBooks = false;
 };
 
 $scope.openNav = function(){
@@ -153,6 +146,7 @@ $scope.PostRequests = function (){
   $scope.isProfile = false ;
   $scope.isLibrary = false ;
   $scope.isPostRequests = true;
+  $scope.showallBooks = false;
 };
 $scope.MyAdds = function (){
   $scope.isDash = false;
@@ -160,6 +154,7 @@ $scope.MyAdds = function (){
   $scope.isProfile = false ;
   $scope.isLibrary = false ;
   $scope.isPostRequests = false;
+  $scope.showallBooks = false;
 };
 $scope.logOut = function(){
   Cookies.remove(window.btoa('phoneNum'));
@@ -171,6 +166,7 @@ $scope.profile =function(){
   $scope.isPostRequests = false;
   $scope.isLibrary = false ;
   $scope.isProfile = true ;
+  $scope.showallBooks = false;
   $scope.closeNav();
 }
 $scope.library = function() {
@@ -179,6 +175,7 @@ $scope.library = function() {
   $scope.isPostRequests = false;
   $scope.isProfile = false ;
   $scope.isLibrary = true ;
+  $scope.showallBooks = false;
 }
 $scope.editDetails = function(){
   $scope.editRequested = true;
@@ -206,7 +203,15 @@ $scope.onlib = function(){
         //     $scope.myLibBooks.push(data.data[i]);
         // }
         $scope.myLibBooks = data.data;
-        console.log($scope.myLibBooks);
+        authUser.getallbooks()
+          .then(function(data) {
+            $scope.allBooks = data.data;
+            $scope.fetching = false;
+
+          },
+          function () {
+            console.log('error');
+          });
       },
       function() {
         console.log("error");
@@ -300,7 +305,6 @@ $scope.onDelete = function(book){
   else {
     $scope.booksToDelete  = $scope.booksToDelete.filter(function(o){ return o.id != book.id; });
   }
-  console.log($scope.booksToDelete);
 }
 
 $scope.onDeleteSingle = function(book){
@@ -319,7 +323,6 @@ $scope.onDeleteSingle = function(book){
     $scope.pageload = false;
     $('#navbar').removeClass('overlay');
     $('#navbar').addClass('navheader');
-    console.log("book deleted");
     $scope.onlib();
   },
   function() {
@@ -334,7 +337,6 @@ $scope.onDeleteSubmit = function (){
       books : $scope.booksToDelete
     }
     authUser.deletebook(data).then(function(data){
-      console.log("book deleted");
       $scope.onlib();
     },
     function() {
@@ -364,15 +366,12 @@ $scope.onCancel = function(){
 $scope.onSellBook = function(book){
   $scope.pageload = true;
   $scope.loadingText = "Updating";
-  console.log(book);
   $('#navbar').addClass('overlay');
   if(book){
     var dataToSend = {
       email : $scope.userData.email,
-      isbn : book.bookInfo.id,
-      title : book.bookInfo.title
+      book : book.bookInfo
     }
-    console.log(dataToSend);
     authUser.sellbook(dataToSend).then(function(data){
       $scope.pageload = false;
       $('#navbar').removeClass('overlay');
@@ -390,17 +389,13 @@ $scope.onSellBook = function(book){
 $scope.onRentBook = function(book){
   $scope.pageload = true;
   $scope.loadingText = "Updating";
-  console.log(book);
   $('#navbar').addClass('overlay');
   if(book){
     var dataToSend = {
       email : $scope.userData.email,
-      isbn : book.bookInfo.id,
-      title : book.bookInfo.title
+      book: book
     }
-    console.log(dataToSend);
     authUser.rentbook(dataToSend).then(function(data){
-      console.log(data);
       $scope.pageload = false;
       $('#navbar').removeClass('overlay');
       $('#navbar').addClass('navheader');
@@ -416,7 +411,6 @@ $scope.onRentBook = function(book){
 $scope.myrentedbook = function(){
   authUser.getrentbooks($scope.userData.email).then(function(data){
         $scope.myRentBooks = data.data;
-        console.log(data);
       },
       function() {
         console.log("error");
@@ -425,7 +419,6 @@ $scope.myrentedbook = function(){
 $scope.myAdds = function(){
   authUser.getsoldbooks($scope.userData.email).then(function(data){
         $scope.mySoldBooks = data.data;
-        console.log($scope.mySoldBooks);
       },
       function() {
         console.log("error");
@@ -472,5 +465,42 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
          (item.bookInfo.author).toLowerCase().indexOf(val) !=-1 ||
          (item.bookInfo.id).toLowerCase().indexOf(val) !=-1;
  }
+
+ $scope.showSearchResults = function(){
+   if($scope.globalSearch == ''){
+     $scope.isDash = true;
+     $scope.isMyAdds = false;
+     $scope.isProfile = false;
+     $scope.isLibrary = false;
+     $scope.isPostRequests = false;
+     $scope.showallBooks = false;
+   }
+   else {
+     $scope.isDash = false;
+     $scope.isMyAdds = false;
+     $scope.isProfile = false;
+     $scope.isLibrary = false;
+     $scope.isPostRequests = false;
+     $scope.showallBooks = true;
+   }
+ }
+
+ $scope.filterAllBooks = function(item){
+   var statusOfBook="";
+   if(item.status=="sell"){
+     statusOfBook = "panel panel-danger";
+   }
+   else if(item.status=="rent"){
+     statusOfBook = "panel panel-primary";
+   }
+   $('#'+(item.id)).addClass(statusOfBook);
+ var val = $scope.globalSearch.toLowerCase();
+   return (item.title).toLowerCase().indexOf(val) !=-1 ||
+          (item.genre).toLowerCase().indexOf(val) !=-1 ||
+          (item.author).toLowerCase().indexOf(val) !=-1 ||
+          (item.id).toLowerCase().indexOf(val) !=-1 ||
+          (item.status).toLowerCase().indexOf(val) !=-1 ||
+          (item.addedBy).toLowerCase().indexOf(val) !=-1;
+  }
 
 }]);
