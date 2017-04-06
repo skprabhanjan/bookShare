@@ -13,6 +13,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.interests = [];
   $scope.myLibBooks = [];
   $scope.mySoldBooks = [];
+  $scope.myRentBooks = [];
   $scope.booksToDelete = [];
   $scope.add = "Add Book";
   if(!Cookies.get(window.btoa('phoneNum'))){
@@ -28,6 +29,8 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   }
   $scope.isAdds = true ;
   $scope.isReq = false;
+  $scope.isSell = false ;
+  $scope.isRent = true;
   $scope.isDash = false;
   $scope.isPostRequests = false ;
   $scope.isMyAdds = false ;
@@ -52,6 +55,27 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
       $scope.userData = data.data;
       $scope.email = data.data.email;
       console.log("sending e-mail");
+      authUser.getlibbooks($scope.userData.email).then(function(data){
+            $scope.myLibBooks = data.data;
+            console.log($scope.myLibBooks);
+          },
+          function() {
+            console.log("error");
+          });
+          authUser.getsoldbooks($scope.userData.email).then(function(data){
+                $scope.mySoldBooks = data.data;
+                console.log($scope.mySoldBooks);
+              },
+              function() {
+                console.log("error");
+              });
+    authUser.getrentbooks($scope.userData.email).then(function(data){
+        $scope.myRentBooks = data.data;
+            console.log(data);
+      },
+      function() {
+        console.log("error");
+      });
       $scope.pageload = false;
       $('#navbar').removeClass('overlay');
       $('#navbar').addClass('navheader');
@@ -62,23 +86,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
         function () {
           console.log('error');
         });
-        authUser.getlibbooks($scope.userData.email).then(function(data){
-              // for (var i = 0; i< data.data.length; i++){
-              //     $scope.myLibBooks.push(data.data[i]);
-              // }
-              $scope.myLibBooks = data.data;
-              console.log($scope.myLibBooks);
-            },
-            function() {
-              console.log("error");
-            });
-            authUser.getsoldbooks($scope.userData.email).then(function(data){
-                  $scope.mySoldBooks = data.data;
-                  console.log($scope.mySoldBooks);
-                },
-                function() {
-                  console.log("error");
-                });
+
       if($scope.userData.isStudent==true){
         $scope.registeredAs = "Student";
         $scope.branch = $scope.userData.category.branch;
@@ -130,6 +138,14 @@ $scope.onRecomAdds = function (){
 $scope.onRecomReq = function (){
   $scope.isAdds = false;
   $scope.isReq = true;
+};
+$scope.onRentTab = function (){
+  $scope.isSell = false ;
+  $scope.isRent = true;
+};
+$scope.onSellTab = function (){
+  $scope.isSell = true ;
+  $scope.isRent = false;
 };
 $scope.PostRequests = function (){
   $scope.isDash = false;
@@ -371,6 +387,41 @@ $scope.onSellBook = function(book){
   $scope.booksToDelete = [];
 }
 
+$scope.onRentBook = function(book){
+  $scope.pageload = true;
+  $scope.loadingText = "Updating";
+  console.log(book);
+  $('#navbar').addClass('overlay');
+  if(book){
+    var dataToSend = {
+      email : $scope.userData.email,
+      isbn : book.bookInfo.id,
+      title : book.bookInfo.title
+    }
+    console.log(dataToSend);
+    authUser.rentbook(dataToSend).then(function(data){
+      console.log(data);
+      $scope.pageload = false;
+      $('#navbar').removeClass('overlay');
+      $('#navbar').addClass('navheader');
+      $scope.onlib();
+      $scope.myrentedbook();
+    },
+    function() {
+      console.log("error");
+    });
+  }
+}
+
+$scope.myrentedbook = function(){
+  authUser.getrentbooks($scope.userData.email).then(function(data){
+        $scope.myRentBooks = data.data;
+        console.log(data);
+      },
+      function() {
+        console.log("error");
+      });
+}
 $scope.myAdds = function(){
   authUser.getsoldbooks($scope.userData.email).then(function(data){
         $scope.mySoldBooks = data.data;
