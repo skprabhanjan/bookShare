@@ -69,7 +69,8 @@ body {
     margin-left: 4%;
 }
 /*#signinbutton{
-    width: 15%  ;
+    width: 25%;
+    display: inline-block;
 }*/
 
 #interests{
@@ -167,10 +168,29 @@ body {
 
 .library {
   text-align: center;
+  position: relative;
+  padding-top: 10%;
+  left: 15%;
+  width: 83%;
+}
+
+.lib-header {
   position: fixed;
-  left: 37%;
   top: 15%;
-  width: 40%;
+  padding-left: 20%;
+  z-index: 1;
+}
+
+.lib-header-load {
+  position: fixed;
+  top: 15%;
+  padding-left: 20%;
+  z-index: -1;
+}
+
+.lib-content {
+  position: relative;
+  padding-top: 15%;
 }
 
 .addbook {
@@ -216,6 +236,7 @@ body {
 }
 
 @media screen and (max-width: 500px) {
+
   .login{
     width: 100%;
     left: 0;
@@ -273,13 +294,12 @@ body {
   font-size: 250%;
   position: fixed;
   top: 20%;
-  left: 20%;
+  left: 25%;
 }
 
 .subscript {
-  position: fixed;
-  top: 35%;
-  left: 75%;
+  font-size: 40%;
+
 }
 
 .search-bar {
@@ -355,7 +375,7 @@ body {
 
 .dash-table {
   position: relative;
-  left: 6%;
+  left: 8%;
   width: 80%;
   padding-top: 10%;
   z-index: -1;
@@ -456,6 +476,7 @@ body {
 .addbook {
   width: 100%;
   left: 0;
+  padding-top: 5%;
 }
 
 .top-tabs {
@@ -469,4 +490,42 @@ div#updateprofile{
   margin-top: 6%;
   left: 30%;
   position: absolute;
+}
+.panel-warning {
+    width: 65%;
+    word-wrap: break-word;
+}
+
+.overlay{
+    position:fixed;
+    left: 0;
+    width:100%;
+    height:100%;
+    background-color: black;
+    background-color:rgba(0,0,0,.55);
+}
+.pageloading{
+  margin-left: 45%;
+  margin-top: 25%;
+  color: whitesmoke;
+
+}
+.panel-danger {
+    width: 65%;
+    word-wrap: break-word;
+}
+
+.panel-primary {
+    width: 65%;
+    word-wrap: break-word;
+}
+
+.glyphicon {
+  float: right;
+  padding-left: 1%;
+}
+
+.myadds {
+  position: fixed;
+  left: 15%;
 }
