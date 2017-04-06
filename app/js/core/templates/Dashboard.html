@@ -8,7 +8,7 @@
 </style>
 <div  ng-controller = "DashCtrl" data-ng-init="onload()">
   <div id="navbar">
-    <h2 ng-show="pageload" class="pageloading"> Loading <span class="saving"><span>.</span><span>.</span><span>.</span></span></h2>
+    <h2 ng-show="pageload" class="pageloading"> {{loadingText}} <span class="saving"><span>.</span><span>.</span><span>.</span></span></h2>
     <nav class="navbar navbar-inverse" ng-show="!pageload">
     <div class="container-fluid">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -241,21 +241,19 @@
     </div>
     <div class="lib-content">
       <div class="row">
-          <div ng-repeat="book in myLibBooks | filter:searchBooks" ng-model="select">
+          <div ng-repeat="book in myLibBooks | filter: searchBooks">
               <div class="col-md-4">
                   <div id="{{book.id}}" class="panel panel-warning">
                       <div class="panel-heading">
                         <span ng-click="onSellBook(book)" ng-show="!isSelect && !loading" class="glyphicon glyphicon-shopping-cart"></span>
-
-                        <span ng-show = "!isSelect" ng-click = "onDeleteSingle(book)" class="glyphicon glyphicon glyphicon-trash"></span>
-                        <input ng-show="isSelect" ng-click = "onDelete(book)" type="checkbox" style="float:right;">
-                          <h3 class="panel-title">Book {{book.title}}</h3>
+                        <span ng-show = "!isSelect" ng-click = "onDeleteSingle(book.bookInfo.id)" class="glyphicon glyphicon glyphicon-trash"></span>
+                        <input ng-show="isSelect" ng-click = "onDelete(book.bookInfo.id)" type="checkbox" style="float:right;">
+                          <h3 class="panel-title">Book {{book.bookInfo.title}}</h3>
                       </div>
-
                       <div class="panel-body">
-                          Genre  :  {{book.genre}} <br>
-                          Author : {{book.author}} <br>
-                          Id     : {{book.id}} <br>
+                          Genre  :  {{book.bookInfo.genre}} <br>
+                          Author : {{book.bookInfo.author}} <br>
+                          Id     : {{book.bookInfo.id}} <br>
                   </div>
               </div>
           </div>

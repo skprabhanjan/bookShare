@@ -1,5 +1,5 @@
 
-app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', function($scope,$state,$stateParams,authUser) {
+app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authUser', function($rootScope,$scope,$state,$stateParams,authUser) {
   $scope.datavals = [
     {
       "4331": 564,
@@ -47,6 +47,8 @@ app.controller('DashCtrl', ['$scope','$state','$stateParams','authUser', functio
   ];
   $scope.email = '';
   $scope.loading = false;
+  $scope.loadingText = "Loading";
+  $scope.operationCompleted = false;
   $scope.fetching = false;
   $scope.pageload = false;
   $scope.editRequested = false;
@@ -207,9 +209,14 @@ $scope.onChoiceSelect = function(value){
 
 $scope.onlib = function(){
   $scope.loading = true;
+  $scope.myLibBooks.length = 0;
   authUser.getlibbooks($scope.userData.email).then(function(data){
         $scope.loading = false;
+        // for (var i = 0; i< data.data.length; i++){
+        //     $scope.myLibBooks.push(data.data[i]);
+        // }
         $scope.myLibBooks = data.data;
+        console.log($scope.myLibBooks);
       },
       function() {
         console.log("error");
@@ -296,7 +303,7 @@ $scope.addInterest = function(){
 }
 
 $scope.onDelete = function(book){
-  var pos = $scope.booksToDelete.filter(function(o){return o.id == book.id;} );
+  var pos = $scope.booksToDelete.filter(function(o){return o == book;} );
   if (pos[0] == undefined){
     $scope.booksToDelete.push(book);
   }
@@ -307,6 +314,9 @@ $scope.onDelete = function(book){
 }
 
 $scope.onDeleteSingle = function(book){
+  $scope.pageload = true;
+  $scope.loadingText = "Updating";
+  $('#navbar').addClass('overlay');
   var bookdata = [];
   bookdata.push(book);
   var data = {
@@ -314,6 +324,9 @@ $scope.onDeleteSingle = function(book){
     books : bookdata
   }
   authUser.deletebook(data).then(function(data){
+    $scope.pageload = false;
+    $('#navbar').removeClass('overlay');
+    $('#navbar').addClass('navheader');
     console.log("book deleted");
     $scope.onlib();
   },
@@ -357,14 +370,21 @@ $scope.onCancel = function(){
 }
 
 $scope.onSellBook = function(book){
+  $scope.pageload = true;
+  $scope.loadingText = "Updating";
+  console.log(book);
+  $('#navbar').addClass('overlay');
   if(book){
-    var data = {
+    var dataToSend = {
       email : $scope.userData.email,
-      isbn : book.id,
-      title : book.title,
+      isbn : book.bookInfo.id,
+      title : book.bookInfo.title
     }
-    authUser.sellbook(data).then(function(data){
-      console.log(data);
+    console.log(dataToSend);
+    authUser.sellbook(dataToSend).then(function(data){
+      $scope.pageload = false;
+      $('#navbar').removeClass('overlay');
+      $('#navbar').addClass('navheader');
       $scope.onlib();
     },
     function() {
@@ -411,10 +431,10 @@ $scope.onAddBook = function(){
 
 $scope.searchBooks = function(item){
 var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').val();
-  return (item.title).toLowerCase().indexOf(val) !=-1 ||
-         (item.genre).toLowerCase().indexOf(val) !=-1 ||
-         (item.author).toLowerCase().indexOf(val) !=-1 ||
-         (item.id).toLowerCase().indexOf(val) !=-1;
-}
+  return (item.bookInfo.title).toLowerCase().indexOf(val) !=-1 ||
+         (item.bookInfo.genre).toLowerCase().indexOf(val) !=-1 ||
+         (item.bookInfo.author).toLowerCase().indexOf(val) !=-1 ||
+         (item.bookInfo.id).toLowerCase().indexOf(val) !=-1;
+ }
 
 }]);

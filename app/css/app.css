@@ -69,7 +69,8 @@ body {
     margin-left: 4%;
 }
 /*#signinbutton{
-    width: 15%  ;
+    width: 25%;
+    display: inline-block;
 }*/
 
 #interests{
@@ -488,8 +489,6 @@ div#updateprofile{
     word-wrap: break-word;
 }
 
-
-
 .overlay{
     position:fixed;
     width:100%;
@@ -499,7 +498,7 @@ div#updateprofile{
 }
 .pageloading{
   margin-left: 45%;
-  margin-top: 28%;
+  margin-top: 25%;
   color: whitesmoke;
 
 }
