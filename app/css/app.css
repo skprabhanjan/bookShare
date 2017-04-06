@@ -545,3 +545,8 @@ div#updateprofile{
   padding-top: 15%;
   z-index: -1;
 }
+.allBooks{
+  position: relative;
+  left: 15%;
+  padding-top: 10%;
+}
