@@ -1,50 +1,5 @@
 
 app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authUser', function($rootScope,$scope,$state,$stateParams,authUser) {
-  $scope.datavals = [
-    {
-      "4331": 564,
-      "Csvy": "Mbec",
-      "Rmbyagepxr": "Hyujo",
-      "L": "Yeofq",
-      "Yyfugxmhndqiklrcvewbtsaop": "Jqojtrvsxeulw",
-      "Iqjbftguoirvkdpnxmsceawhy": "Gvxbkya"
-    },
-    {
-      "4331": 1396,
-      "Csvy": "Vhibfo",
-      "Rmbyagepxr": "Mhne",
-      "L": "Jc",
-      "Yyfugxmhndqiklrcvewbtsaop": "Pubxiyvwnaefgrspdmhljqk",
-      "Iqjbftguoirvkdpnxmsceawhy": "Wutlsdjopwxgnqvfmekha"
-    },
-    {
-      "4331": 2782,
-      "Csvy": "Pgvxklcp",
-      "Rmbyagepxr": "Clchjr",
-      "L": "Naqvn",
-      "Yyfugxmhndqiklrcvewbtsaop": "Qjoxeprfcdwgabmt",
-      "Iqjbftguoirvkdpnxmsceawhy": "Cuqnrecjykxflhp"
-    },
-
-    {
-      "4331": 1705,
-      "Csvy": "Nstywlxgc",
-      "Rmbyagepxr": "Ooaj",
-      "L": "Kbq",
-      "Yyfugxmhndqiklrcvewbtsaop": "Mnwlphfcodjbk",
-      "Iqjbftguoirvkdpnxmsceawhy": "Oibktycurawdfxnsjehmgqlvp"
-    },
-
-    {
-      "4331": 477,
-      "Csvy": "Mrq",
-      "Rmbyagepxr": "Cuhtokmb",
-      "L": "Kash",
-      "Yyfugxmhndqiklrcvewbtsaop": "Gfjqtuiwxvcma",
-      "Iqjbftguoirvkdpnxmsceawhy": "Wdpxcug"
-    }
-
-  ];
   $scope.email = '';
   $scope.loading = false;
   $scope.loadingText = "Loading";
@@ -57,6 +12,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.updatingAdd = false;
   $scope.interests = [];
   $scope.myLibBooks = [];
+  $scope.mySoldBooks = [];
   $scope.booksToDelete = [];
   $scope.add = "Add Book";
   if(!Cookies.get(window.btoa('phoneNum'))){
@@ -72,7 +28,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   }
   $scope.isAdds = true ;
   $scope.isReq = false;
-  $scope.isDash = true;
+  $scope.isDash = false;
   $scope.isPostRequests = false ;
   $scope.isMyAdds = false ;
   $scope.isProfile = false ;
@@ -90,6 +46,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
     $scope.pageload = true;
    $('#navbar').addClass('overlay');
     authUser.getUserDetails($scope.userphone).then(function(data){
+      $scope.isDash = true;
       $scope.username = data.data.name;
       $scope.fetching = false;
       $scope.userData = data.data;
@@ -105,6 +62,23 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
         function () {
           console.log('error');
         });
+        authUser.getlibbooks($scope.userData.email).then(function(data){
+              // for (var i = 0; i< data.data.length; i++){
+              //     $scope.myLibBooks.push(data.data[i]);
+              // }
+              $scope.myLibBooks = data.data;
+              console.log($scope.myLibBooks);
+            },
+            function() {
+              console.log("error");
+            });
+            authUser.getsoldbooks($scope.userData.email).then(function(data){
+                  $scope.mySoldBooks = data.data;
+                  console.log($scope.mySoldBooks);
+                },
+                function() {
+                  console.log("error");
+                });
       if($scope.userData.isStudent==true){
         $scope.registeredAs = "Student";
         $scope.branch = $scope.userData.category.branch;
@@ -314,6 +288,8 @@ $scope.onDelete = function(book){
 }
 
 $scope.onDeleteSingle = function(book){
+  $('#libHeader').removeClass('lib-header');
+  $('#libHeader').addClass('lib-header-load');
   $scope.pageload = true;
   $scope.loadingText = "Updating";
   $('#navbar').addClass('overlay');
@@ -386,6 +362,7 @@ $scope.onSellBook = function(book){
       $('#navbar').removeClass('overlay');
       $('#navbar').addClass('navheader');
       $scope.onlib();
+      $scope.myAdds();
     },
     function() {
       console.log("error");
@@ -394,7 +371,15 @@ $scope.onSellBook = function(book){
   $scope.booksToDelete = [];
 }
 
-
+$scope.myAdds = function(){
+  authUser.getsoldbooks($scope.userData.email).then(function(data){
+        $scope.mySoldBooks = data.data;
+        console.log($scope.mySoldBooks);
+      },
+      function() {
+        console.log("error");
+      });
+}
 
 $scope.onAddBook = function(){
   if ($scope.add == "Add Book"){
