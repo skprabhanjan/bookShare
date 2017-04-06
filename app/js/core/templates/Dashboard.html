@@ -78,8 +78,23 @@
       </div>
       </div>
     </div>
-  <div ng-if="isMyAdds">
-      My adds
+  <div ng-if="isMyAdds" class="myadds library">
+    <div class="row">
+        <div ng-repeat="book in mySoldBooks">
+            <div class="col-md-4">
+                <div id="{{book.id}}" class="panel panel-primary">
+                    <div class="panel-heading"><h3 class="panel-title">Book {{book.bookInfo.title}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        Genre  :  {{book.bookInfo.genre}} <br>
+                        Author : {{book.bookInfo.author}} <br>
+                        Id     : {{book.bookInfo.id}} <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
   </div>
   <div ng-if="isPostRequests">
       post requests
@@ -218,10 +233,10 @@
 
 
 
-  <div ng-if="isLibrary" class="jumbotron library" data-ng-init="onlib()">
-    <h1 ng-show="loading"> Fetching Your library Books<span class="saving"><span>.</span><span>.</span><span>.</span></span> </h1>
+  <div ng-if="isLibrary" class="jumbotron library">
+     <h1 ng-show="loading"> Fetching Your library Books<span class="saving"><span>.</span><span>.</span><span>.</span></span> </h1>
     <div ng-if="isSearch && !loading">
-    <div class="lib-header">
+    <div id="libHeader" class="lib-header">
       <form class="navbar-form navbar-left" role="search">
        <div class="form-group">
          <input class="form-control" placeholder="Title/Genre/Author/ID" type="text" ng-model="search" id="searchValue">
