@@ -6,6 +6,7 @@
     cursor:pointer;
   }
 </style>
+
 <div  ng-controller = "DashCtrl" data-ng-init="onload()">
   <div id="navbar">
     <h2 ng-show="pageload" class="pageloading"> {{loadingText}} <span class="saving"><span>.</span><span>.</span><span>.</span></span></h2>
@@ -345,12 +346,12 @@
   <div class="row">
       <div ng-repeat="book in allBooks | filter:filterAllBooks">
           <div class="col-md-4">
-              <div id="{{book.id}}">
+              <div id="{{book._id}}" ng-click="showBookDetails(book)">
                   <div class="panel-heading"><h3 class="panel-title">Book {{book.title}}</h3></div>
                   <div class="panel-body">
                       Genre  :  {{book.genre}} <br>
                       Author : {{book.author}} <br>
-                      Id     : {{book.id}} <br>
+                      Id     : {{book._id}} <br>
                       Status : {{book.status}}<br>
                       Added By: {{book.addedBy}}
                  </div>
@@ -358,4 +359,43 @@
          </div>
       </div>
   </div>
+</div>
+
+<div ng-show="isAdds" class="allBooks">
+  <!-- <div class="container">
+    <h2>Modal Example</h2>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- <div class="row">
+      <div ng-repeat="book in recBooks | filter:filterAllBooks">
+          <div class="col-md-4">
+              <div id="{{book._id}}">
+                  <div class="panel-heading"><h3 class="panel-title">Book {{book.title}}</h3></div>
+                  <div class="panel-body">
+                      Genre  :  {{book.genre}} <br>
+                      Author : {{book.author}} <br>
+                      Id     : {{book._id}} <br>
+                      Status : {{book.status}}<br>
+                      Added By: {{book.addedBy}}
+                 </div>
+            </div>
+         </div>
+      </div>
+  </div> -->
 </div>

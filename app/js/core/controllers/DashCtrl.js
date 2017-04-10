@@ -14,6 +14,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.myLibBooks = [];
   $scope.mySoldBooks = [];
   $scope.myRentBooks = [];
+  $scope.recBooks = [];
   $scope.booksToDelete = [];
   $scope.allBooks = [];
   $scope.globalSearch = '';
@@ -81,6 +82,12 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
           $scope.allBooks = data.data;
           $scope.fetching = false;
 
+        },
+        function () {
+          console.log('error');
+        });
+        authUser.getrecommendedbooks($scope.userData.interests).then(function(data){
+            $scope.recBooks = data.data;
         },
         function () {
           console.log('error');
@@ -393,7 +400,7 @@ $scope.onRentBook = function(book){
   if(book){
     var dataToSend = {
       email : $scope.userData.email,
-      book: book
+      book: book.bookInfo
     }
     authUser.rentbook(dataToSend).then(function(data){
       $scope.pageload = false;
@@ -475,7 +482,7 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
      $scope.isPostRequests = false;
      $scope.showallBooks = false;
    }
-   else {
+   else{
      $scope.isDash = false;
      $scope.isMyAdds = false;
      $scope.isProfile = false;
@@ -493,14 +500,17 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
    else if(item.status=="rent"){
      statusOfBook = "panel panel-primary";
    }
-   $('#'+(item.id)).addClass(statusOfBook);
+   $('#'+(item._id)).addClass(statusOfBook);
  var val = $scope.globalSearch.toLowerCase();
    return (item.title).toLowerCase().indexOf(val) !=-1 ||
           (item.genre).toLowerCase().indexOf(val) !=-1 ||
           (item.author).toLowerCase().indexOf(val) !=-1 ||
-          (item.id).toLowerCase().indexOf(val) !=-1 ||
-          (item.status).toLowerCase().indexOf(val) !=-1 ||
-          (item.addedBy).toLowerCase().indexOf(val) !=-1;
+          (item._id).toLowerCase().indexOf(val) !=-1 ||
+          (item.status).toLowerCase().indexOf(val) !=-1;
+  }
+
+  $scope.showBookDetails = function(bookData){
+
   }
 
 }]);
