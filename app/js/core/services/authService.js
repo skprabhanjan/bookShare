@@ -1,7 +1,7 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
-	// var host = "https://4f924576.ngrok.io"; // backend server praj
-	var host = "https://6c9e09f1.ngrok.io"; // backend server td
+	var host = "https://a47664c2.ngrok.io"; // backend server praj
+	// var host = "https://e115f8e4.ngrok.io"; // backend server td
 
 	var token = ''; // token to send for Authorization of api calls
 
@@ -113,34 +113,35 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 				});
 				return def.promise;
 		},
-		// getallbooks:function(){
-		// 		var def = $q.defer();
-		// 	$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
-		// 		function(resp){
-		// 			token  = resp.token;
-		//
-		// 			var req = {
-		// 				 method: 'GET',
-		// 				 url: host + '/books/getAll',
-		// 				 headers: {
-		// 				   'Authorization': 'Bearer ' + token
-		// 				 }
-		// 			 }
-		// 			$http(req).success(
-		// 				function(resp){
-		// 						def.resolve(resp);
-		// 						//user found
-		// 				})
-		// 				.error(
-		// 					function(){
-		// 						def.reject("error");
-		// 					console.log("error");
-		// 				});
-		//
-		// 		});
-		// 	//create an user acccount
-		// return def.promise;
-		// },
+		getrecommendedbooks:function(dataToSend){
+				var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+
+					var req = {
+						 method: 'POST',
+						 url: host + '/users/recommendedbooks',
+						 headers: {
+						   'Authorization': 'Bearer ' + token
+						 },
+						 data: {interests: dataToSend}
+					 }
+					$http(req).success(
+						function(resp){
+								def.resolve(resp);
+								//user found
+						})
+						.error(
+							function(){
+								def.reject("error");
+							  console.log("error");
+						});
+
+				});
+			//create an user acccount
+		return def.promise;
+		},
 		getsoldbooks:function(email){
 				var def = $q.defer();
 			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
