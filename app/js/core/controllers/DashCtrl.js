@@ -17,6 +17,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.recBooks = [];
   $scope.booksToDelete = [];
   $scope.allBooks = [];
+  $scope.addedBy = [];
   $scope.globalSearch = '';
   $scope.add = "Add Book";
   if(!Cookies.get(window.btoa('phoneNum'))){
@@ -510,7 +511,10 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
   }
 
   $scope.showBookDetails = function(bookData){
-
+    $scope.addedBy = bookData.addedBy;
+  }
+  $scope.buyBook = function (userName) {
+    alert("Requested to buy the book from " + userName);
   }
 
 }]);
