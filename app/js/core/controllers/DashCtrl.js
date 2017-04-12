@@ -88,6 +88,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
           console.log('error');
         });
         authUser.getrecommendedbooks($scope.userData.interests).then(function(data){
+           $scope.isAdds = true;
             $scope.recBooks = data.data;
         },
         function () {
@@ -155,6 +156,7 @@ $scope.PostRequests = function (){
   $scope.isLibrary = false ;
   $scope.isPostRequests = true;
   $scope.showallBooks = false;
+  $scope.isAdds = false;
 };
 $scope.MyAdds = function (){
   $scope.isDash = false;
@@ -163,6 +165,7 @@ $scope.MyAdds = function (){
   $scope.isLibrary = false ;
   $scope.isPostRequests = false;
   $scope.showallBooks = false;
+  $scope.isAdds = false;
 };
 $scope.logOut = function(){
   Cookies.remove(window.btoa('phoneNum'));
@@ -184,6 +187,7 @@ $scope.library = function() {
   $scope.isProfile = false ;
   $scope.isLibrary = true ;
   $scope.showallBooks = false;
+  $scope.isAdds = false;
 }
 $scope.editDetails = function(){
   $scope.editRequested = true;
@@ -215,7 +219,6 @@ $scope.onlib = function(){
           .then(function(data) {
             $scope.allBooks = data.data;
             $scope.fetching = false;
-
           },
           function () {
             console.log('error');
@@ -457,11 +460,11 @@ $scope.onAddBook = function(){
       $scope.isAddBook =false;
       $scope.add = "Add Book";
       $scope.updatingAdd = false;
+      $('#addModal').modal('toggle');
     },
     function() {
       console.log("error");
     });
-
   }
 
 }
@@ -482,9 +485,11 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
      $scope.isLibrary = false;
      $scope.isPostRequests = false;
      $scope.showallBooks = false;
+     $scope.isAdds = true;
    }
    else{
      $scope.isDash = false;
+     $scope.isAdds = false;
      $scope.isMyAdds = false;
      $scope.isProfile = false;
      $scope.isLibrary = false;

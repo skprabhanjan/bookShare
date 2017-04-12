@@ -68,10 +68,10 @@ body {
 .operations{
     margin-left: 4%;
 }
-/*#signinbutton{
-    width: 25%;
+#signinbutton{
+    width: 45%;
     display: inline-block;
-}*/
+}
 
 #interests{
     background-color: rgba(211, 211, 211, .5);
