@@ -348,6 +348,7 @@ $scope.onDeleteSubmit = function (){
       books : $scope.booksToDelete
     }
     authUser.deletebook(data).then(function(data){
+      $scope.isSelect = false;
       $scope.onlib();
     },
     function() {
