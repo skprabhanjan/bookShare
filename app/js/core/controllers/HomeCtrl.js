@@ -30,7 +30,6 @@ $scope.signinUser = function() {
           $scope.loggingIn = true;
           if(data.status == "Success"){
                //auth successfull
-               console.log(data);
                if(data.data.isVerified == true){
                  Cookies.set(window.btoa('phoneNum'),window.btoa(data.data.phoneNum),{ expires: 12 });
                  $state.go('dash',{phoneNum:data.data.phoneNum,data:data.data});
