@@ -13,6 +13,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.interests = [];
   $scope.myLibBooks = [];
   $scope.mySoldBooks = [];
+  $scope.myreqBooks = [];
   $scope.myRentBooks = [];
   $scope.recBooks = [];
   $scope.booksToDelete = [];
@@ -47,6 +48,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.isAddBook =false;
   $scope.isSelect = false;
   $scope.showallBooks = false;
+  $scope.isReqbook = false;
 
 
   //console.log($state.params.data);
@@ -70,6 +72,13 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
               function() {
                 console.log("error");
               });
+              authUser.getreqbooks().then(function(data){
+                    $scope.myreqBooks = data.data;
+                    console.log($scope.myreqBooks);
+                  },
+                  function() {
+                    console.log("error");
+              });
     authUser.getrentbooks($scope.userData.email).then(function(data){
         $scope.myRentBooks = data.data;
       },
@@ -88,8 +97,8 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
           console.log('error');
         });
         authUser.getrecommendedbooks($scope.userData.interests).then(function(data){
-           $scope.isAdds = true;
-            $scope.recBooks = data.data;
+          $scope.isAdds = true;
+          $scope.recBooks = data.data;
         },
         function () {
           console.log('error');
@@ -435,6 +444,28 @@ $scope.myAdds = function(){
       function() {
         console.log("error");
       });
+}
+
+$scope.onReqbook = function(){
+  var book = {
+    'email' : $scope.userData.email,
+    'title' : $('#reqtitle').val(),
+    'author' : $('#reqauthor').val(),
+    'genre' : $('#reqgenre').val(),
+  }
+  authUser.requestbook(book).then(function(data){
+    alert('Book is sent for a request')
+    authUser.getreqbooks().then(function(data){
+          $scope.myreqBooks = data.data;
+          console.log($scope.myreqBooks);
+        },
+        function() {
+          console.log("error");
+    });
+  },
+  function() {
+    console.log("error");
+  });
 }
 
 $scope.onAddBook = function(){

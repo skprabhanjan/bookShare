@@ -1,7 +1,8 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
-	var host = "https://0f0ca3f1.ngrok.io"; // backend server praj
-	//  var host = "https://c682e45d.ngrok.io"; // backend server td
+
+	var host = "https://c682e45d.ngrok.io"; // backend server praj
+	//var host = "https://0f0ca3f1.ngrok.io"; // backend server td
 
 	var token = ''; // token to send for Authorization of api calls
 
@@ -142,6 +143,35 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 			//create an user acccount
 		return def.promise;
 		},
+		requestbook:function(book){
+				var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+
+					var req = {
+						 method: 'POST',
+						 url: host + '/users/books/request',
+						 headers: {
+						   'Authorization': 'Bearer ' + token
+						 },
+						 data: book
+					 }
+					$http(req).success(
+						function(resp){
+								def.resolve(resp);
+								//user found
+						})
+						.error(
+							function(){
+								def.reject("error");
+							  console.log("error");
+						});
+
+				});
+			//create an user acccount
+		return def.promise;
+		},
 		getsoldbooks:function(email){
 				var def = $q.defer();
 			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
@@ -168,6 +198,34 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
 				});
 			//create an user acccount
+		return def.promise;
+		},
+		getreqbooks:function(email){
+				var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+
+					var req = {
+						 method: 'GET',
+						 url: host + '/users/books/getrequests',
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 }
+					 }
+					$http(req).success(
+						function(resp){
+							console.log('success');
+								def.resolve(resp);
+								//user found
+						})
+						.error(
+							function(){
+								def.reject("error");
+							console.log("error");
+						});
+
+				});
 		return def.promise;
 		},
 		getrentbooks:function(email){
