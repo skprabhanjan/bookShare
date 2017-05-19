@@ -8,8 +8,9 @@ $scope.signupUser = function(){
     $state.go('signup');
 }
 $scope.onload = function(){
-  document.body.style.backgroundImage = "url('app/css/31.jpg')";
+  //document.body.style.backgroundImage = "url('app/css/31.jpg')";
 };
+
 $scope.signinUser = function() {
   if($('#signinbutton').val()=="Next"){
     if($('#email').val()==""){
@@ -18,6 +19,7 @@ $scope.signinUser = function() {
     else {
       $scope.emailregistered = true;
       $('.card').css({"height":"40%"});
+      $('.register').css({"top":"75%"});
       $('#signinbutton').val("Login");
       $scope.buttonVal = "Log In";
     }

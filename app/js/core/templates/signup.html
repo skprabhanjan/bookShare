@@ -5,66 +5,53 @@
 </style>
 
 <div ng-controller="SignCtrl">
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-           <p>
-            <a style="color:black;" ng-click="backToHome()">
-              <span style="color:black;" class="glyphicon glyphicon-arrow-left"></span>
-              Back To Home
-           </a>
-      </p>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
 <form class="form-horizontal">
-  <div class="signupHeadingCreate">Sign-Up</div>
+  <div class="signupHeadingCreate">Join Book Share</div>
+  <h6 style=" position: absolute;left:35%;top:4%;font-size:120%;">The best place to buy, sell, and rent books.</h6> <br>
+  <a style="color:black;" ng-click="backToHome()">
+      <span style="color:black;font-size:30px;" class="glyphicon glyphicon-home"></span> 
+  </a>
   <fieldset id="interests">
     <div class="form-group"  ><br/>
       <label class="col-lg-2 control-label" >Name <span class="required">*<span></label>
       <div class="col-lg-10">
-        <input class="form-control" id="inputName" placeholder="What can I call you ? " type="text" required >
+        <input class="signupInput" id="inputName" placeholder="What can I call you ? " type="text" required >
       </div>
     </div>
     <div class="form-group"  ><br/>
       <label class="col-lg-2 control-label" >Phone Number <span class="required">*</span></label>
       <div class="col-lg-10">
-        <input class="form-control" id="inputNumber" placeholder="How can I Text you.? " type="number" required >
+        <input class="signupInput" id="inputNumber" placeholder="How can I Text you.? " type="number" required >
       </div>
     </div>
     <div class="form-group">
       <label class="col-lg-2 control-label" >Email <span class="required">*</span></label>
       <div class="col-lg-10">
-        <input class="form-control" id="inputEmail" placeholder="Where can I send you a mail ? " type="email" required>
+        <input class="signupInput" id="inputEmail" placeholder="Where can I send you a mail ? " type="email" required>
       </div>
     </div>
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 control-label">Password <span class="required">*</span></label>
       <div class="col-lg-10">
-        <input class="form-control" id="inputPassword" placeholder="Password" type="password" required>
+        <input class="signupInput" id="inputPassword" placeholder="Password" type="password" required>
       </div>
     </div>
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 control-label">Confirm Password <span class="required">*</span></label>
       <div class="col-lg-10">
-        <input class="form-control" id="inputRePassword" placeholder="Confirm Password" type="password" required>
+        <input class="signupInput" id="inputRePassword" placeholder="Confirm Password" type="password" required>
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-lg-2 control-label" >Place</label>
       <div class="col-lg-10">
-        <input class="form-control" id="inputPlace" placeholder="Where do you live ?" type="text">
+        <input class="signupInput" id="inputPlace" placeholder="Where do you live ?" type="text">
       </div>
     </div>
 
     <div class="form-group" required>
-      <label class="col-lg-2 control-label">What Are You .? <span class="required">*</span></label>
+      <label class="col-lg-2 control-label">What Are You? <span class="required">*</span></label>
       <div class="col-lg-10">
         <div class="radio">
           <label>
@@ -89,19 +76,19 @@
       <div class="form-group">
         <label class="col-lg-2 control-label" >College </label>
         <div class="col-lg-10">
-          <input class="form-control" id="inputCollege" placeholder="Which college are you from? " type="text">
+          <input class="signupInput" id="inputCollege" placeholder="Which college are you from? " type="text">
         </div>
       </div>
       <div class="form-group">
         <label class="col-lg-2 control-label" > Branch </label>
         <div class="col-lg-10">
-          <input class="form-control" id="inputBranch" placeholder="Which branch do you belong to ? " type="text">
+          <input class="signupInput" id="inputBranch" placeholder="Which branch do you belong to ? " type="text">
         </div>
       </div>
       <div class="form-group">
         <label for="inputPassword" class="col-lg-2 control-label"> Semester </label>
         <div class="col-lg-10">
-          <input class="form-control" id="inputSem" placeholder="Your semester .?" type="text">
+          <input class="signupInput" id="inputSem" placeholder="Your semester .?" type="text">
         </div>
       </div>
     </div>
@@ -109,7 +96,7 @@
       <div class="form-group">
         <label class="col-lg-2 control-label" > Nature of job </label>
         <div class="col-lg-10">
-          <input class="form-control" id="inputjob" placeholder="What do you do ? " type="text">
+          <input class="signupInput" id="inputjob" placeholder="What do you do ? " type="text">
         </div>
       </div>
     </div>
@@ -134,7 +121,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
-        <button type="submit" class="btn btn-primary" ng-click="onSubmitButton()">Submit</button>
+        <button type="submit" class="btn btn-primary" ng-click="onSubmitButton()" style="position:relative;left:40%;">Submit</button>
       </div>
     </div>
   </fieldset>
