@@ -118,9 +118,10 @@
 #interests{
     position: absolute;
     top: 65px;
-    width: 95%;
+    width: 90%;
+    left: 5%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
-    background-color: rgba(249, 249, 249, .75);
+    background-color: rgba(250, 250, 250, .8);
     color: black;
     /*lightgoldenrodyellow*/
 }
