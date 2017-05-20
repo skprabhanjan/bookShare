@@ -15,5 +15,8 @@
   },
   "scripts": {
     "start": "http-server -a localhost -p 8000"
+  },
+  "dependencies": {
+    "angular-material": "^1.1.4"
   }
 }
