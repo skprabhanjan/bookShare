@@ -48,7 +48,7 @@
   <a href="#">Request messages</a>
 </div>
 <div>
-    <div  ng-if="isDash" >
+    <div  ng-if="isDash" style="text-align:center;">
       <div class="top-tabs">
         <ul class="nav nav-tabs row">
           <li class="col-sm-6" ><a data-toggle="tab" ng-click="onRecomAdds()" >Recommended Adds</a></li>
@@ -57,11 +57,11 @@
       </div>
 
     <div class="container dash-table" >
-      <div ng-show="isAdds" class="allBooks">
+      <div ng-show="isAdds">
         <div class="row">
             <div ng-repeat="book in recBooks | filter:filterAllBooks">
-                <div class="col-md-4">
-                    <div id="{{book._id}}" ng-click="showBookDetails(book)" class="books" data-toggle="modal" data-target="#myModal">
+                <div class="col-md-6">
+                    <div id="{{book._id}}" ng-click="showBookDetails(book)" data-toggle="modal" data-target="#myModal">
                         <div class="panel-heading"><h3 class="panel-title">Book {{book.title}}</h3></div>
                         <div class="panel-body">
                             Genre  :  {{book.genre}} <br>
@@ -78,14 +78,14 @@
       <div ng-if="isReq">
         <div class="row">
             <div ng-repeat="book in myreqBooks">
-                <div class="col-md-4">
-                    <div  class="panel panel-danger" class="books" >
+                <div class="col-md-6">
+                    <div  class="panel panel-danger"  >
                         <div class="panel-heading"><h3 class="panel-title">{{book.title}}</h3>
                         </div>
                         <div class="panel-body">
                             Genre  :  {{book.genre}} <br>
                             Author : {{book.author}} <br>
-
+                              <button type="button" class="btn btn-success btn-sm" style="float:right;" ng-click="onAdvertise(book)">Advertise</button>
                     </div>
 
                 </div>
