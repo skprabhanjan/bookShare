@@ -537,7 +537,7 @@
   position: fixed;
   padding-top: 5%;
   width: 100%;
-  left: 0;
+  left: 15%;
 }
 /* profile page ui*/
 div#updateprofile{
@@ -602,7 +602,7 @@ div#updateprofile{
 .allBooks{
   position: relative;
   left: 15%;
-  padding-top: 10%;
+  padding-top: 15%;
 }
 
 .books {
