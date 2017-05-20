@@ -283,10 +283,6 @@
 
 @media screen and (max-width: 500px) {
 
-  .login{
-    width: 100%;
-    left: 0;
-  }
   .landing-text .header-main{
     font-size: 150%;
     left:0%;
@@ -428,8 +424,21 @@
 @media screen and (max-width: 500px) {
   .login{
     width: 100%;
-    top: 100%;
+    top: 35%;
     left: 0;
+  }
+
+  .register{
+    top:68%;
+    left:20%;
+    width:40%;
+    height:7%;
+  }
+
+  .signupHeading{
+    font-size: 150%;
+    left:25%;
+    top:20%;
   }
 }
 
