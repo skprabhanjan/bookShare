@@ -15,5 +15,8 @@
   },
   "scripts": {
     "start": "http-server -a localhost -p 8000"
+  },
+  "dependencies": {
+    "http-server": "^0.6.1"
   }
 }
