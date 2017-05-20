@@ -319,7 +319,12 @@ $scope.addInterest = function(){
 }
 
 $scope.onAdvertise = function(book){
-
+  $scope.advertisedata = {
+    title : book.title,
+    author : book.author,
+    genre : book.genre
+  }
+  console.log($scope.advertisedata);
 }
 
 $scope.onDelete = function(book){
