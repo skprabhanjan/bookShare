@@ -592,8 +592,8 @@ div#updateprofile{
 }
 .allBooks{
   position: relative;
-  left: 0%;
-  padding-top: 0;
+  left: 15%;
+  padding-top: 15%;
 }
 
 .books {
