@@ -528,7 +528,7 @@
   position: fixed;
   padding-top: 5%;
   width: 100%;
-  left: 15%;
+  left: 0;
 }
 /* profile page ui*/
 div#updateprofile{
@@ -594,4 +594,8 @@ div#updateprofile{
   position: relative;
   left: 15%;
   padding-top: 10%;
+}
+
+.books {
+  border-color: gray ;
 }
