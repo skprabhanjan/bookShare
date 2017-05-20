@@ -121,7 +121,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
     function() {
       console.log("error");
     });
-    document.body.style.backgroundImage = "url('app/css/books5.jpg')";
+    
   };
 
 $scope.goBack = function(){
