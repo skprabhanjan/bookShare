@@ -8,7 +8,7 @@ $scope.signupUser = function(){
     $state.go('signup');
 }
 $scope.onload = function(){
-  //document.body.style.backgroundImage = "url('app/css/31.jpg')";
+  document.body.style.backgroundImage = "";
 };
 
 $scope.signinUser = function() {
@@ -78,3 +78,51 @@ else{
   //authUser.resetLink($('#email').val());
 }
 }]);
+
+// app.controller('Shell', Shell);
+
+// function Shell() {
+
+//   var vm = this;
+
+//   vm.messages = [
+//     {
+//       'username': 'username1',
+//       'content': 'Hi!'
+//     },
+//     {
+//       'username': 'username2',
+//       'content': 'Hello!'
+//     },
+//     {
+//       'username': 'username2',
+//       'content': 'Hello!'
+//     },
+//     {
+//       'username': 'username2',
+//       'content': 'Hello!'
+//     },
+//     {
+//       'username': 'username2',
+//       'content': 'Hello!'
+//     },
+//     {
+//       'username': 'username2',
+//       'content': 'Hello!'
+//     }
+//   ];
+
+//   vm.username = 'username1';
+
+//   vm.sendMessage = function(message, username) {
+//     if(message && message !== '' && username) {
+//       vm.messages.push({
+//         'username': username,
+//         'content': message
+//       });
+//     }
+//   };
+//   vm.visible = true;
+//   vm.expandOnNew = true;
+// }
+
