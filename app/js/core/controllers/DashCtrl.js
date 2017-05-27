@@ -1,5 +1,5 @@
 
-app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authUser', function($rootScope,$scope,$state,$stateParams,authUser) {
+app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authUser','$sce', function($rootScope,$scope,$state,$stateParams,authUser,$sce) {
   $scope.email = '';
   $scope.loading = false;
   $scope.loadingText = "Loading";
@@ -20,11 +20,12 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.allBooks = [];
   $scope.addedBy = [];
   $scope.globalSearch = '';
+  $scope.renderChat = '';
   $scope.add = "Add Book";
+  $scope.toChat = false;
   if(!Cookies.get(window.btoa('phoneNum'))){
     //user has not logged in
-
-
+    document.body.style.backgroundImage = '';
     $state.go('app');
   }
   else{
@@ -177,6 +178,7 @@ $scope.MyAdds = function (){
   $scope.isAdds = false;
 };
 $scope.logOut = function(){
+  document.body.style.backgroundImage = '';
   Cookies.remove(window.btoa('phoneNum'));
   $state.go('app');
 }
@@ -551,7 +553,21 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
     $scope.addedBy = bookData.addedBy;
   }
   $scope.buyBook = function (userName) {
-    alert("Requested to buy the book from " + userName);
+    //alert("Requested to buy the book from " + userName);
+    console.log("Requested a Chat Session btwn " + $scope.userData.name + "(Buyer) and " + userName + "(Seller)");
+    $('#myModal').modal('toggle');
+    //$scope.toChat = true;
+  }
+  $scope.closeChat = function(){
+    $scope.toChat = false;
+  }
+  $scope.checkMessage = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+     alert("Time to send the message");
+    }
   }
 
 }]);
+
