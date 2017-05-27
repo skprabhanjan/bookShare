@@ -1,7 +1,5 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
-
-<<<<<<< Updated upstream
 	// var host = "https://7d58e452.ngrok.io"; // backend server praj
 	var host = "https://07bc360f.ngrok.io"; // backend server td
 
