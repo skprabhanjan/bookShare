@@ -505,13 +505,19 @@
       <div class="button close"></div>
       <div class="button minimize"></div>
       <div class="button maximize"></div></div>-->
-      <div class="title">Chat
+      <div class="title">Chat <li id = "notifBar" align="right"></li>    <input type="text" placeholder="client ID" id="notiId"></input>
+
+        <input type="button" value = "Send Notif" ng-click="sendNotif()" align="left"></input>
         <span class="glyphicon glyphicon-remove" style="float:right;color:black;font-size:80%;" ng-click="closeChat()"></span>
-      </div> 
+      </div>
    </div>
-      <ul class="messages"></ul>
+      <ul class="messages">
+        <li ng-repeat="msg in msgcontent">
+          {{msg.text}}
+        </li>
+      </ul>
       <div class="bottom_wrapper clearfix">
-        <div class="message_input_wrapper"><input class="message_input" placeholder="Send a message" ng-keypress="checkMessage()" /></div>
+        <div class="message_input_wrapper"><input class="message_input" placeholder="Send a message" ng-keypress="checkMessage()" ng-model="myMessage"/></div>
         <!--<div class="send_message"><div class="icon"></div>-->
         <!--<div class="text">Send</div></div>-->
       </div>
@@ -526,4 +532,3 @@
 </div>
 </div>
 <!--/chat-->
-

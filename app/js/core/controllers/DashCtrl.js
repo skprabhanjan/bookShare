@@ -22,6 +22,9 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.advertisedata = {};
   $scope.globalSearch = '';
   $scope.add = "Add Book";
+  $scope.socket = null;
+  $scope.myMessage = "";
+  $scope.msgcontent =[];
 
   $scope.myCategories = [];
   $scope.categories =
@@ -140,6 +143,24 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
 
   //console.log($state.params.data);
   $scope.onload = function(){
+    $scope.socket = io.connect('http://6c9f1635.ngrok.io');
+    $scope.socket.on('notif' , function(msg){
+             if(msg.id != $('#id').val()){
+               if(msg.data == 2)
+                 $('#notifBar').css("background-color", "green");
+
+               else{
+                 $('#notifBar').css("background-color", "red");
+               }
+             }
+           });
+      $scope.socket.on('chat message', function(msg){
+                        var mymsg = {
+                          text : msg
+                        };
+                        $scope.msgcontent.push(mymsg);
+                   });
+
     $scope.pageload = true;
    $('#navbar').addClass('overlay');
     authUser.getUserDetails($scope.userphone).then(function(data){
@@ -647,7 +668,7 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
   $scope.showBookDetails = function(bookData){
     $scope.addedBy = bookData.addedBy;
   }
-  
+
    $scope.buyBook = function (userName) {
     //alert("Requested to buy the book from " + userName);
     console.log("Requested a Chat Session btwn " + $scope.userData.name + "(Buyer) and " + userName + "(Seller)");
@@ -657,11 +678,18 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
   $scope.closeChat = function(){
     $scope.toChat = false;
   }
+  $scope.sendNotif = function (){
+    var message = {};
+    message.data = "hi";
+    message.id = $('#notiId').val();;
+    $scope.socket.emit('notif' , message);
+  }
   $scope.checkMessage = function(e){
     if (!e) e = window.event;
     var keyCode = e.keyCode || e.which;
+
     if (keyCode == '13'){
-     alert("Time to send the message");
+      $scope.socket.emit('chat message', $scope.myMessage);
     }
   }
 
