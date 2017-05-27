@@ -19,6 +19,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.booksToDelete = [];
   $scope.allBooks = [];
   $scope.addedBy = [];
+  $scope.advertisedata = {};
   $scope.globalSearch = '';
   $scope.renderChat = '';
   $scope.add = "Add Book";
@@ -122,7 +123,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
     function() {
       console.log("error");
     });
-    document.body.style.backgroundImage = "url('app/css/books5.jpg')";
+
   };
 
 $scope.goBack = function(){
@@ -317,6 +318,15 @@ $scope.removeInterest = function(interest){
 $scope.addInterest = function(){
   if($('#newinterest').val()!='')
   $scope.interests.push($('#newinterest').val());
+}
+
+$scope.onAdvertise = function(book){
+  $scope.advertisedata = {
+    title : book.title,
+    author : book.author,
+    genre : book.genre
+  }
+  console.log($scope.advertisedata);
 }
 
 $scope.onDelete = function(book){
