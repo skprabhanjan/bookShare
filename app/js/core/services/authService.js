@@ -1,9 +1,9 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
 
-	var host = "https://4c0f39e8.ngrok.io"; // backend server praj
-	//var host = "https://0f0ca3f1.ngrok.io"; // backend server td
-
+	// var host = "https://07bc360f.ngrok.io"; // backend server praj
+	//var host = "https://469df3c0.ngrok.io"; // backend server td
+		var host = "http://localhost:3000";
 	var token = ''; // token to send for Authorization of api calls
 
 	//get the token required to make all the api calls
@@ -484,6 +484,31 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 							def.reject("error");
 							console.log("error");
 						});
+				});
+				return def.promise;
+		},
+		getBooksByCategory: function(categories){
+			var def = $q.defer();
+			console.log(categories);
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token = resp.token;
+					var req = {
+						method: 'POST',
+						url: host + '/books/getByCategory',
+						headers:{
+							'Authorization': 'Bearer ' + token
+						},
+						data: categories
+					}
+					$http(req)
+					.success(function(resp){
+						def.resolve(resp);
+					})
+					.error(function(){
+						def.reject("error");
+						console.log("error");
+					});
 				});
 				return def.promise;
 		}
