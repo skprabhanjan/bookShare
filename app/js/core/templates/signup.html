@@ -9,7 +9,7 @@
   <div class="signupHeadingCreate">Join Book Share</div>
   <h6 style=" position: absolute;left:35%;top:4%;font-size:120%;">The best place to buy, sell, and rent books.</h6> <br>
   <a style="color:black;" ng-click="backToHome()">
-      <span style="color:black;font-size:30px;" class="glyphicon glyphicon-home"></span> 
+      <span style="color:black;font-size:30px;" class="glyphicon glyphicon-home"></span>
   </a>
   <fieldset id="interests">
     <div class="form-group"  ><br/>
@@ -101,12 +101,12 @@
       </div>
     </div>
 
-    <div class="form-group"> 
+    <div class="form-group">
       <label class="col-lg-2 control-label">Your Interests ?</label>
       <label class="col-lg-12 control-label"></label>
-      <div class="col-lg-4">
+      <div class="col-sm-4">
         <div class="radio" ng-repeat = "type in intrests">
-          <label style="position:relative;left:40%;"><b> 
+          <label style="position:relative;left:40%;"><b>
             <input
             value="{{type.category}}"
             name = "{{type.category}}"

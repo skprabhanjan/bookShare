@@ -37,10 +37,30 @@
   </nav>
   </div>
 
+  <div id="Sidenavbar" class="sidenavbar">
+    <!--<a ui-sref="/dashboard">Catergories</a>-->
+    <div class="categories" style="top:0;position:absolute">
+    <div class="form-group">
+      <label class="col-lg-2 control-label" style="color:black;width:100%;margin-top=0%;color:rgba(204, 153, 0 ,1)">Filter By Category</label>
+      <label class="col-lg-12 control-label"></label>
+      <div class="col-lg-4" style="width:100%;margin-left:0%;position:absolute;margin-top:18%;">
+        <div class="radio" ng-repeat = "type in categories" style="margin-left:0;color:rgba(204, 153, 0 ,1)">
+          <label style="position:relative;left:10%;"><b>
+            <input
+            value="{{type.category}}"
+            name = "{{type.category}}"
+            type="checkbox"
+            ng-model="ischecke"
+            ng-change="onCategorySelect(type.category)">
+           {{type.category}}
+          </b>
+          </label>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
 
-<div id="Sidenavbar" class="sidenavbar">
-  <a ui-sref="/dashboard">Catergories</a>
-</div>
 <div id="mySidenav" class="sidenav" >
   <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()">&times;</a>
   <a ng-click="profile()">My profile</a>
@@ -440,16 +460,17 @@
     </div>
   </div>
 </div>
-<div class="container">
-  <div class="modal fade" id="myReqModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Book Request Details</h4>
-        </div>
-        <div class="modal-body">
-          <div class="panel-body">
+  <div class="container">
+    <div class="modal fade" id="myReqModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Book Request Details</h4>
+          </div>
+          <div class="modal-body">
+            <div class="panel-body">
+
 
             <div class="form-group">
               <label class="control-label" for="focusedInput">Book Title</label>
@@ -468,11 +489,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <!--Chat -->
 <div ng-show="toChat">

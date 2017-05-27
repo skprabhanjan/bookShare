@@ -22,6 +22,92 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.advertisedata = {};
   $scope.globalSearch = '';
   $scope.add = "Add Book";
+
+  $scope.myCategories = [];
+  $scope.categories =
+  [
+    {
+      category :"Science and Technology"
+    },
+    {
+      category :"Fiction"
+    },
+    {
+      category :"Horror"
+    },
+    {
+      category :	"Drama"
+    },
+    {
+      category :"Action and adventure"
+    },
+    {
+      category :"Romance"
+    },
+    {
+      category :"Self help"
+    },
+    {
+      category :"Health"
+    },
+    {
+      category :"Travel"
+    },
+    {
+      category :"Childern's"
+    },
+    {
+      category :"Religion, Spirituality & New Age"
+    },
+    {
+      category :	"Science"
+    },
+    {
+      category :"Math"
+    },
+    {
+      category :"History"
+    },
+    {
+      category :"Biographies and Autobiographies"
+    },
+    {
+      category :"Comics"
+    }
+  ];
+
+  $scope.onCategorySelect = function (categoryValue) {
+    $scope.index = $scope.myCategories.indexOf(categoryValue);
+    if ( $scope.index > -1){
+      $scope.myCategories.splice($scope.index,1);
+      console.log($scope.myCategories);
+      if($scope.myCategories.length == 0)
+        $scope.recBooks = $scope.copyrecBooks;
+      else{
+          authUser.getBooksByCategory($scope.myCategories).then(function(data){
+            console.log(data.data);
+            $scope.recBooks = data.data;
+          },
+          function(){
+            console.log("error");
+          })
+      }
+    }
+    else {
+      if($scope.myCategories.length == 0)
+        $scope.copyrecBooks = $scope.recBooks;
+      $scope.myCategories.push(categoryValue);
+      console.log($scope.myCategories);
+      authUser.getBooksByCategory($scope.myCategories).then(function(data){
+        console.log(data.data);
+        $scope.recBooks = data.data;
+      },
+      function(){
+        console.log("error");
+      })
+    }
+  }
+
   if(!Cookies.get(window.btoa('phoneNum'))){
     //user has not logged in
 
