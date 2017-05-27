@@ -101,19 +101,19 @@
                 <div class="col-md-6">
                     <div  class="panel panel-danger"  >
                         <div class="panel-heading"><h3 class="panel-title">{{book.title}}</h3>
+                        <span ng-click="onAdvertise(book)"> Advertise </span>
                         </div>
                         <div class="panel-body">
                             Genre  :  {{book.genre}} <br>
                             Author : {{book.author}} <br>
-                              <button type="button" class="btn btn-success btn-sm" style="float:right;" ng-click="onAdvertise(book)">Advertise</button>
+                        <!--<button type="button" class="btn btn-success btn-sm" style="float:right;" ng-click="onAdvertise(book)">Advertise</button>-->
                     </div>
 
                 </div>
             </div>
         </div>
-
-    </div>
       </div>
+    </div>
     </div>
     </div>
   <div ng-if="isMyAdds" class="myadds">
@@ -471,27 +471,59 @@
           <div class="modal-body">
             <div class="panel-body">
 
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Book Title</label>
-                <input class="form-control" id="reqtitle" type="text" >
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Author</label>
-                <input class="form-control" id="reqauthor" type="text" v>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Genre</label>
-                <input class="form-control" id="reqgenre" type="text" >
-              </div>
-                <button type="button" id = "reqbutton" class="btn btn-success btn-sm" style="float:right;" ng-click="onReqbook()" data-dismiss="modal">Request Book</button>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Book Title</label>
+              <input class="form-control" id="reqtitle" type="text" >
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Author</label>
+              <input class="form-control" id="reqauthor" type="text" v>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Genre</label>
+              <input class="form-control" id="reqgenre" type="text" >
+            </div>
+              <button type="button" id = "reqbutton" class="btn btn-success btn-sm" style="float:right;" ng-click="onReqbook()" data-dismiss="modal">Request Book</button>
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<!--Chat -->
+<div ng-show="toChat">
+<div class="chat_window">
+  <div class="top_menu">
+    <!--<div class="buttons">
+      <div class="button close"></div>
+      <div class="button minimize"></div>
+      <div class="button maximize"></div></div>-->
+      <div class="title">Chat
+        <span class="glyphicon glyphicon-remove" style="float:right;color:black;font-size:80%;" ng-click="closeChat()"></span>
+      </div> 
+   </div>
+      <ul class="messages"></ul>
+      <div class="bottom_wrapper clearfix">
+        <div class="message_input_wrapper"><input class="message_input" placeholder="Send a message" ng-keypress="checkMessage()" /></div>
+        <!--<div class="send_message"><div class="icon"></div>-->
+        <!--<div class="text">Send</div></div>-->
+      </div>
 </div>
+<div class="message_template">
+  <li class="message">
+      <!--<div class="avatar"></div>-->
+       <div class="text_wrapper">
+        <div class="text"></div>
+      </div>
+  </li>
+</div>
+</div>
+<!--/chat-->
+
