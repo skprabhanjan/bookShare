@@ -139,27 +139,29 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.isSelect = false;
   $scope.showallBooks = false;
   $scope.isReqbook = false;
+  $scope.socket = io.connect('http://6c9f1635.ngrok.io');
+  $scope.socket.on('notif' , function(msg){
+    console.log(msg.data);
 
+           if(msg.id != $('#notiId').val()){
+             if(msg.data == 2)
+               $('#notifBar').css("background-color", "green");
+
+             else{
+               $('#notifBar').css("background-color", "red");
+             }
+           }
+         });
+    $scope.socket.on('chat message', function(msg){
+                      var mymsg = {
+                        text : msg
+                      };
+                      $scope.msgcontent.push(mymsg);
+                 });
 
   //console.log($state.params.data);
   $scope.onload = function(){
-    $scope.socket = io.connect('http://6c9f1635.ngrok.io');
-    $scope.socket.on('notif' , function(msg){
-             if(msg.id != $('#id').val()){
-               if(msg.data == 2)
-                 $('#notifBar').css("background-color", "green");
 
-               else{
-                 $('#notifBar').css("background-color", "red");
-               }
-             }
-           });
-      $scope.socket.on('chat message', function(msg){
-                        var mymsg = {
-                          text : msg
-                        };
-                        $scope.msgcontent.push(mymsg);
-                   });
 
     $scope.pageload = true;
    $('#navbar').addClass('overlay');
