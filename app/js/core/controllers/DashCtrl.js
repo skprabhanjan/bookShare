@@ -319,6 +319,7 @@ $scope.addInterest = function(){
 }
 
 $scope.onAdvertise = function(book){
+  alert("hey");
   $scope.advertisedata = {
     title : book.title,
     author : book.author,
@@ -560,8 +561,22 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
   $scope.showBookDetails = function(bookData){
     $scope.addedBy = bookData.addedBy;
   }
-  $scope.buyBook = function (userName) {
-    alert("Requested to buy the book from " + userName);
+  
+   $scope.buyBook = function (userName) {
+    //alert("Requested to buy the book from " + userName);
+    console.log("Requested a Chat Session btwn " + $scope.userData.name + "(Buyer) and " + userName + "(Seller)");
+    $('#myModal').modal('toggle');
+    $scope.toChat = true;
+  }
+  $scope.closeChat = function(){
+    $scope.toChat = false;
+  }
+  $scope.checkMessage = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+     alert("Time to send the message");
+    }
   }
 
 }]);
