@@ -7,11 +7,11 @@
 <div ng-controller="SignCtrl">
 <form class="form-horizontal">
   <div class="signupHeadingCreate">Join Book Share</div>
-  <h6 style=" position: absolute;left:35%;top:4%;font-size:120%;">The best place to buy, sell, and rent books.</h6> <br>
+  <h6 style=" position: absolute;left:35%;top:2%;font-size:120%;">The best place to buy, sell, and rent books.</h6> <br>
   <a style="color:black;" ng-click="backToHome()">
       <span style="color:black;font-size:30px;" class="glyphicon glyphicon-home"></span>
   </a>
-  <fieldset id="interests">
+  <fieldset class="demo-card-square mdl-card mdl-shadow--2dp" style="position:absolute;top:65px;width:90%;left:5%; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);background-color: rgba(250, 250, 250, .8);">
     <div class="form-group"  ><br/>
       <label class="col-lg-2 control-label" >Name <span class="required">*<span></label>
       <div class="col-lg-10">
@@ -121,7 +121,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
-        <button type="submit" class="btn btn-success" ng-click="onSubmitButton()" style="position:relative;left:40%;">Join</button>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="onSubmitButton()" style="position:relative;left:40%;">Join</button>
       </div>
     </div>
   </fieldset>

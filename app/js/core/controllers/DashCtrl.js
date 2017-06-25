@@ -139,25 +139,35 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.isSelect = false;
   $scope.showallBooks = false;
   $scope.isReqbook = false;
-  $scope.socket = io.connect('http://6c9f1635.ngrok.io');
-  $scope.socket.on('notif' , function(msg){
-    console.log(msg.data);
-
-           if(msg.id != $('#notiId').val()){
-             if(msg.data == 2)
-               $('#notifBar').css("background-color", "green");
-
-             else{
-               $('#notifBar').css("background-color", "red");
-             }
-           }
-         });
-    $scope.socket.on('chat message', function(msg){
-                      var mymsg = {
-                        text : msg
-                      };
-                      $scope.msgcontent.push(mymsg);
-                 });
+  // $scope.socket = io.connect('http://16a651bb.ngrok.io');
+  // $scope.socket.on('notif' , function(msg){
+  //     // if(msg.id != $('#notiId').val()){
+  //     //   if(msg.data == 2)
+  //     //     $('#notifBar').css("background-color", "green");
+  //     //   else{
+  //     //     $('#notifBar').css("background-color", "red");
+  //     //   }
+  //     // }
+  //   });
+  //   flag = false;
+  //   $scope.socket.on('chat message', function(msg){
+  //     if(flag==false){
+  //       var message = "<li>" + msg + "</li>"; 
+  //       $("#messageList").append(message);
+  //       $("#messageValue").val("");
+  //       flag = true;
+  //     }
+  //   });
+  //   $scope.checkMessage = function(e){
+  //   if (!e) e = window.event;
+  //   var keyCode = e.keyCode || e.which;
+  //   if (keyCode == '13'){
+  //     //  var message = "<li>" + $('#messageValue').val() + "</li>"; 
+  //     //  $("#messageList").append(message);
+  //      flag = false;
+  //      $scope.socket.emit('chat message', $('#messageValue').val());  
+  //   }
+  // }
 
   //console.log($state.params.data);
   $scope.onload = function(){
@@ -675,7 +685,7 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
     //alert("Requested to buy the book from " + userName);
     console.log("Requested a Chat Session btwn " + $scope.userData.name + "(Buyer) and " + userName + "(Seller)");
     $('#myModal').modal('toggle');
-    $scope.toChat = true;
+    // $scope.toChat = true;
   }
   $scope.closeChat = function(){
     $scope.toChat = false;
@@ -686,13 +696,4 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
     message.id = $('#notiId').val();;
     $scope.socket.emit('notif' , message);
   }
-  $scope.checkMessage = function(e){
-    if (!e) e = window.event;
-    var keyCode = e.keyCode || e.which;
-
-    if (keyCode == '13'){
-      $scope.socket.emit('chat message', $scope.myMessage);
-    }
-  }
-
 }]);

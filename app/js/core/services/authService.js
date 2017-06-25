@@ -1,7 +1,7 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
-	// var host = "https://7d58e452.ngrok.io"; // backend server praj
-	var host = "https://1efb982e.ngrok.io"; // backend server td
+	// var host = "https://6dc1e3b9.ngrok.io"; // backend server praj
+	var host = "https://booksharebackend.herokuapp.com"; // backend server td
 
 
 

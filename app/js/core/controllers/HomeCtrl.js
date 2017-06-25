@@ -3,6 +3,7 @@ app.controller('HomeCtrl', ['$scope','$state','authUser', function($scope, $stat
   $scope.userNotFound = false;
   $scope.buttonVal = "Next";
   $scope.loggingIn = false;
+  $scope.emailNotFound = false;
   $scope.emailNotVerified = false;
 $scope.signupUser = function(){
     $state.go('signup');
@@ -14,9 +15,10 @@ $scope.onload = function(){
 $scope.signinUser = function() {
   if($('#signinbutton').val()=="Next"){
     if($('#email').val()==""){
-      alert("Please Enter an Email");
+      $scope.emailNotFound = true;
     }
     else {
+      $scope.emailNotFound = false;
       $scope.emailregistered = true;
       $('.card').css({"height":"40%"});
       $('.register').css({"top":"75%"});
