@@ -1,11 +1,12 @@
-body {
+/*body {
     background: url("31.jpg") no-repeat center center fixed;
     background-size: 100% 100%;
     height: 100%;
     position: absolute;
     width: 100%;
     opacity: 0.9;
-  }
+  }*/
+
   #imgLoading{
     src: url("default.gif");
   }
@@ -28,23 +29,24 @@ body {
     overflow-x: hidden;
     background-color: rgba(211, 211, 211, .5);
 }
+.welcome{
+  color: #B2EBF2;
+}
 
 .createAccount{
     margin-top: 40%;
     margin-left: 45%;
 }
-/*input email and password box*/
-.emailInput , .psswdInput {
-
+.signupInput{
   display: block;
-  width: 100%;
+  width: 50%;
   text-align: center;
   height: 38px;
   padding: 8px 12px;
   font-size: 14px;
   line-height: 1.42857143;
   color: black;
-  /*background-color: #ffffff;*/
+  background-color: #ffffff;
   background-image: none;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -53,16 +55,58 @@ body {
   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    background-color: rgba(255,255,255, 1);
+  background-color: rgba(255,255,255, 1);
+}
+/*input email and password box*/
+.emailInput , .psswdInput {
+
+  display: block;
+  width: 100%;
+  text-align: center;
+  height: 38px;
+  left: 15%;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: black;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  background-color: rgba(255,255,255, 1);
 }
 /*sign up heading in the card*/
 .signupHeading{
-  color: black;
+  text-align: center;
+  color: #000000;
+  position: absolute;
+  top: 12%;
+  left: 41%;
+}
+.register{
+  padding-top: 0.5%;
+  text-align: center;
+  width: 25%;
+  height: 5%;
+  position: fixed;
+  left: 39%;
+  top: 55%;
+  opacity: 0.85;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  background-color: rgba(249,249,249,.75);
 }
 .signupHeadingCreate{
     color: black;
     font-size: 200%;
-    margin-left:48%;
+    position: absolute;
+    left: 40%;
+    top: 2%;
+    /*margin-left:48%;*/
 }
 /*signup and signin buttons*/
 .operations{
@@ -74,7 +118,12 @@ body {
 }
 
 #interests{
-    background-color: rgba(211, 211, 211, .5);
+    position: absolute;
+    top: 65px;
+    width: 90%;
+    left: 5%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
+    background-color: rgba(250, 250, 250, .8);
     color: black;
     /*lightgoldenrodyellow*/
 }
@@ -114,7 +163,7 @@ body {
 
 .sidenavbar {
     height: 90%;
-    width: 13%;
+    width: 18%;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -146,6 +195,17 @@ body {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+}
+
+.sidenavbar .categories{
+  left:0%;
+  margin-top: 5%;
+  position: relative;
+}
+
+.sidenavbar .categories .radio{
+  left: 0%;
+  color: black;
 }
 
 #main {
@@ -216,14 +276,13 @@ body {
 
 .login{
   text-align: center;
-  width: 30%;
+  width: 32%;
   position: fixed;
   left: 35%;
-  top: 15%;
+  top: 25%;
   opacity: 0.85;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  background-color: rgba(211, 211, 211, .5);
-
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  background-color: rgba(249,249,249,.75);
 }
 
 .landingpage {
@@ -237,10 +296,6 @@ body {
 
 @media screen and (max-width: 500px) {
 
-  .login{
-    width: 100%;
-    left: 0;
-  }
   .landing-text .header-main{
     font-size: 150%;
     left:0%;
@@ -254,7 +309,7 @@ body {
     left:20%;
   }
   input.form-control{
-    width:100%;
+    width:50%;
     left: 10%;
   }
   button#searchSubmit{
@@ -354,7 +409,6 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-  top: 100%;
   left: 0;
 }
 
@@ -383,8 +437,21 @@ body {
 @media screen and (max-width: 500px) {
   .login{
     width: 100%;
-    top: 100%;
+    top: 35%;
     left: 0;
+  }
+
+  .register{
+    top:68%;
+    left:20%;
+    width:40%;
+    height:7%;
+  }
+
+  .signupHeading{
+    font-size: 150%;
+    left:25%;
+    top:20%;
   }
 }
 
@@ -548,5 +615,234 @@ div#updateprofile{
 .allBooks{
   position: relative;
   left: 15%;
-  padding-top: 10%;
+  padding-top: 15%;
 }
+
+.books {
+  border-color: gray ;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/*body {
+  background-color: #edeff2;
+  font-family: "Calibri", "Roboto", sans-serif;
+}*/
+
+.chat_window {
+  position: absolute;
+  width: calc(22% - 20px);
+  max-width: 800px;
+  height: 270px;
+  border-radius: 10px;
+  background-color: #fff;
+  left: 89.5%;
+  top: 82.5%;
+  transform: translateX(-50%) translateY(-50%);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background-color: #f8f8f8;
+  overflow: hidden;
+}
+
+.top_menu {
+  background-color: #fff;
+  width: 100%;
+  padding: 5px 0 5px;
+  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+}
+.top_menu .buttons {
+  margin: 3px 0 0 20px;
+  position: absolute;
+}
+.top_menu .buttons .button {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+}
+.top_menu .buttons .button.close {
+  background-color: #f5886e;
+}
+.top_menu .buttons .button.minimize {
+  background-color: #fdbf68;
+}
+.top_menu .buttons .button.maximize {
+  background-color: #a3d063;
+}
+.top_menu .title {
+  text-align: center;
+  color: #bcbdc0;
+  font-size: 20px;
+}
+
+.messages {
+  position: relative;
+  list-style: none;
+  padding: 5px 5px 0 5px;
+  margin: 0;
+  height: 500px;
+  overflow: scroll;
+}
+.messages .message {
+  clear: both;
+  overflow: hidden;
+  margin-bottom: 5px;
+  transition: all 0.5s linear;
+  opacity: 0;
+}
+.messages .message.left .avatar {
+  /*background-color: #f5886e;*/
+  float: left;
+}
+.messages .message.left .text_wrapper {
+  background-color: #ffe6cb;
+  margin-left: 10px;
+}
+.messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before {
+  right: 100%;
+  /*border-right-color: #ffe6cb;*/
+}
+.messages .message.left .text {
+  color: #c48843;
+}
+.messages .message.right .avatar {
+  /*background-color: #fdbf68;*/
+  float: right;
+}
+.messages .message.right .text_wrapper {
+  /*background-color: #c7eafc;*/
+  background-color: lightgreen;
+  margin-right: 10px;
+  float: right;
+}
+.messages .message.right .text_wrapper::after, .messages .message.right .text_wrapper::before {
+  left: 100%;
+  /*border-left-color: #c7eafc;*/
+}
+.messages .message.right .text {
+  color: #45829b;
+}
+.messages .message.appeared {
+  opacity: 1;
+}
+/*.messages .message .avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;*/
+}
+.messages .message .text_wrapper {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 6px;
+  width: calc(100% - 85px);
+  min-width: 100px;
+  position: relative;
+}
+.messages .message .text_wrapper::after, .messages .message .text_wrapper:before {
+  top: 18px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.messages .message .text_wrapper::after {
+  border-width: 13px;
+  margin-top: 0px;
+}
+.messages .message .text_wrapper::before {
+  border-width: 15px;
+  margin-top: -2px;
+}
+.messages .message .text_wrapper .text {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.bottom_wrapper {
+  position: relative;
+  width: 100%;
+  /*background-color: #fff;*/
+  padding: 5px;
+  position: absolute;
+  bottom: 3px;
+}
+.bottom_wrapper .message_input_wrapper {
+  display: inline-block;
+  height: 30px;
+  border-radius: 25px;
+  border: 1px solid #bcbdc0;
+  width: calc(100% - 11px);
+  position: relative;
+  padding: 0 10px;
+}
+.bottom_wrapper .message_input_wrapper .message_input {
+  border: none;
+  height: 100%;
+  box-sizing: border-box;
+  width: calc(100% - 11px);
+  position: absolute;
+  outline-width: 0;
+  color: gray;
+}
+.bottom_wrapper .send_message {
+  width: 100px;
+  height: 30px;
+  display: inline-block;
+  border-radius: 50px;
+  background-color: #a3d063;
+  border: 2px solid #a3d063;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  text-align: center;
+  float: right;
+}
+.bottom_wrapper .send_message:hover {
+  color: #a3d063;
+  background-color: #fff;
+}
+.bottom_wrapper .send_message .text {
+  font-size: 15px;
+  font-weight: 180;
+  display: inline-block;
+  line-height: 25px;
+}
+
+.message_template {
+  display: none;
+}
+
+.customLogin{
+  width:40%;
+  margin-top:20%;
+  margin-left:35%;
+  border: 3px solid lightgray;
+  
+}
+
+.demo-card-wide.mdl-card {
+  width: 212px;
+  height: 50px;
+  border: 3px solid lightgray;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 56px;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+
+
+

@@ -1,7 +1,10 @@
 app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
-	var host = "https://22b3060b.ngrok.io"; // backend server praj
-	//  var host = "https://a81d3c80.ngrok.io"; // backend server td
+	// var host = "https://6dc1e3b9.ngrok.io"; // backend server praj
+	var host = "https://booksharebackend.herokuapp.com"; // backend server td
+
+
+
 
 	var token = ''; // token to send for Authorization of api calls
 
@@ -142,6 +145,35 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 			//create an user acccount
 		return def.promise;
 		},
+		requestbook:function(book){
+				var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+
+					var req = {
+						 method: 'POST',
+						 url: host + '/users/books/request',
+						 headers: {
+						   'Authorization': 'Bearer ' + token
+						 },
+						 data: book
+					 }
+					$http(req).success(
+						function(resp){
+								def.resolve(resp);
+								//user found
+						})
+						.error(
+							function(){
+								def.reject("error");
+							  console.log("error");
+						});
+
+				});
+			//create an user acccount
+		return def.promise;
+		},
 		getsoldbooks:function(email){
 				var def = $q.defer();
 			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
@@ -168,6 +200,34 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 
 				});
 			//create an user acccount
+		return def.promise;
+		},
+		getreqbooks:function(email){
+				var def = $q.defer();
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token  = resp.token;
+
+					var req = {
+						 method: 'GET',
+						 url: host + '/users/books/getrequests',
+						 headers: {
+							 'Authorization': 'Bearer ' + token
+						 }
+					 }
+					$http(req).success(
+						function(resp){
+							console.log('success');
+								def.resolve(resp);
+								//user found
+						})
+						.error(
+							function(){
+								def.reject("error");
+							console.log("error");
+						});
+
+				});
 		return def.promise;
 		},
 		getrentbooks:function(email){
@@ -426,6 +486,31 @@ app.factory('authUser', ['$http','$state','$q', function($http,$state, $q) {
 							def.reject("error");
 							console.log("error");
 						});
+				});
+				return def.promise;
+		},
+		getBooksByCategory: function(categories){
+			var def = $q.defer();
+			console.log(categories);
+			$http.post(host + '/authenticate',{userName:window.btoa("bookShare"),password:window.btoa("nodejs")}).success(
+				function(resp){
+					token = resp.token;
+					var req = {
+						method: 'POST',
+						url: host + '/books/getByCategory',
+						headers:{
+							'Authorization': 'Bearer ' + token
+						},
+						data: categories
+					}
+					$http(req)
+					.success(function(resp){
+						def.resolve(resp);
+					})
+					.error(function(){
+						def.reject("error");
+						console.log("error");
+					});
 				});
 				return def.promise;
 		}

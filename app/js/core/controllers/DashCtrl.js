@@ -13,13 +13,104 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.interests = [];
   $scope.myLibBooks = [];
   $scope.mySoldBooks = [];
+  $scope.myreqBooks = [];
   $scope.myRentBooks = [];
   $scope.recBooks = [];
   $scope.booksToDelete = [];
   $scope.allBooks = [];
   $scope.addedBy = [];
+  $scope.advertisedata = {};
   $scope.globalSearch = '';
   $scope.add = "Add Book";
+  $scope.socket = null;
+  $scope.myMessage = "";
+  $scope.msgcontent =[];
+
+  $scope.myCategories = [];
+  $scope.categories =
+  [
+    {
+      category :"Science and Technology"
+    },
+    {
+      category :"Fiction"
+    },
+    {
+      category :"Horror"
+    },
+    {
+      category :	"Drama"
+    },
+    {
+      category :"Action and adventure"
+    },
+    {
+      category :"Romance"
+    },
+    {
+      category :"Self help"
+    },
+    {
+      category :"Health"
+    },
+    {
+      category :"Travel"
+    },
+    {
+      category :"Childern's"
+    },
+    {
+      category :"Religion, Spirituality & New Age"
+    },
+    {
+      category :	"Science"
+    },
+    {
+      category :"Math"
+    },
+    {
+      category :"History"
+    },
+    {
+      category :"Biographies and Autobiographies"
+    },
+    {
+      category :"Comics"
+    }
+  ];
+
+  $scope.onCategorySelect = function (categoryValue) {
+    $scope.index = $scope.myCategories.indexOf(categoryValue);
+    if ( $scope.index > -1){
+      $scope.myCategories.splice($scope.index,1);
+      console.log($scope.myCategories);
+      if($scope.myCategories.length == 0)
+        $scope.recBooks = $scope.copyrecBooks;
+      else{
+          authUser.getBooksByCategory($scope.myCategories).then(function(data){
+            console.log(data.data);
+            $scope.recBooks = data.data;
+          },
+          function(){
+            console.log("error");
+          })
+      }
+    }
+    else {
+      if($scope.myCategories.length == 0)
+        $scope.copyrecBooks = $scope.recBooks;
+      $scope.myCategories.push(categoryValue);
+      console.log($scope.myCategories);
+      authUser.getBooksByCategory($scope.myCategories).then(function(data){
+        console.log(data.data);
+        $scope.recBooks = data.data;
+      },
+      function(){
+        console.log("error");
+      })
+    }
+  }
+
   if(!Cookies.get(window.btoa('phoneNum'))){
     //user has not logged in
 
@@ -47,10 +138,41 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.isAddBook =false;
   $scope.isSelect = false;
   $scope.showallBooks = false;
-
+  $scope.isReqbook = false;
+  // $scope.socket = io.connect('http://16a651bb.ngrok.io');
+  // $scope.socket.on('notif' , function(msg){
+  //     // if(msg.id != $('#notiId').val()){
+  //     //   if(msg.data == 2)
+  //     //     $('#notifBar').css("background-color", "green");
+  //     //   else{
+  //     //     $('#notifBar').css("background-color", "red");
+  //     //   }
+  //     // }
+  //   });
+  //   flag = false;
+  //   $scope.socket.on('chat message', function(msg){
+  //     if(flag==false){
+  //       var message = "<li>" + msg + "</li>"; 
+  //       $("#messageList").append(message);
+  //       $("#messageValue").val("");
+  //       flag = true;
+  //     }
+  //   });
+  //   $scope.checkMessage = function(e){
+  //   if (!e) e = window.event;
+  //   var keyCode = e.keyCode || e.which;
+  //   if (keyCode == '13'){
+  //     //  var message = "<li>" + $('#messageValue').val() + "</li>"; 
+  //     //  $("#messageList").append(message);
+  //      flag = false;
+  //      $scope.socket.emit('chat message', $('#messageValue').val());  
+  //   }
+  // }
 
   //console.log($state.params.data);
   $scope.onload = function(){
+
+
     $scope.pageload = true;
    $('#navbar').addClass('overlay');
     authUser.getUserDetails($scope.userphone).then(function(data){
@@ -70,6 +192,13 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
               function() {
                 console.log("error");
               });
+              authUser.getreqbooks().then(function(data){
+                    $scope.myreqBooks = data.data;
+                    console.log($scope.myreqBooks);
+                  },
+                  function() {
+                    console.log("error");
+              });
     authUser.getrentbooks($scope.userData.email).then(function(data){
         $scope.myRentBooks = data.data;
       },
@@ -88,8 +217,8 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
           console.log('error');
         });
         authUser.getrecommendedbooks($scope.userData.interests).then(function(data){
-           $scope.isAdds = true;
-            $scope.recBooks = data.data;
+          $scope.isAdds = true;
+          $scope.recBooks = data.data;
         },
         function () {
           console.log('error');
@@ -112,7 +241,7 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
     function() {
       console.log("error");
     });
-    document.body.style.backgroundImage = "url('app/css/books5.jpg')";
+
   };
 
 $scope.goBack = function(){
@@ -308,6 +437,16 @@ $scope.addInterest = function(){
   $scope.interests.push($('#newinterest').val());
 }
 
+$scope.onAdvertise = function(book){
+  alert("hey");
+  $scope.advertisedata = {
+    title : book.title,
+    author : book.author,
+    genre : book.genre
+  }
+  console.log($scope.advertisedata);
+}
+
 $scope.onDelete = function(book){
   var pos = $scope.booksToDelete.filter(function(o){return o == book;} );
   if (pos[0] == undefined){
@@ -348,6 +487,7 @@ $scope.onDeleteSubmit = function (){
       books : $scope.booksToDelete
     }
     authUser.deletebook(data).then(function(data){
+      $scope.isSelect = false;
       $scope.onlib();
     },
     function() {
@@ -436,6 +576,28 @@ $scope.myAdds = function(){
       });
 }
 
+$scope.onReqbook = function(){
+  var book = {
+    'email' : $scope.userData.email,
+    'title' : $('#reqtitle').val(),
+    'author' : $('#reqauthor').val(),
+    'genre' : $('#reqgenre').val(),
+  }
+  authUser.requestbook(book).then(function(data){
+    alert('Book is sent for a request')
+    authUser.getreqbooks().then(function(data){
+          $scope.myreqBooks = data.data;
+          console.log($scope.myreqBooks);
+        },
+        function() {
+          console.log("error");
+    });
+  },
+  function() {
+    console.log("error");
+  });
+}
+
 $scope.onAddBook = function(){
   if ($scope.add == "Add Book"){
     $scope.isSearch=false;
@@ -518,8 +680,20 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
   $scope.showBookDetails = function(bookData){
     $scope.addedBy = bookData.addedBy;
   }
-  $scope.buyBook = function (userName) {
-    alert("Requested to buy the book from " + userName);
-  }
 
+   $scope.buyBook = function (userName) {
+    //alert("Requested to buy the book from " + userName);
+    console.log("Requested a Chat Session btwn " + $scope.userData.name + "(Buyer) and " + userName + "(Seller)");
+    $('#myModal').modal('toggle');
+    // $scope.toChat = true;
+  }
+  $scope.closeChat = function(){
+    $scope.toChat = false;
+  }
+  $scope.sendNotif = function (){
+    var message = {};
+    message.data = "hi";
+    message.id = $('#notiId').val();;
+    $scope.socket.emit('notif' , message);
+  }
 }]);

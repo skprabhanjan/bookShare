@@ -15,5 +15,11 @@
   },
   "scripts": {
     "start": "http-server -a localhost -p 8000"
+  },
+  "dependencies": {
+    "angularjs": "0.0.1",
+    "angularjs-scroll-glue": "^2.2.0",
+    "bootstrap": "^3.3.7",
+    "http-server": "^0.6.1"
   }
 }

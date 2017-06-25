@@ -1,6 +1,6 @@
 
-<div class="jumbotron login" data-ng-init="onload()">
-  <h1 class="signupHeading">Sign In</h1>
+<!--<h1 class="signupHeading">Sign in to Book Share </h1>-->
+<!--<div class="jumbotron login" >
   <div class="form-group">
     <input id="email" class="emailInput" type="text" placeholder="Email" class="form-control">
   </div>
@@ -8,8 +8,96 @@
     <input id="password" class="psswdInput" type="password" placeholder="Password" class="form-control">
     <div class="notFound" ng-show="userNotFound == true"> Oops!! Username or Password is incorrect </div> <br/>
     <div class="notFound" ng-show="emailNotVerified == true"> Please Verify your email first </div> <br/>
-    <a href="" target="_blank" ng-click="sendResetLink()" style="color:black;"><b>forgot password.?</b> </a> <br/>
+    <a href="" target="_blank" ng-click="sendResetLink()" >forgot password? </a> <br/>
   </div>
   <p><button id="signinbutton" class="btn btn-info btn-sm" ng-click="signinUser()" value="Next"><b>{{buttonVal}}</b> <span ng-show="loggingIn==true" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>
 </p>
+</div>-->
+<!--style="width:30%;margin-top:20%;margin-left:35%;border: 3px solid lightgray;"-->
+<h4 class="signupHeading">Sign in to Book Share </h4>
+<div class="demo-card-wide mdl-card mdl-shadow--2dp" data-ng-init="onload()" style="width:30%;margin-top:15%;margin-left:35%;border: 3px solid lightgray;height:30%;">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text" style="margin-left:40%;">Login</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+  <div class="form-group">
+    <input id="email" class="emailInput" type="text" placeholder="Email" class="form-control">
+    <div class="notFound" ng-show="emailNotFound == true"> Please enter an email to start </div> <br/>
+  </div>
+    <div class="form-group" id="onsignin" ng-model="emailregistered" ng-show="emailregistered===true">
+        <input id="password" class="psswdInput" type="password" placeholder="Password" class="form-control">
+        <div class="notFound" ng-show="userNotFound == true"> Oops!! Username or Password is incorrect </div> <br/>
+        <div class="notFound" ng-show="emailNotVerified == true"> Please Verify your email first </div> <br/>
+        <a href="" target="_blank" ng-click="sendResetLink()" style="color:#2196F3" >forgot password? </a> <br/>
+    </div>
+    <p><button id="signinbutton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:#2196F3;margin-left:30%;" ng-click="signinUser()" value="Next"><b>{{buttonVal}}</b> <span ng-show="loggingIn==true" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button></p>
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+      New to Book Share?
+    <button class="mdl-button  mdl-js-button mdl-js-ripple-effect" ng-click="signupUser()" style="color:#82B1FF">
+            Create an account 
+    </button>
+  </div>
 </div>
+
+
+<!--<script>
+  (function () {
+    var Message;
+    Message = function (arg) {
+        this.text = arg.text, this.message_side = arg.message_side;
+        this.draw = function (_this) {
+            return function () {
+                var $message;
+                $message = $($('.message_template').clone().html());
+                $message.addClass(_this.message_side).find('.text').html(_this.text);
+                $('.messages').append($message);
+                return setTimeout(function () {
+                    return $message.addClass('appeared');
+                }, 0);
+            };
+        }(this);
+        return this;
+    };
+    $(function () {
+        var getMessageText, message_side, sendMessage;
+        message_side = 'right';
+        getMessageText = function () {
+            var $message_input;
+            $message_input = $('.message_input');
+            return $message_input.val();
+        };
+        sendMessage = function (text) {
+            var $messages, message;
+            if (text.trim() === '') {
+                return;
+            }
+            $('.message_input').val('');
+            $messages = $('.messages');
+            message_side = message_side === 'left' ? 'right' : 'left';
+            message = new Message({
+                text: text,
+                message_side: message_side
+            });
+            message.draw();
+            return $messages.animate({ scrollTop: $messages.prop('scrollHeight') }, 300);
+        };
+        $('.send_message').click(function (e) {
+            return sendMessage(getMessageText());
+        });
+        $('.message_input').keyup(function (e) {
+            if (e.which === 13) {
+                return sendMessage(getMessageText());
+            }
+        });
+        // sendMessage('Hello Philip! :)');
+        // setTimeout(function () {
+        //     return sendMessage('Hi Sandy! How are you?');
+        // }, 1000);
+        // return setTimeout(function () {
+        //     return sendMessage('I\'m fine, thank you!');
+        // }, 2000);
+    });
+}.call(this));
+  </script>-->
+
