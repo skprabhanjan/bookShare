@@ -30,85 +30,102 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
   $scope.categories =
   [
     {
-      category :"Science and Technology"
+      category :"Science and Technology",
+      id:1
     },
     {
-      category :"Fiction"
+      category :"Fiction",
+      id:2
     },
     {
-      category :"Horror"
+      category :"Horror",
+      id:3
     },
     {
-      category :	"Drama"
+      category :	"Drama",
+      id:4
     },
     {
-      category :"Action and adventure"
+      category :"Action and adventure",
+      id:5
     },
     {
-      category :"Romance"
+      category :"Romance",
+      id:6
     },
     {
-      category :"Self help"
+      category :"Self help",
+      id:1
     },
     {
-      category :"Health"
+      category :"Health",
+      id:7
     },
     {
-      category :"Travel"
+      category :"Travel",
+      id:8
     },
     {
-      category :"Childern's"
+      category :"Childern's",
+      id:9
     },
     {
-      category :"Religion, Spirituality & New Age"
+      category :"Religion, Spirituality & New Age",
+      id:10
     },
     {
-      category :	"Science"
+      category :	"Science",
+      id:11
     },
     {
-      category :"Math"
+      category :"Math",
+      id:12
     },
     {
-      category :"History"
+      category :"History",
+      id:13
     },
     {
-      category :"Biographies and Autobiographies"
+      category :"Biographies and Autobiographies",
+      id:14
     },
     {
-      category :"Comics"
+      category :"Comics",
+      id:15
     }
   ];
-
-  $scope.onCategorySelect = function (categoryValue) {
-    $scope.index = $scope.myCategories.indexOf(categoryValue);
-    if ( $scope.index > -1){
-      $scope.myCategories.splice($scope.index,1);
-      console.log($scope.myCategories);
-      if($scope.myCategories.length == 0)
-        $scope.recBooks = $scope.copyrecBooks;
-      else{
-          authUser.getBooksByCategory($scope.myCategories).then(function(data){
-            console.log(data.data);
-            $scope.recBooks = data.data;
-          },
-          function(){
-            console.log("error");
-          })
-      }
-    }
-    else {
-      if($scope.myCategories.length == 0)
-        $scope.copyrecBooks = $scope.recBooks;
-      $scope.myCategories.push(categoryValue);
-      console.log($scope.myCategories);
-      authUser.getBooksByCategory($scope.myCategories).then(function(data){
-        console.log(data.data);
-        $scope.recBooks = data.data;
-      },
-      function(){
-        console.log("error");
-      })
-    }
+  $scope.onCategorySelect = function (categoryValue,id) {
+   $('#'+id).css('background-color','#64DD17');
+    
+    // $scope.index = $scope.myCategories.indexOf(categoryValue);
+    // if ( $scope.index > -1){
+    //   $scope.myCategories.splice($scope.index,1);
+    //   console.log($scope.myCategories);
+    //   if($scope.myCategories.length == 0)
+    //     $scope.recBooks = $scope.copyrecBooks;
+    //   else{
+    //       authUser.getBooksByCategory($scope.myCategories).then(function(data){
+    //         console.log(data.data);
+    //         $scope.recBooks = data.data;
+    //       },
+    //       function(){
+    //         console.log("error");
+    //       })
+    //   }
+    // }
+    // else {
+    //   if($scope.myCategories.length == 0)
+    //     $scope.copyrecBooks = $scope.recBooks;
+    //   $scope.myCategories.push(categoryValue);
+    //   console.log($scope.myCategories);
+    //   authUser.getBooksByCategory($scope.myCategories).then(function(data){
+    //     console.log(data.data);
+    //     $scope.recBooks = data.data;
+    //   },
+    //   function(){
+    //     console.log("error");
+    //   })
+    // }
   }
 
   if(!Cookies.get(window.btoa('phoneNum'))){
@@ -255,6 +272,7 @@ $scope.goBack = function(){
 
 $scope.openNav = function(){
   document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("mySidenav").style.top = "22%";
   document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
 };
 

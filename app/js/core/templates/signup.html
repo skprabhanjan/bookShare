@@ -4,10 +4,12 @@
   }
 </style>
 
-<div ng-controller="SignCtrl">
+<div>
 <form class="form-horizontal">
-  <div class="signupHeadingCreate">Join Book Share</div>
-  <h6 style=" position: absolute;left:35%;top:2%;font-size:120%;">The best place to buy, sell, and rent books.</h6> <br>
+  <div class="container">
+    <div class="signupHeadingCreate">Join Book Share</div> 
+    <h6 style=" position: absolute;left:35%;top:5%;font-size:120%;">The best place to buy, sell, and rent books.</h6> <br>
+  </div>
   <a style="color:black;" ng-click="backToHome()">
       <span style="color:black;font-size:30px;" class="glyphicon glyphicon-home"></span>
   </a>
@@ -121,7 +123,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
-        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="onSubmitButton()" style="position:relative;left:40%;">Join</button>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="onSubmitButton()" style="position:relative;left:40%;">{{buttonVal}}<span class="saving" ng-show="signUpInProgress==true"><span>.</span><span>.</span><span>.</span></span></button>
       </div>
     </div>
   </fieldset>

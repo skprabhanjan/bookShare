@@ -3,6 +3,8 @@ app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state
   	$scope.isStudent = false ;
   	$scope.isProfessional = false ;
   	$scope.myIntrests = [];
+		$scope.buttonVal = "Join";
+		$scope.signUpInProgress = false;
   	$scope.intrests =
   	[
   		{
@@ -80,6 +82,7 @@ app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state
       // if (!$scope.radioValue){
   		// 	alert("Select If You are a Student or Professional!");
   		// }
+			
   		if ($("#inputPassword").val() != $("#inputRePassword").val()){
   			alert("passwords do not match");
   		} else {
@@ -87,6 +90,8 @@ app.controller('SignCtrl', ['$scope','$state','authUser', function($scope,$state
         	alert("Select If You are a Student or Professional!");
         }
         else{
+					$scope.buttonVal = "Joining";
+					$scope.signUpInProgress = true;
           if ($scope.isStudent){
             var Details = {
               isStudent : true,

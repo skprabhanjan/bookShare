@@ -10,14 +10,14 @@
   }
 </style>
 
-<div  ng-controller = "DashCtrl" data-ng-init="onload()">
-  <div id="navbar" style="left:0;">
+<div  data-ng-init="onload()">
+  <!--<div id="navbar" style="left:0;">
     <h2 ng-show="pageload" class="pageloading"> {{loadingText}} <span class="saving"><span>.</span><span>.</span><span>.</span></span></h2>
     <nav class="navbar navbar-inverse" ng-show="!pageload">
     <div class="container-fluid">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a ng-click="goBack()">Hello {{username}} <!--  <span class="saving" ng-show="fetching==true"><span>.</span><span>.</span><span>.</span></span> -->
+        <li><a ng-click="goBack()">Hello {{username}} 
 </a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
@@ -35,24 +35,56 @@
 
     </div>
   </nav>
-  </div>
+  </div>-->
+  <h2 ng-show="pageload" class="pageloading" style="color:black;"> {{loadingText}} <span class="saving"><span>.</span><span>.</span><span>.</span></span></h2>
+  <div class="mdl-layout mdl-js-layout" ng-show="!pageload">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row" style="height:110px;">
+      <span class="mdl-layout-title" ng-click="goBack()">Hello {{username}}</span>
+          &nbsp;&nbsp;
+         <input class="form-control" style="width:20%;background-color:white" placeholder="Search for anything" type="text" ng-change="showSearchResults()" ng-model="globalSearch">
+         <button ng-show="globalSearch" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  data-toggle="modal" data-target="#myReqModal" style="background-color:#E0E0E0;color:black">Request this book</button>
+      
+      <div class="mdl-layout-spacer"></div>
+      
+        
+              <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" style="cursor:pointer" ng-click="library()">My Library</a>
+        <a class="mdl-navigation__link" style="cursor:pointer" ng-click="MyAdds()" >My adds</a>
+        <a class="mdl-navigation__link" style="cursor:pointer" ng-click="openNav()">Profile</a>
+        <a class="mdl-navigation__link" style="cursor:pointer" ng-click="logOut()">Sign Out</a>
+      </nav>
+    </div>
+  </header>
+    
+  <main class="mdl-layout__content">
+    <div class="page-content">
+    </div>
+  </main>
+</div>
 
-  <div id="Sidenavbar" class="sidenavbar">
-    <!--<a ui-sref="/dashboard">Catergories</a>-->
+
+
+<div id="Sidenavbar" class="sidenavbar" ng-show="!pageload">
     <div class="categories" style="top:0;position:absolute">
     <div class="form-group">
-      <label class="col-lg-2 control-label" style="color:black;width:100%;margin-top=0%;color:rgba(204, 153, 0 ,1)">Filter By Category</label>
+      <label class="col-lg-2 control-label" style="color:black;width:100%;margin-top:0%;color:#000000;font-size:15px;">Filter By Category</label>
+      <label class="col-lg-2 control-label" style="color:black;width:100%;margin-top:0%;color:#000000;font-size:10px;">Check the categories to filter</label>
       <label class="col-lg-12 control-label"></label>
       <div class="col-lg-4" style="width:100%;margin-left:0%;position:absolute;margin-top:18%;">
-        <div class="radio" ng-repeat = "type in categories" style="margin-left:0;color:rgba(204, 153, 0 ,1)">
-          <label style="position:relative;left:10%;"><b>
-            <input
+        <div class="radio" ng-repeat = "type in categories" style="margin-left:0;color:#000000">
+          <label><b>
+            <!--<input
             value="{{type.category}}"
             name = "{{type.category}}"
             type="checkbox"
             ng-model="ischecke"
-            ng-change="onCategorySelect(type.category)">
-           {{type.category}}
+            ng-change="onCategorySelect(type.category)">-->
+            <span class="mdl-chip mdl-chip--deletable" id={{type.id}} ng-click="onCategorySelect(type.category,type.id)">
+                <span class="mdl-chip__text">{{type.category}}</span>
+                <button type="button" class="mdl-chip__action"><i class="material-icons">done</i></button>
+            </span>
+           
           </b>
           </label>
         </div>
@@ -60,123 +92,124 @@
     </div>
     </div>
   </div>
+  
 
 <div id="mySidenav" class="sidenav" >
-  <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()">&times;</a>
-  <a ng-click="profile()">My profile</a>
-  <a ng-click="PostRequests()">Post requests</a>
-  <a href="#">Request messages</a>
+  <a href="javascript:void(0)" ng-click="closeNav()"><i class="material-icons" style="color:black">cancel</i></a>
+  <div style="margin-left:25%;">
+    <a ng-click="profile()" style="color:black">My profile</a>
+    <a ng-click="PostRequests()" style="color:black">Post requests</a>
+    <a href="#" style="color:black">Request messages</a>
+  </div>
 </div>
-    <div  ng-if="isDash" style="text-align:center;">
-      <div class="top-tabs">
-        <ul class="nav nav-tabs row">
-          <li class="col-sm-6" ><a data-toggle="tab" ng-click="onRecomAdds()" >Recommended Adds</a></li>
-          <li class="col-sm-6" ><a data-toggle="tab" ng-click="onRecomReq()" > Recommended Requests</a></li>
-        </ul>
-      </div>
 
-    <div class="container dash-table" >
-      <div ng-show="isAdds">
-            <div ng-repeat="book in recBooks | filter:filterAllBooks">
-                <!--<div class="col-md-6">
-                    <div id="{{book._id}}" ng-click="showBookDetails(book)" data-toggle="modal" data-target="#myModal">
-                        <div class="panel-heading"><h3 class="panel-title">Book {{book.title}}</h3></div>
-                        <div class="panel-body">
-                            Genre  :  {{book.genre}} <br>
-                            Author : {{book.author}} <br>
-                            Id     : {{book._id}} <br>
-                            Status : {{book.status}}<br>
-                       </div>
-                  </div>
-               </div>-->
-                <div class="col-md-3">
-                  <div id="{{book.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp"  ng-click="showBookDetails(book)" data-toggle="modal" data-target="#myModal" style="height:40%;cursor:pointer;">
-                      <div class="mdl-card__title" style="background-color: #2196F3;">
-                          <h2 class="mdl-card__title-text" >Title: {{book.title}}</h2>
-                      </div>
-                      <div class="mdl-card__supporting-text" style="font-size:125%;">
-                         Genre  :  {{book.genre}} <br><br>
-                         Author : {{book.author}} <br><br>
-                         Id     : {{book._id}} <br><br>
-                         Status : {{book.status}}<br><br>
-                  </div>
-              </div>
-            </div>
-            </div>
-      </div>
-      <div ng-if="isReq">
-        <div class="row">
-            <div ng-repeat="book in myreqBooks">
-                <div class="col-md-6">
-                    <div  class="panel panel-danger"  >
-                        <div class="panel-heading"><h3 class="panel-title">{{book.title}}</h3>
-                        <span ng-click="onAdvertise(book)"> Advertise </span>
+<div ng-if="isDash">
+  <!--<div class="top-tabs">
+    <ul class="nav nav-tabs row">
+      <li class="col-sm-6"><a data-toggle="tab" ng-click="onRecomAdds()">Recommended Adds</a></li>
+      <li class="col-sm-6"><a data-toggle="tab" ng-click="onRecomReq()"> Recommended Requests</a></li>
+    </ul>
+  </div>-->
+  <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="width:100%;height:50px;background-color:#E0E0E0;">
+      <a href="" class="mdl-layout__tab is-active" ng-click="onRecomAdds()" style="width:50%;color:black;">Recommended Adds</a>
+      <a href="" class="mdl-layout__tab" ng-click="onRecomReq()" style="width:50%;color:black;">Recommended Requests</a>
+    </div>
+
+  
+  <div ng-show="isAdds">
+    <div ng-repeat="book in recBooks | filter:filterAllBooks">
+      <!--<div class="col-md-6">
+                      <div id="{{book._id}}" ng-click="showBookDetails(book)" data-toggle="modal" data-target="#myModal">
+                          <div class="panel-heading"><h3 class="panel-title">Book {{book.title}}</h3></div>
+                          <div class="panel-body">
+                              Genre  :  {{book.genre}} <br>
+                              Author : {{book.author}} <br>
+                              Id     : {{book._id}} <br>
+                              Status : {{book.status}}<br>
                         </div>
-                        <div class="panel-body">
-                            Genre  :  {{book.genre}} <br>
-                            Author : {{book.author}} <br>
-                        <!--<button type="button" class="btn btn-success btn-sm" style="float:right;" ng-click="onAdvertise(book)">Advertise</button>-->
                     </div>
-
-                </div>
-            </div>
+                </div>-->
+      <div class="container-fluid col-md-4">
+        <div id="{{book.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp" ng-click="showBookDetails(book)" data-toggle="modal"
+          data-target="#myModal" style="cursor:pointer;overflow:auto;margin-left:calc(0% + 60%);margin-top:calc(0% + 5%);">
+          <div class="mdl-card__title" style="background-color: #2196F3;overflow:auto">
+            <h2 class="mdl-card__title-text">{{book.title}}</h2>
+          </div>
+          <div class="mdl-card__supporting-text mdl-card--expand" style="font-size:100%;;overflow:auto;">
+            Genre : {{book.genre}} <br> Author : {{book.author}} <br> Id : {{book._id}} <br> Status : {{book.status}}<br>
+          </div>
         </div>
       </div>
+      <!--<div style="color: rgba(0, 0, 0, 0.87); background-color: rgb(255, 255, 255); transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; box-sizing: border-box; font-family: Roboto; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px; border-radius: 2px; height: 300px; width: 300px; margin: 20px; display: inline-block; overflow: auto;">
+        <p style="background: rgb(241, 241, 241); font-size: 16px; text-align: center; padding: 10px; margin-top: 0px;">{{book.title}}</p>
+        <p style="padding: 10px; font-size: 14px; color: rgb(50, 153, 153);"> Genre  :  {{book.genre}}</p>
+        <p style="padding: 10px; font-size: 14px; color: rgb(50, 153, 153);">Author : {{book.author}}</p>
+        <p style="padding: 10px; font-size: 14px; color: rgb(50, 153, 153);">Id     : {{book._id}}</p>
+      </div>-->
     </div>
-    </div>
-    </div>
-  <div ng-if="isMyAdds" class="myadds">
-    <div class="top-tabs">
+  </div>
+
+  
+
+  <div ng-show="isReq">
+      <div ng-repeat="book in myreqBooks">
+        <div class="col-md-6">
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{book.title}}</h3>
+              <span ng-click="onAdvertise(book)"> Advertise </span>
+            </div>
+            <div class="panel-body">
+              Genre : {{book.genre}} <br> Author : {{book.author}} <br>
+              <!--<button type="button" class="btn btn-success btn-sm" style="float:right;" ng-click="onAdvertise(book)">Advertise</button>-->
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+  <div ng-if="isMyAdds">
+    <!--<div class="top-tabs">
       <ul class="nav nav-tabs row">
         <li class="col-sm-6" ><a data-toggle="tab" ng-click="onRentTab()" >Books on Rent</a></li>
         <li class="col-sm-6" ><a data-toggle="tab" ng-click="onSellTab()" > Books for selling</a></li>
       </ul>
+    </div>-->
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="width:100%;height:50px;background-color:#E0E0E0;">
+      <a href="" class="mdl-layout__tab is-active" ng-click="onRentTab()" style="width:50%;color:black;">Books on Rent</a>
+      <a href="" class="mdl-layout__tab" ng-click="onSellTab()" style="width:50%;color:black;">Books on Sell</a>
     </div>
 
-  <div class="container adds-table">
     <div ng-if="isRent">
-          <div ng-repeat="book in myRentBooks">
-                <div class="col-md-3">
-                  <div id="{{book.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp">
-                      <div class="mdl-card__title" style="background-color: #2196F3;">
-                          <h2 class="mdl-card__title-text" >Title: {{book.bookInfo.title}}</h2>
-                      </div>
-                      <div class="mdl-card__supporting-text" style="font-size:125%;">
-                          Genre  :  {{book.bookInfo.genre}} <br><br>
-                          Author : {{book.bookInfo.author}} <br><br>
-                          Id     : {{book.bookInfo.id}} <br><br>
-                  </div>
-                   <!--<div class="mdl-card__actions mdl-card--border">
-                      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        Get Started
-                      </a>
-                  </div>-->
-              </div>
+      <div ng-repeat="book in myRentBooks">
+        <div class="container-fluid col-md-4">
+          <div id="{{book.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp" style="cursor:pointer;overflow:auto;margin-left:calc(0% + 60%);margin-top:calc(0% + 5%);">
+            <div class="mdl-card__title" style="background-color: #2196F3;overflow:auto">
+              <h2 class="mdl-card__title-text">{{book.bookInfo.title}}</h2>
             </div>
+            <div class="mdl-card__supporting-text mdl-card--expand" style="font-size:100%;;overflow:auto;">
+              Genre : {{book.bookInfo.genre}} <br> Author : {{book.bookInfo.author}} <br> Id : {{book.bookInfo.id}}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div ng-if="isSell">
-       <div ng-repeat="book in mySoldBooks">
-              <div class="col-md-3">
-                  <div id="{{book.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp">
-                      <div class="mdl-card__title" style="background-color: #E53935;">
-                          <h2 class="mdl-card__title-text">Title: {{book.bookInfo.title}}</h2>
-                      </div>
-                      <div class="mdl-card__supporting-text" style="font-size:125%;">
-                          Genre  :  {{book.bookInfo.genre}} <br><br>
-                          Author : {{book.bookInfo.author}} <br><br>
-                          Id     : {{book.bookInfo.id}} <br><br>
-                  </div>
-                   <!--<div class="mdl-card__actions mdl-card--border">
-                      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        Get Started
-                      </a>
-                  </div>-->
-              </div>
+      <div ng-repeat="book in mySoldBooks">
+        <div class="container-fluid col-md-4">
+          <div id="{{book.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp" style="overflow:auto;margin-left:calc(0% + 60%);margin-top:calc(0% + 5%);">
+            <div class="mdl-card__title" style="background-color: #2196F3;overflow:auto">
+              <h2 class="mdl-card__title-text">{{book.bookInfo.title}}</h2>
             </div>
-       </div>
+            <div class="mdl-card__supporting-text mdl-card--expand" style="font-size:100%;;overflow:auto;">
+              Genre : {{book.bookInfo.genre}} <br> Author : {{book.bookInfo.author}} <br> Id : {{book.bookInfo.id}}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
   </div>
   <div ng-if="isPostRequests">
@@ -395,8 +428,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="onCancel()">Cancel</button>
-          <a ng-click="onAddBook()" id="addbook" class="btn btn-primary" value="add" ng-show="!loading">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
+          <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-dismiss="modal" ng-click="onCancel()" style="background-color:#FFFFFF;color:black">Cancel</button>
+          <a ng-click="onAddBook()" id="addbook" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="add" ng-show="!loading" style="background-color:#2979FF">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
         </div>
       </div>
     </div>
@@ -421,45 +454,43 @@
     <input class="form-control" id="bookisbn" type="text">
   </div>
 </div> -->
-    <a ng-click="selectBooks()" class="btn btn-primary" ng-show="!loading && !isAddBook">Select</a>
-    <a ng-click="onDeleteSubmit()" class="btn btn-primary" ng-show="!loading && !isAddBook"> Delete</a>
+    <a ng-click="selectBooks()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:#2979FF" ng-show="!loading && !isAddBook">Select</a>
+    <a ng-click="onDeleteSubmit()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:#2979FF" ng-show="!loading && !isAddBook"> Delete</a>
 
 
-    <a ng-click="onAddBook()" id="addbook" class="btn btn-primary" value="add" ng-show="!loading" data-toggle="modal" data-target="#addModal">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
+    <a ng-click="onAddBook()" id="addbook" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:#2979FF" value="add" ng-show="!loading" data-toggle="modal" data-target="#addModal">{{add}} <span class="saving" ng-show="updatingAdd==true"><span>.</span><span>.</span><span>.</span></span></a>
     <!-- <a ng-click="onCancel()" class="btn btn-primary" ng-show="!loading && isAddBook"> CANCEL</a> -->
 
 </div>
 
 
 
-<div ng-show="showallBooks" class="allBooks">
-      <div ng-repeat="book in allBooks | filter:filterAllBooks">
-          <!--<div class="col-md-4">
-              <div id="{{book._id}}" ng-click="showBookDetails(book)" class="books" data-toggle="modal" data-target="#myModal">
-                  <div class="panel-heading"><h3 class="panel-title">Book {{book.title}}</h3></div>
-                  <div class="panel-body">
-                      Genre  :  {{book.genre}} <br>
-                      Author : {{book.author}} <br>
-                      Id     : {{book._id}} <br>
-                      Status : {{book.status}}<br>
-                 </div>
-            </div>
-         </div>-->
-          <div class="col-md-3">
-                  <div id="{{book.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp"  ng-click="showBookDetails(book)" data-toggle="modal" data-target="#myModal" style="height:40%;cursor:pointer;">
-                      <div class="mdl-card__title" style="background-color: #2196F3;">
-                          <h2 class="mdl-card__title-text" >Title: {{book.title}}</h2>
-                      </div>
-                      <div class="mdl-card__supporting-text" style="font-size:125%;">
-                         Genre  :  {{book.genre}} <br><br>
-                         Author : {{book.author}} <br><br>
-                         Id     : {{book._id}} <br><br>
-                         Status : {{book.status}}<br><br>
+  <div ng-show="showallBooks">
+        <div ng-repeat="book in allBooks | filter:filterAllBooks">
+            <!--<div class="col-md-4">
+                <div id="{{book._id}}" ng-click="showBookDetails(book)" class="books" data-toggle="modal" data-target="#myModal">
+                    <div class="panel-heading"><h3 class="panel-title">Book {{book.title}}</h3></div>
+                    <div class="panel-body">
+                        Genre  :  {{book.genre}} <br>
+                        Author : {{book.author}} <br>
+                        Id     : {{book._id}} <br>
+                        Status : {{book.status}}<br>
                   </div>
               </div>
+          </div>-->
+          <div class="container-fluid col-md-4">
+            <div id="{{book.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp" ng-click="showBookDetails(book)" data-toggle="modal"
+              data-target="#myModal" style="cursor:pointer;overflow:auto;margin-left:calc(0% + 60%);margin-top:calc(0% + 5%);">
+              <div class="mdl-card__title" style="background-color: #2196F3;overflow:auto">
+                <h2 class="mdl-card__title-text">{{book.title}}</h2>
+              </div>
+              <div class="mdl-card__supporting-text" style="font-size:100%;overflow:auto;">
+                Genre : {{book.genre}} <br> Author : {{book.author}} <br> Id : {{book._id}} <br> Status : {{book.status}}<br>
+              </div>
             </div>
-      </div>
-</div>
+          </div>
+        </div>
+  </div>
 
 <div class="container">
   <!-- <h2>Modal Example</h2>
@@ -477,14 +508,14 @@
             <div ng-repeat="users in addedBy">
               <div style="padding-top:20px;">
               {{users}}
-              <button type="button" class="btn btn-success btn-sm" style="float:right;" ng-click="buyBook(users)">Buy now</button>
+              <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="float:right;background-color:#388E3C;" ng-click="buyBook(users)">Buy now</button>
                </div>
             </div>
 
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-dismiss="modal" style="background-color:#FFFFFF;color:black;">Close</button>
         </div>
       </div>
     </div>

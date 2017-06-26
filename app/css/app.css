@@ -140,16 +140,15 @@
 
 
 .sidenav {
-    height: 50%;
+    height: 32%;
     width: 0;
     position: fixed;
     z-index: 1;
     top: 0;
     right: 0;
-    background-color: #111;
+    background-color: #00B0FF;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
 }
 
 .sidenav a {
@@ -166,10 +165,10 @@
     width: 18%;
     position: fixed;
     z-index: 1;
-    left: 0;
-    top: 10%;
-    background-color: #022f5a;
-    overflow-x: hidden;
+    left: 1.2%;
+    top: 22%;
+    background-color: #EEEEEE;
+    overflow: auto;
     transition: 0.5s;
     padding-top: 10%;
 }
@@ -204,7 +203,6 @@
 }
 
 .sidenavbar .categories .radio{
-  left: 0%;
   color: black;
 }
 
@@ -572,8 +570,8 @@ div#updateprofile{
     background-color:rgba(0,0,0,.55);
 }
 .pageloading{
-  margin-left: 45%;
-  margin-top: 25%;
+  margin-left: 40%;
+  margin-top: 20%;
   color: whitesmoke;
 
 }
