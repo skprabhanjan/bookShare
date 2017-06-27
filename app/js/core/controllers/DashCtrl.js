@@ -55,79 +55,46 @@ app.controller('DashCtrl', ['$rootScope','$scope','$state','$stateParams','authU
     },
     {
       category :"Self help",
-      id:1
-    },
-    {
-      category :"Health",
       id:7
     },
     {
-      category :"Travel",
+      category :"Health",
       id:8
     },
     {
-      category :"Childern's",
+      category :"Travel",
       id:9
     },
     {
-      category :"Religion, Spirituality & New Age",
+      category :"Childern's",
       id:10
     },
     {
-      category :	"Science",
+      category :"Religion, Spirituality & New Age",
       id:11
     },
     {
-      category :"Math",
+      category :	"Science",
       id:12
     },
     {
-      category :"History",
+      category :"Math",
       id:13
     },
     {
-      category :"Biographies and Autobiographies",
+      category :"History",
       id:14
     },
     {
-      category :"Comics",
+      category :"Biographies and Autobiographies",
       id:15
+    },
+    {
+      category :"Comics",
+      id:16
     }
   ];
-  $scope.onCategorySelect = function (categoryValue,id) {
-   $('#'+id).css('background-color','#64DD17');
-    
-    // $scope.index = $scope.myCategories.indexOf(categoryValue);
-    // if ( $scope.index > -1){
-    //   $scope.myCategories.splice($scope.index,1);
-    //   console.log($scope.myCategories);
-    //   if($scope.myCategories.length == 0)
-    //     $scope.recBooks = $scope.copyrecBooks;
-    //   else{
-    //       authUser.getBooksByCategory($scope.myCategories).then(function(data){
-    //         console.log(data.data);
-    //         $scope.recBooks = data.data;
-    //       },
-    //       function(){
-    //         console.log("error");
-    //       })
-    //   }
-    // }
-    // else {
-    //   if($scope.myCategories.length == 0)
-    //     $scope.copyrecBooks = $scope.recBooks;
-    //   $scope.myCategories.push(categoryValue);
-    //   console.log($scope.myCategories);
-    //   authUser.getBooksByCategory($scope.myCategories).then(function(data){
-    //     console.log(data.data);
-    //     $scope.recBooks = data.data;
-    //   },
-    //   function(){
-    //     console.log("error");
-    //   })
-    // }
-  }
-
+  
   if(!Cookies.get(window.btoa('phoneNum'))){
     //user has not logged in
 
@@ -714,4 +681,45 @@ var val = $('#searchValue').val().toLowerCase() || $('select[name=selector]').va
     message.id = $('#notiId').val();;
     $scope.socket.emit('notif' , message);
   }
+  
+  var genreValue = [];
+  $scope.onCategorySelect = function (categoryValue,id) {
+  if($('#'+id).css('background-color') == 'rgb(222, 222, 222)'){
+   $('button#'+id).css('background-color','#64DD17');
+   
+  }
+  else
+   $('button#'+id).css('background-color','#dedede');	 
+    $scope.showBasedOnGenre = true;
+    $scope.isDash = false;
+    $scope.isAdds = false;
+    $scope.isMyAdds = false;
+    $scope.isProfile = false;
+    $scope.isLibrary = false;
+    $scope.isPostRequests = false;
+    $scope.showallBooks = false;
+    var index = genreValue.indexOf(categoryValue.toLowerCase())
+    if( index == -1)
+      genreValue.push(categoryValue.toLowerCase());
+    else{
+      genreValue.splice(index,1);
+      if(genreValue.length == 0)
+      {
+        $scope.showBasedOnGenre = false;
+        $scope.isDash = true;
+        $scope.isAdds = true;
+        $scope.isMyAdds = false;
+        $scope.isProfile = false;
+        $scope.isLibrary = false;
+        $scope.isPostRequests = false;
+        $scope.showallBooks = false;
+      }
+    }
+    console.log(categoryValue,genreValue);
+  }
+  
+  $scope.filterOnGenre = function (item){
+    return genreValue.indexOf(item.genre.toLowerCase()) != -1;
+  }
+  
 }]);
